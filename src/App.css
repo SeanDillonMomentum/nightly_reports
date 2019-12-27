@@ -1,0 +1,42 @@
+.App-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: #f5f5f5;
+  background-image: url(./assets/fabric.png);
+  font-size: 1.2rem;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.SampleContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.SampleBox {
+  width: 20em;
+  margin: 2em;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.SampleHeader {
+  font-size: 1.25em;
+}
+
+.Button {
+  background-color: #00a1f1;
+  border: none;
+  color: white;
+
+  padding: 15px;
+  font-size: 15px;
+  cursor: pointer;
+}

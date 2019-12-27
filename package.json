@@ -1,0 +1,50 @@
+{
+  "proxy": "http://localhost:443",
+  "name": "generic_app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.0.1",
+    "@material-ui/icons": "^4.0.1",
+    "axios": "^0.19.0",
+    "chart.js": "^2.9.3",
+    "cors": "^2.8.5",
+    "date-fns": "^2.8.1",
+    "downshift": "^3.4.3",
+    "express-ipfilter": "^1.0.1",
+    "forever": "^1.0.0",
+    "kalendaryo": "^1.11.1",
+    "material-date-range-picker": "^0.1.1",
+    "moment": "^2.24.0",
+    "mssql": "^6.0.1",
+    "react": "^16.8.6",
+    "react-aad-msal": "^1.0.2",
+    "react-chartjs-2": "^2.8.0",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^3.1.2",
+    "react-vis": "^1.11.7",
+    "styled-components": "^4.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
