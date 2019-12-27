@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "Webapp",
+    "password": "MMTMwebapp01!",
+    "database": "CornerStone",
+    "host": "10.0.0.19",
+    "dialect": "mssql",
+    "driver": "tedious"
+  }
+}

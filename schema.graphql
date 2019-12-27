@@ -1,0 +1,66 @@
+type Nightly_Report_Auth {
+  id: ID
+  user: Int
+  table: Int
+}
+
+type Nightly_Im_Report {
+  id: ID
+  customerName: String
+  customerAddress: String
+  jobType: String
+  date: String!
+  foreman: String
+  crewDesignator: String
+  sp: String
+  os: String
+  crewCount: Int
+  electricalTotalHours: String
+  installationTotalHours: String
+  roundTripTotalHours: String
+  correctPic: Int
+  onsiteRevision: Int
+  salesRepVisit: Int
+  faOnSite: Int
+  panelType: String
+  panelCount: Int
+  dcSize: String
+  panelsInstalled: Int
+  constructionComplete: Int
+  notes: String
+  office: String
+  submittedBy: Int!
+}
+
+type Users {
+  id: Int!
+  user: String!
+  tables: Int
+}
+
+type Nightly_Report_Tables {
+  id: ID!
+  table_type: String!
+}
+
+type Nightly_Sa_Report {
+  id: ID!
+  customerName: String
+  customerAddress: String
+  opportunityNumber: String
+  jobType: String
+  date: String!
+  siteAssessor: String
+  sp: String
+  os: String
+  winterSolstice: Int
+  totalInterior: String
+  totalExterior: String
+  saComplete: Int
+  notes: String
+  submittedBy: Int!
+}
+
+type Query {
+  nightlyReportAuth: [Nightly_Report_Auth]
+}
