@@ -1,11 +1,11 @@
 const { GraphQLServer } = require("graphql-yoga");
 const db = require("./models");
 const Query = require("./resolvers/Query");
-//const Mutation = require("./resolvers/Mutations");
+const Mutation = require("./resolvers/Mutations");
 
 const resolvers = {
-  Query
-  // Mutation
+  Query,
+  Mutation
 };
 
 const createQLServer = () =>

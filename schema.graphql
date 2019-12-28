@@ -32,13 +32,13 @@ type Nightly_Im_Report {
   submittedBy: Int!
 }
 
-type Users {
+type User {
   id: Int!
   user: String!
   tables: Int
 }
 
-type Nightly_Report_Tables {
+type Tables {
   id: ID!
   table_type: String!
 }
@@ -63,4 +63,14 @@ type Nightly_Sa_Report {
 
 type Query {
   nightlyReportAuth: [Nightly_Report_Auth]
+  nightlyImReport: [Nightly_Im_Report]
+  nightlySaReport: [Nightly_Sa_Report]
+  allUsers: [User]
+  findUser(id: ID!): User
+  allTables: [Tables]
+}
+
+type Mutation {
+  addUser(user: String): User
+  delUser(id: ID!): String
 }
