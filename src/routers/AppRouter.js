@@ -9,6 +9,7 @@ import SideNav from "../components/SideNav/SideNav";
 import Login from "../components/Login";
 import ViewData from "../containers/View/ViewData";
 import Aggregation from "../containers/Aggregation/Aggregation";
+import SubmitNightly from "../containers/SubmitNightly/SubmitNightly";
 
 const Context = React.createContext({});
 const StyledApp = styled.div`
@@ -58,6 +59,12 @@ const AppRouter = () => {
             show={show}
             path="/aggregation"
             component={Aggregation}
+            exact={true}
+          />
+          <PrivateRoute
+            show={show}
+            path="/submitnightly"
+            component={SubmitNightly}
             exact={true}
           />
         </Switch>

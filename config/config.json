@@ -6,5 +6,12 @@
     "host": "10.0.0.19",
     "dialect": "mssql",
     "driver": "tedious"
+  },
+  "developmentAWS": {
+    "username": "admin",
+    "password": "Brandnew1224!",
+    "database": "nightly_reports",
+    "host": "test-database.cupmd6kmjnmp.us-east-1.rds.amazonaws.com",
+    "dialect": "mssql"
   }
 }
