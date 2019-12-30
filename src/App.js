@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
 import AppRouter from "./routers/AppRouter";
+import { ApolloProvider } from "@apollo/react-hooks";
+import ApolloClient from "apollo-boost";
+const client = new ApolloClient({
+  // uri: "https://trainingchecklist.momentumsolar.app/graphql"
+  uri: "http://localhost:4000"
+});
 
 export const Context = React.createContext({});
 
@@ -23,11 +29,13 @@ const App = () => {
   const [state, setState] = useState("Orlando");
   return (
     <Context.Provider value={{ state, setState }}>
-      <ThemeProvider theme={theme}>
-        <div className="App-container">
-          <AppRouter />
-        </div>
-      </ThemeProvider>
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <div className="App-container">
+            <AppRouter />
+          </div>
+        </ThemeProvider>
+      </ApolloProvider>
     </Context.Provider>
   );
 };

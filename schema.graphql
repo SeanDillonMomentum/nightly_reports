@@ -29,13 +29,16 @@ type Nightly_Im_Report {
   constructionComplete: Int
   notes: String
   office: String
-  submittedBy: Int!
+  submittedBy: ID!
+  nightly_report_user: User
 }
 
 type User {
   id: Int!
   user: String!
-  tables: Int
+  nightly_report_tables: [Tables]
+  nightly_im_reports: [Nightly_Im_Report]
+  nightly_sa_reports: [Nightly_Sa_Report]
 }
 
 type Tables {
@@ -58,7 +61,8 @@ type Nightly_Sa_Report {
   totalExterior: String
   saComplete: Int
   notes: String
-  submittedBy: Int!
+  submittedBy: ID!
+  nightly_report_user: User
 }
 
 type Query {
@@ -71,6 +75,57 @@ type Query {
 }
 
 type Mutation {
-  addUser(user: String): User
+  addUser(user: String, tables: [TableInput]): User!
+  addTable(table_type: String): Tables!
   delUser(id: ID!): String
+  editUserTables(user: ID!, tables: [TableInput]): [Nightly_Report_Auth]!
+  createImReport(report: ImReportInput): Nightly_Im_Report!
+  createSaReport(report: SaReportInput): Nightly_Sa_Report!
+}
+
+input TableInput {
+  table: ID
+}
+
+input ImReportInput {
+  customerName: String
+  customerAddress: String
+  jobType: String
+  date: String!
+  foreman: String
+  crewDesignator: String
+  sp: String
+  os: String
+  crewCount: Int
+  electricalTotalHours: String
+  installationTotalHours: String
+  roundTripTotalHours: String
+  correctPic: Int
+  onsiteRevision: Int
+  salesRepVisit: Int
+  faOnSite: Int
+  panelType: String
+  panelCount: Int
+  dcSize: String
+  panelsInstalled: Int
+  constructionComplete: Int
+  notes: String
+  office: String
+  submittedBy: ID!
+}
+input SaReportInput {
+  customerName: String
+  customerAddress: String
+  opportunityNumber: String
+  jobType: String
+  date: String!
+  siteAssessor: String
+  sp: String
+  os: String
+  winterSolstice: Int
+  totalInterior: String
+  totalExterior: String
+  saComplete: Int
+  notes: String
+  submittedBy: ID!
 }

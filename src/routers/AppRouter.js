@@ -10,6 +10,7 @@ import Login from "../components/Login";
 import ViewData from "../containers/View/ViewData";
 import Aggregation from "../containers/Aggregation/Aggregation";
 import SubmitNightly from "../containers/SubmitNightly/SubmitNightly";
+import AuthPage from "../containers/AuthPage/AuthPage";
 
 const Context = React.createContext({});
 const StyledApp = styled.div`
@@ -65,6 +66,12 @@ const AppRouter = () => {
             show={show}
             path="/submitnightly"
             component={SubmitNightly}
+            exact={true}
+          />
+          <PrivateRoute
+            show={show}
+            path="/auth"
+            component={AuthPage}
             exact={true}
           />
         </Switch>

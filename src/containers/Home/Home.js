@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "./styles";
 import { Assignment } from "@material-ui/icons";
-import NightlyReport from "./NightlyReport";
+import { useQuery } from "@apollo/react-hooks";
+import ALL_USERS from "../../graphql/queries/allUsers";
+// import NightlyReport from "./NightlyReport";
 
 const accounts = [
   "sdillon@momentumsolar.com",
@@ -9,16 +11,13 @@ const accounts = [
   "rslattery@momentumsolar.com"
 ];
 const Home = ({ accountInfo }) => {
-  console.log(accountInfo);
   return (
     <Card>
       <h1>
         <Assignment style={{ marginRight: "5px" }} />
         Nightly Report
       </h1>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <NightlyReport />
-      </div>
+      <div>Hey</div>
     </Card>
   );
 };

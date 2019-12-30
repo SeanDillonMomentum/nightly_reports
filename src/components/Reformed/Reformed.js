@@ -9,6 +9,7 @@ import {
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import moment from "moment";
+import ReformedArray from "./ReformedArray";
 
 const StyledFormDiv = styled.div`
   margin: 15px;
@@ -66,6 +67,17 @@ const Reformed = ({ data, setData, dataValidation, flex }) => {
                 />
               }
               label={sentence}
+            />
+          );
+        }
+        if (currValidation.type === "array") {
+          return (
+            <ReformedArray
+              key={key}
+              label={sentence}
+              data={data}
+              config={currValidation}
+              setData={setData}
             />
           );
         }

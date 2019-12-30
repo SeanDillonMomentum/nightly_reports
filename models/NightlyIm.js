@@ -5,12 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     {
       customerName: DataTypes.STRING,
       customerAddress: DataTypes.STRING,
-      opportunityNumber: DataTypes.STRING,
       jobType: DataTypes.STRING,
       date: DataTypes.STRING,
       foreman: DataTypes.STRING,
       crewDesignator: DataTypes.STRING,
-      siteAssessor: DataTypes.STRING,
       sp: DataTypes.STRING,
       os: DataTypes.STRING,
       crewCount: DataTypes.INTEGER,
@@ -42,7 +40,11 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false
     }
   );
-
+  NightlyIm.associate = function(models) {
+    NightlyIm.belongsTo(models.nightly_report_users, {
+      foreignKey: "submittedBy"
+    });
+  };
   //   Categories.associate = function(models) {
   //     Categories.belongsToMany(models.Locations, {
   //       through: "CategoriesLocations",

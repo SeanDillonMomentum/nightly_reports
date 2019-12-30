@@ -30,7 +30,11 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false
     }
   );
-
+  NightlySa.associate = function(models) {
+    NightlySa.belongsTo(models.nightly_report_users, {
+      foreignKey: "submittedBy"
+    });
+  };
   //   Categories.associate = function(models) {
   //     Categories.belongsToMany(models.Locations, {
   //       through: "CategoriesLocations",

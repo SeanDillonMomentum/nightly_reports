@@ -18,7 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false
     }
   );
-
+  Tables.associate = function(models) {
+    Tables.belongsToMany(models.nightly_report_users, {
+      through: "nightly_report_auth",
+      foreignKey: "table"
+    });
+  };
   //   Tables.associate = function(models) {
   //     console.log("models", models);
   //     Tables.belongsToMany(models.nightly_report_auth, {
