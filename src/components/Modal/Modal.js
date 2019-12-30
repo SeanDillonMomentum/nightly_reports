@@ -1,21 +1,28 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from "react";
 //components
-import Modal from './styles';
-import { Context } from '../../routers/AppRouter';
+import Modal from "./styles";
+import { Context } from "../../App";
 const ModalComponent = ({ openState, children, width, handleClose }) => {
   const { show } = useContext(Context);
   useEffect(() => {
-    document.addEventListener('mousedown', handleClick, false);
-    document.addEventListener('touchstart', handleClick, false);
+    document.addEventListener("mousedown", handleClick, false);
+    document.addEventListener("touchstart", handleClick, false);
     return () => {
-      document.removeEventListener('mousedown', handleClick, false);
-      document.removeEventListener('touchstart', handleClick, false);
+      document.removeEventListener("mousedown", handleClick, false);
+      document.removeEventListener("touchstart", handleClick, false);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClick = e => {
-    if (e.target.id === 'modalBackground') {
+    if (e.target.id === "modalBackground") {
+      return handleClose();
+    } else {
+      return;
+    }
+  };
+
+  const handleKeyPress = event => {
+    if (event.key === "Enter") {
       return handleClose();
     } else {
       return;
@@ -25,7 +32,13 @@ const ModalComponent = ({ openState, children, width, handleClose }) => {
   return (
     openState && (
       <Modal sideNavOpen={show} id="modalBackground" width={width}>
-        <div className="modalMain" onClick={e => handleClick(e)}>
+        <div
+          role="button"
+          tabIndex="0"
+          className="modalMain"
+          onKeyPress={e => handleKeyPress(e)}
+          onClick={e => handleClick(e)}
+        >
           {children}
         </div>
       </Modal>

@@ -6,9 +6,9 @@ import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   KeyboardDatePicker,
+  KeyboardTimePicker,
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
-import moment from "moment";
 import ReformedArray from "./ReformedArray";
 
 const StyledFormDiv = styled.div`
@@ -22,14 +22,16 @@ const StyledFormDiv = styled.div`
   }
 `;
 
-const Reformed = ({ data, setData, dataValidation, flex }) => {
+const Reformed = ({ data, setData, dataValidation, flex, style }) => {
   const handleChange = e =>
     setData({ ...data, [e.target.name]: e.target.value });
-  const handleBool = name => event => {
-    setData({ ...data, [name]: event.target.checked });
+  const handleBool = key => {
+    setData({ ...data, [key]: data[key] ? 0 : 1 });
   };
+  const handleDate = (dateVal, name) => setData({ ...data, [name]: dateVal });
+
   return (
-    <StyledFormDiv flex={flex}>
+    <StyledFormDiv style={style || null} flex={flex}>
       {Object.entries(data).map(([key, val]) => {
         let sentence = startcase(key);
         let currValidation = dataValidation.find(x => x.field === key);
@@ -44,12 +46,32 @@ const Reformed = ({ data, setData, dataValidation, flex }) => {
                 format="MM/dd/yyyy"
                 margin="normal"
                 name={key}
-                id="date-picker-pitched"
+                id={`date-picker-pitched${key}`}
                 label={sentence}
-                value={moment().format("MM/DD/YYYY")}
-                onChange={e => handleChange(e, key)}
+                value={val}
+                onChange={e => handleDate(e, key)}
                 KeyboardButtonProps={{
                   "aria-label": "change date"
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          );
+        }
+        if (currValidation.type === "time") {
+          return (
+            <MuiPickersUtilsProvider key={key} utils={DateFnsUtils}>
+              <KeyboardTimePicker
+                className="textFieldWrap"
+                disableToolbar
+                variant="inline"
+                margin="normal"
+                name={key}
+                id={`time-picker-pitched${key}`}
+                label={sentence}
+                value={val}
+                onChange={e => handleDate(e, key)}
+                KeyboardButtonProps={{
+                  "aria-label": "change time"
                 }}
               />
             </MuiPickersUtilsProvider>
@@ -58,10 +80,12 @@ const Reformed = ({ data, setData, dataValidation, flex }) => {
         if (currValidation.type === "bool") {
           return (
             <FormControlLabel
+              key={key}
               control={
                 <Checkbox
-                  checked={val}
-                  onChange={handleBool(val)}
+                  checked={val ? true : false}
+                  onChange={() => handleBool(key)}
+                  name={key}
                   value={key}
                   color="primary"
                 />

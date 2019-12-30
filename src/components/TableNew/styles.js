@@ -155,6 +155,7 @@ const Row = styled.tr`
 
 const FilterBar = styled.div`
   display: flex;
+  width: 100%;
   margin-bottom: 15px;
   align-items: center;
   justify-content: space-between;

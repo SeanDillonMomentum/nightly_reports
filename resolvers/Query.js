@@ -1,6 +1,5 @@
 const Query = {
   async nightlyReportAuth(_, __, { db }) {
-    console.log({ db });
     const res = await db.nightly_report_auth.findAll();
     return res;
   },
@@ -33,16 +32,31 @@ const Query = {
     return res;
   },
   async findUser(_, args, { db }) {
-    const res = await db.nightly_report_users.findOne({
-      where: {
-        id: args.id
-      },
-      include: [
-        { model: db.nightly_report_tables },
-        { model: db.nightly_im_report },
-        { model: db.nightly_sa_report }
-      ]
-    });
+    let { id, user } = args;
+    let res;
+    if (id)
+      res = await db.nightly_report_users.findOne({
+        where: {
+          id
+        },
+        include: [
+          { model: db.nightly_report_tables },
+          { model: db.nightly_im_report },
+          { model: db.nightly_sa_report }
+        ]
+      });
+    else {
+      res = await db.nightly_report_users.findOne({
+        where: {
+          user
+        },
+        include: [
+          { model: db.nightly_report_tables },
+          { model: db.nightly_im_report },
+          { model: db.nightly_sa_report }
+        ]
+      });
+    }
     return res;
   }
 };

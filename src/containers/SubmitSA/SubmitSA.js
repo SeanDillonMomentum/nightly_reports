@@ -5,7 +5,7 @@ import moment from "moment";
 import { StyledButton } from "../Home/styles";
 import { useMutation } from "@apollo/react-hooks";
 import SuccessModal from "../../components/Modal/SuccessModal";
-import CREATE_IM_REPORT from "../../graphql/mutations/createImReport";
+import CREATE_SA_REPORT from "../../graphql/mutations/createSaReport";
 
 const StyledSubmit = styled.div`
   display: flex;
@@ -24,76 +24,52 @@ const StyledSubmit = styled.div`
 const initialData = {
   customerName: "",
   customerAddress: "",
+  opportunityNumber: "",
   jobType: "",
   date: moment().format("MM/DD/YYYY"),
-  foreman: "",
-  crewDesignator: "",
+  siteAssessor: "",
   sp: moment().format("MM/DD/YYYY"),
   os: moment().format("MM/DD/YYYY"),
-  crewCount: "",
-  electricalTotalHours: "",
-  installationTotalHours: "",
-  roundTripTotalHours: "",
-  panelType: "",
-  panelCount: "",
-  dcSize: "",
-  notes: "",
-  office: "",
-  submittedBy: "",
-  correctPic: 0,
-  onsiteRevision: 0,
-  salesRepVisit: 0,
-  faOnSite: 0,
-  panelsInstalled: 0,
-  constructionComplete: 0
+  totalInterior: "",
+  totalExterior: "",
+  winterSolstice: 0,
+  saComplete: 0,
+  notes: ""
 };
 
 const dataValidation = [
   { field: "customerName", type: "text" },
   { field: "customerAddress", type: "text" },
+  { field: "opportunityNumber", type: "text" },
   { field: "jobType", type: "text" },
   { field: "date", type: "date" },
-  { field: "foreman", type: "text" },
-  { field: "crewDesignator", type: "text" },
+  { field: "siteAssessor", type: "text" },
   { field: "sp", type: "time" },
   { field: "os", type: "time" },
-  { field: "crewCount", type: "text" },
-  { field: "electricalTotalHours", type: "text" },
-  { field: "installationTotalHours", type: "text" },
-  { field: "roundTripTotalHours", type: "text" },
-  { field: "correctPic", type: "bool" },
-  { field: "onsiteRevision", type: "bool" },
-  { field: "salesRepVisit", type: "bool" },
-  { field: "faOnSite", type: "bool" },
-  { field: "panelType", type: "text" },
-  { field: "panelCount", type: "text" },
-  { field: "dcSize", type: "text" },
-  { field: "panelsInstalled", type: "bool" },
-  { field: "constructionComplete", type: "bool" },
+  { field: "totalInterior", type: "text" },
+  { field: "totalExterior", type: "text" },
   { field: "notes", type: "text" },
-  { field: "office", type: "text" }
+  { field: "winterSolstice", type: "bool" },
+  { field: "saComplete", type: "bool" }
 ];
 
 const SubmitNightly = ({ location, history }) => {
   useEffect(() => {
     if (!location.state) history.push("/");
   }, [location]);
-
-  const [createImReport] = useMutation(CREATE_IM_REPORT);
+  const [createSaReport] = useMutation(CREATE_SA_REPORT);
   const [formData, setFormData] = useState(initialData);
   const [modalOpen, setModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-
+  console.log(formData);
   const createReport = async () => {
     const report = {
       ...formData,
-      panelCount: +formData.panelCount,
-      crewCount: +formData.crewCount,
       submittedBy: location.state.userData.id
     };
     setSubmitting(true);
     try {
-      await createImReport({ variables: { report } });
+      await createSaReport({ variables: { report } });
       setModalOpen(true);
       setSubmitting(false);
       setFormData(initialData);
@@ -105,9 +81,9 @@ const SubmitNightly = ({ location, history }) => {
 
   return (
     <StyledSubmit>
-      <h1>NIGHTLY IM REPORT</h1>
+      <h1>NIGHTLY SA REPORT</h1>
       <Reformed
-        flex="20%"
+        flex="25%"
         data={formData}
         setData={setFormData}
         dataValidation={dataValidation}

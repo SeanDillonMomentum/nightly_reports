@@ -10,6 +10,7 @@ import Login from "../components/Login";
 import ViewData from "../containers/View/ViewData";
 import Aggregation from "../containers/Aggregation/Aggregation";
 import SubmitNightly from "../containers/SubmitNightly/SubmitNightly";
+import SubmitSA from "../containers/SubmitSA/SubmitSA";
 import AuthPage from "../containers/AuthPage/AuthPage";
 
 const Context = React.createContext({});
@@ -64,8 +65,14 @@ const AppRouter = () => {
           />
           <PrivateRoute
             show={show}
-            path="/submitnightly"
+            path="/submitim"
             component={SubmitNightly}
+            exact={true}
+          />
+          <PrivateRoute
+            show={show}
+            path="/submitsa"
+            component={SubmitSA}
             exact={true}
           />
           <PrivateRoute

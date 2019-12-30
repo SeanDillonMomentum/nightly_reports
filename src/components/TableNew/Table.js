@@ -142,7 +142,7 @@ const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
                     {Array.isArray(row[x.key]) ? (
                       <ul>
                         {row[x.key].map((y, index) => (
-                          <li key={index}>{y}</li>
+                          <li key={index}>{x.arrayVal ? y[x.arrayVal] : y}</li>
                         ))}
                       </ul>
                     ) : (

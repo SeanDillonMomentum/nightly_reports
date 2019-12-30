@@ -5,11 +5,6 @@ import StyledSidebar from "./styles";
 import { Context } from "../../routers/AppRouter";
 import NavList from "../NavList/NavList";
 import { Home, Assignment, BarChart } from "@material-ui/icons";
-const accounts = [
-  "sdillon@momentumsolar.com",
-  "adimaria@momentumsolar.com",
-  "rslattery@momentumsolar.com"
-];
 
 const SideNav = ({ accountInfo }) => {
   const { show } = useContext(Context);

@@ -9,15 +9,6 @@ const ALL_USERS = gql`
         id
         table_type
       }
-      nightly_im_reports {
-        id
-        submittedBy
-        faOnSite
-        notes
-      }
-      nightly_sa_reports {
-        id
-      }
     }
   }
 `;

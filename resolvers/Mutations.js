@@ -25,7 +25,7 @@ const Mutations = {
         id: args.id
       }
     });
-    console.log(deletedUser);
+
     return "Deleted User ";
   },
   async editUserTables(_, args, { db }) {
