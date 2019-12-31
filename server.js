@@ -1,13 +1,9 @@
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const createQLServer = require("./createServer.js");
-const cors = require("cors");
 const fs = require("fs");
-const https = require("https");
 const dotenv = require("dotenv");
-
-const app = createQLServer();
+const app = express();
 
 // Initialize variables.
 var PORT = 443 || process.env.PORT;
@@ -26,8 +22,6 @@ const options = {
     credentials: true,
     origin: true
   },
-  endpoint: "/graphql",
-  port: 443,
   // port: 3001,
   https: {
     key: fs.readFileSync(
@@ -45,6 +39,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.use(cors());
-
-app.start(options, ({ port }) => console.log(`Server is running on ${port}`));
+https.createServer(options, app).listen(PORT, () => {
+  console.log(`App Listening on ${PORT} ${app}   `);
+});
