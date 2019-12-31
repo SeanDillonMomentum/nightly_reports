@@ -41,6 +41,4 @@ app.get("*", (req, res) => {
 
 app.use(cors());
 
-https.createServer(options, app).listen(PORT, () => {
-  console.log(`App Listening on ${PORT} ${app}   `);
-});
+app.start(options, ({ port }) => console.log(`Server is running on ${port}`));
