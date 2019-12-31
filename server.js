@@ -21,16 +21,22 @@ app.use(bodyParser.json());
 dotenv.config({ debug: process.env.DEBUG });
 
 // ! insert your own options here
-var options = {
-  key: fs.readFileSync(
-    "/opt/bitnami/letsencrypt/certificates/nightlyreports.momentumsolar.app.key"
-  ),
-  cert: fs.readFileSync(
-    "/opt/bitnami/letsencrypt/certificates/nightlyreports.momentumsolar.app.crt"
-  ),
-  ca: fs.readFileSync(
-    "/opt/bitnami/letsencrypt/certificates/nightlyreports.momentumsolar.app.issuer.crt"
-  )
+const options = {
+  cors: {
+    credentials: true,
+    origin: true
+  },
+  endpoint: "/graphql",
+  port: 443,
+  // port: 3001,
+  https: {
+    key: fs.readFileSync(
+      "/opt/bitnami/letsencrypt/certificates/nightlyreports.momentumsolar.app.key"
+    ),
+    cert: fs.readFileSync(
+      "/opt/bitnami/letsencrypt/certificates/nightlyreports.momentumsolar.app.crt"
+    )
+  }
 };
 
 app.use(express.static(path.join(__dirname, "build")));
