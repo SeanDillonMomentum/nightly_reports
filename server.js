@@ -19,19 +19,12 @@ dotenv.config({ debug: process.env.DEBUG });
 
 // ! insert your own options here
 const options = {
-  cors: {
-    credentials: true,
-    origin: true
-  },
-  // port: 3001,
-  https: {
-    key: fs.readFileSync(
-      "/opt/bitnami/letsencrypt/certificates/nightlyreports.momentumsolar.app.key"
-    ),
-    cert: fs.readFileSync(
-      "/opt/bitnami/letsencrypt/certificates/nightlyreports.momentumsolar.app.crt"
-    )
-  }
+  key: fs.readFileSync(
+    "/opt/bitnami/letsencrypt/certificates/nightlyreports.momentumsolar.app.key"
+  ),
+  cert: fs.readFileSync(
+    "/opt/bitnami/letsencrypt/certificates/nightlyreports.momentumsolar.app.crt"
+  )
 };
 
 app.use(express.static(path.join(__dirname, "build")));
