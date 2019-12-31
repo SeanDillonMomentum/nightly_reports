@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
-const NIGHTLY_IM_REPORTS = gql`
-  query nightlyImReport {
-    nightlyImReport {
+const IM_REPORTS_BY_ID = gql`
+  query imReportsById($id: ID!) {
+    imReportsById(id: $id) {
       id
       customerName
       customerAddress
@@ -35,4 +35,4 @@ const NIGHTLY_IM_REPORTS = gql`
   }
 `;
 
-export default NIGHTLY_IM_REPORTS;
+export default IM_REPORTS_BY_ID;

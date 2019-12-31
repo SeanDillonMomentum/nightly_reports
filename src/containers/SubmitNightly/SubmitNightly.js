@@ -1,25 +1,12 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import Reformed from "../../components/Reformed/Reformed";
 import moment from "moment";
 import { StyledButton } from "../Home/styles";
 import { useMutation } from "@apollo/react-hooks";
 import SuccessModal from "../../components/Modal/SuccessModal";
 import CREATE_IM_REPORT from "../../graphql/mutations/createImReport";
-
-const StyledSubmit = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 30px;
-  position: fixed;
-  margin: 30px;
-  border-radius: 5px;
-  background-color: white;
-  z-index: 100;
-  border-bottom: 2px solid lightgray;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  flex-direction: column;
-`;
+import NightlyReportTable from "./NightlyReportTable";
+import { StyledSubmit } from "./styles";
 
 const initialData = {
   customerName: "",
@@ -76,13 +63,19 @@ const dataValidation = [
 
 const SubmitNightly = ({ location, history }) => {
   useEffect(() => {
-    if (!location.state) history.push("/");
-  }, [location]);
+    if (
+      !location.state ||
+      !location.state.userData.nightly_report_tables.find(x => x.id === "4")
+    )
+      history.push("/");
+  }, [location, history]);
+  console.log(location);
 
   const [createImReport] = useMutation(CREATE_IM_REPORT);
   const [formData, setFormData] = useState(initialData);
   const [modalOpen, setModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const createReport = async () => {
     const report = {
@@ -91,7 +84,12 @@ const SubmitNightly = ({ location, history }) => {
       crewCount: +formData.crewCount,
       submittedBy: location.state.userData.id
     };
+    if (Object.values(report).filter(x => x === "").length) {
+      setError("Please Fill Out All Fields Prior to Submittal");
+      return;
+    }
     setSubmitting(true);
+    setError(false);
     try {
       await createImReport({ variables: { report } });
       setModalOpen(true);
@@ -99,28 +97,32 @@ const SubmitNightly = ({ location, history }) => {
       setFormData(initialData);
     } catch (err) {
       setSubmitting(false);
-      console.log(err);
+      setError("An Error Occurred While Submitting");
     }
   };
 
   return (
-    <StyledSubmit>
-      <h1>NIGHTLY IM REPORT</h1>
-      <Reformed
-        flex="20%"
-        data={formData}
-        setData={setFormData}
-        dataValidation={dataValidation}
-      />
-      <SuccessModal
-        modalOpen={modalOpen}
-        setModalOpen={() => setModalOpen(false)}
-        specialText="SUCCESSFULLY SUBMITTED REPORT"
-      />
-      <StyledButton disabled={submitting} onClick={() => createReport()}>
-        SUBMIT{submitting && "ING"}
-      </StyledButton>
-    </StyledSubmit>
+    <>
+      <StyledSubmit>
+        <h1>NIGHTLY IM REPORT</h1>
+        <Reformed
+          flex="20%"
+          data={formData}
+          setData={setFormData}
+          dataValidation={dataValidation}
+        />
+        <SuccessModal
+          modalOpen={modalOpen}
+          setModalOpen={() => setModalOpen(false)}
+          specialText="SUCCESSFULLY SUBMITTED REPORT"
+        />
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <StyledButton disabled={submitting} onClick={() => createReport()}>
+          SUBMIT{submitting && "ING"}
+        </StyledButton>
+      </StyledSubmit>
+      <NightlyReportTable id={location.state.userData.id} />
+    </>
   );
 };
 

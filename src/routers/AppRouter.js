@@ -12,6 +12,7 @@ import Aggregation from "../containers/Aggregation/Aggregation";
 import SubmitNightly from "../containers/SubmitNightly/SubmitNightly";
 import SubmitSA from "../containers/SubmitSA/SubmitSA";
 import AuthPage from "../containers/AuthPage/AuthPage";
+import AdminView from "../containers/AdminView/AdminView";
 
 const Context = React.createContext({});
 const StyledApp = styled.div`
@@ -79,6 +80,12 @@ const AppRouter = () => {
             show={show}
             path="/auth"
             component={AuthPage}
+            exact={true}
+          />
+          <PrivateRoute
+            show={show}
+            path="/adminview"
+            component={AdminView}
             exact={true}
           />
         </Switch>

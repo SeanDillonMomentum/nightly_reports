@@ -1,5 +1,71 @@
 import styled from "styled-components";
 
+const StyledList = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .innerSearchDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .openButton {
+    background-color: #001b59;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px;
+  }
+  .listModal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .searchDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e5e5;
+    /* margin-top: 20px; */
+    border-radius: 5px;
+    padding: 5px 0 5px 5px;
+  }
+  .searchIcon {
+    margin: 0 5px 0 10px;
+  }
+  .ternaryContainer {
+    position: absolute;
+    top: 0;
+    right: ${props => props.right};
+    background-color: #001649;
+    color: white;
+    overflow: auto;
+    border-radius: 5px;
+    max-height: 150px;
+    width: 250px;
+    font-size: 14px;
+  }
+  .iconButton {
+    background-color: ${props => props.theme.midnightBlue};
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 15px;
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+`;
+
 const StyledNoData = styled.h1`
   font-family: ${props => props.theme.font};
   color: ${props => props.theme.midnightBlue};
@@ -117,6 +183,12 @@ const NullCell = styled.td`
   font-family: ${props => props.theme.font};
   font-size: 14px;
   word-break: break-word;
+  &:first-child {
+    border-radius: 5px 0 0 0;
+  }
+  &:last-child {
+    border-radius: 0 5px 0 0;
+  }
 `;
 
 const ListViewContainer = styled.div`
@@ -201,7 +273,6 @@ const NullTable = styled.div`
 const TableContainer = styled.table`
   border-spacing: 0px;
   background: #ffffff;
-  border: 1px solid ${props => props.theme.backgroundLightGrey};
   border-radius: 5px;
   width: 100%;
 `;
@@ -400,5 +471,6 @@ export {
   PageNumbers,
   PageNumberDiv,
   Wrapper,
-  StyledNoData
+  StyledNoData,
+  StyledList
 };

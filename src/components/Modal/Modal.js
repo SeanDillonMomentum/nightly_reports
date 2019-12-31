@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 //components
 import Modal from "./styles";
-import { Context } from "../../App";
+import { Context } from "../../routers/AppRouter";
 const ModalComponent = ({ openState, children, width, handleClose }) => {
   const { show } = useContext(Context);
   useEffect(() => {
@@ -11,7 +11,7 @@ const ModalComponent = ({ openState, children, width, handleClose }) => {
       document.removeEventListener("mousedown", handleClick, false);
       document.removeEventListener("touchstart", handleClick, false);
     };
-  }, []);
+  });
 
   const handleClick = e => {
     if (e.target.id === "modalBackground") {

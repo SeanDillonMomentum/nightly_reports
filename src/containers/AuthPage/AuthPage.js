@@ -45,8 +45,12 @@ const tableHeaders = [
 
 const AuthPage = ({ history, location }) => {
   useEffect(() => {
-    if (!location.state) history.push("/");
-  }, [location]);
+    if (
+      !location.state ||
+      !location.state.userData.nightly_report_tables.find(x => x.id === "5")
+    )
+      history.push("/");
+  }, [location, history]);
   const [addUser] = useMutation(ADD_USER);
   const { loading, error, data } = useQuery(ALL_TABLES);
   const { loading: loadingTwo, error: errorTwo, data: dataTwo } = useQuery(

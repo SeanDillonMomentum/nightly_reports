@@ -1,3 +1,5 @@
+scalar Date
+
 type Nightly_Report_Auth {
   id: ID
   user: Int
@@ -9,11 +11,11 @@ type Nightly_Im_Report {
   customerName: String
   customerAddress: String
   jobType: String
-  date: String!
+  date: Date!
   foreman: String
   crewDesignator: String
-  sp: String
-  os: String
+  sp: Date
+  os: Date
   crewCount: Int
   electricalTotalHours: String
   installationTotalHours: String
@@ -52,10 +54,10 @@ type Nightly_Sa_Report {
   customerAddress: String
   opportunityNumber: String
   jobType: String
-  date: String!
+  date: Date!
   siteAssessor: String
-  sp: String
-  os: String
+  sp: Date
+  os: Date
   winterSolstice: Int
   totalInterior: String
   totalExterior: String
@@ -72,6 +74,8 @@ type Query {
   allUsers: [User]
   findUser(id: ID, user: String): User
   allTables: [Tables]
+  imReportsById(id: ID!): [Nightly_Im_Report]!
+  saReportsById(id: ID!): [Nightly_Sa_Report]!
 }
 
 type Mutation {
@@ -91,11 +95,11 @@ input ImReportInput {
   customerName: String
   customerAddress: String
   jobType: String
-  date: String!
+  date: Date!
   foreman: String
   crewDesignator: String
-  sp: String
-  os: String
+  sp: Date
+  os: Date
   crewCount: Int
   electricalTotalHours: String
   installationTotalHours: String
@@ -118,10 +122,10 @@ input SaReportInput {
   customerAddress: String
   opportunityNumber: String
   jobType: String
-  date: String!
+  date: Date!
   siteAssessor: String
-  sp: String
-  os: String
+  sp: Date
+  os: Date
   winterSolstice: Int
   totalInterior: String
   totalExterior: String

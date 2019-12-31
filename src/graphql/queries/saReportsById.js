@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
-const NIGHTLY_SA_REPORTS = gql`
-  query nightlySaReport {
-    nightlySaReport {
+const SA_REPORTS_BY_ID = gql`
+  query saReportsById($id: ID!) {
+    saReportsById(id: $id) {
       id
       customerName
       customerAddress
@@ -25,4 +25,4 @@ const NIGHTLY_SA_REPORTS = gql`
   }
 `;
 
-export default NIGHTLY_SA_REPORTS;
+export default SA_REPORTS_BY_ID;

@@ -1,9 +1,16 @@
 import React, { useState, useMemo } from "react";
-import { ArrowUpward, ArrowDownward, UnfoldMore } from "@material-ui/icons";
+import {
+  ArrowUpward,
+  ArrowDownward,
+  UnfoldMore,
+  Cancel,
+  CheckBox
+} from "@material-ui/icons";
 import TableNav from "./TableNav";
 import SearchDropdown from "./SearchDropdown";
 import Dropdown from "./Dropdown";
 import tableFilter from "./TableFilter";
+import FilterDiv from "./FilterDiv";
 import {
   TableContainer,
   FilterBar,
@@ -13,6 +20,8 @@ import {
   StyledNoData
 } from "./styles";
 
+import moment from "moment";
+
 /** 
 @param Table
 TableHeaders: object in format {id: "", label: "", key: ""}
@@ -21,17 +30,17 @@ TableHeaders: object in format {id: "", label: "", key: ""}
 const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPer);
-
+  const [hidden, setHidden] = useState([]);
   const [page, setPage] = React.useState(1);
   const [currSort, setCurrSort] = useState({ key: "", direction: "" });
   const [currSearch, setCurrSearch] = useState(initialSearch);
   const [search, setSearch] = useState("");
   // util funcs
+
+  // handle sort on column header clicks
   const sortHandler = column => {
     let { key, sortless } = column;
-
     if (!key || sortless) return;
-
     if (currSort.key === key) {
       let direction = !currSort.direction
         ? 1
@@ -47,6 +56,14 @@ const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
     }
   };
 
+  // handle large column sets with display none;
+  const checkHidden = index => {
+    if (!hidden.length) return null;
+    if (hidden.includes(index)) return { display: "none" };
+    return null;
+  };
+
+  // return current number of pages based on current filtered data and rows per page;
   const currentPages = data => {
     let nums = [];
     for (let i = 1; i <= Math.ceil(data.length / rowsPerPage); i++) {
@@ -57,6 +74,7 @@ const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
 
   const handlePageClick = event => setPage(Number(event.target.id));
 
+  //handle pagination
   const paginate = direction => {
     let pageNumbers = currentPages(tableData);
     direction === "left" && page === 1
@@ -68,6 +86,7 @@ const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
       : setPage(page + 1);
   };
 
+  //reset to page 1 and set rows per page on click;
   const handleChangeRowsPerPage = e => {
     setRowsPerPage(e);
     setPage(1);
@@ -82,12 +101,35 @@ const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
       return <ArrowUpward />;
   };
 
+  // memoize currently filtered data - re-render when applicable variables change;
   const tableData = useMemo(
     () => tableFilter(data, search, currSort, currSearch),
     [data, search, currSort, currSearch]
   );
   const handleDropdown = event => setDropdownOpen(event.currentTarget);
   const openDropdown = Boolean(dropdownOpen);
+
+  // handle date and boolean values dynamically though config - otherwise return data;
+  const checkType = (value, header) => {
+    let { type, arrayVal } = header;
+
+    if (Array.isArray(value))
+      return (
+        <ul>
+          {value.map((y, index) => (
+            <li key={index}>{arrayVal ? y[arrayVal] : y}</li>
+          ))}
+        </ul>
+      );
+    if (!type) return value;
+    if (type === "date") return moment(value).format("MM/DD/YYYY h:mm a");
+    if (type === "bool")
+      return value === 0 ? (
+        <Cancel style={{ color: "red" }} />
+      ) : (
+        <CheckBox style={{ color: "green" }} />
+      );
+  };
 
   return !tableData.length ? (
     <StyledNoData>No Current Data</StyledNoData>
@@ -103,6 +145,11 @@ const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
         />
 
         <div className="rightFilter">
+          <FilterDiv
+            headers={tableHeaders}
+            hidden={hidden}
+            setHidden={setHidden}
+          />
           <div className="rowsDisplayedDiv">
             <span>Showing</span>
             <Dropdown
@@ -122,8 +169,12 @@ const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
       <TableContainer>
         <thead>
           <tr>
-            {tableHeaders.map(column => (
-              <CellHeader onClick={() => sortHandler(column)} key={column.id}>
+            {tableHeaders.map((column, index) => (
+              <CellHeader
+                style={checkHidden(index)}
+                onClick={() => sortHandler(column)}
+                key={column.id}
+              >
                 <div className="cellDiv">
                   {column.label}
                   {!column.sortless && currArrow(column.key)}
@@ -137,17 +188,9 @@ const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
             .slice(page * rowsPerPage - rowsPerPage, page * rowsPerPage)
             .map((row, index) => (
               <tr key={index}>
-                {tableHeaders.map(x => (
-                  <NullCell key={x.key}>
-                    {Array.isArray(row[x.key]) ? (
-                      <ul>
-                        {row[x.key].map((y, index) => (
-                          <li key={index}>{x.arrayVal ? y[x.arrayVal] : y}</li>
-                        ))}
-                      </ul>
-                    ) : (
-                      row[x.key]
-                    )}
+                {tableHeaders.map((header, cellIndex) => (
+                  <NullCell style={checkHidden(cellIndex)} key={header.key}>
+                    {checkType(row[header.key], header)}
                   </NullCell>
                 ))}
               </tr>

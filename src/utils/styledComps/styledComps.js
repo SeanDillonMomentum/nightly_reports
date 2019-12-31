@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Table } from '@material-ui/core';
+import styled from "styled-components";
+import { Table } from "@material-ui/core";
 
 export const NoDataDiv = styled.div`
   font-size: 24px;
@@ -7,19 +7,32 @@ export const NoDataDiv = styled.div`
   margin: 30px 0;
 `;
 
+export const StyledSubmit = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 30px;
+  margin: 30px;
+  border-radius: 5px;
+  background-color: white;
+  z-index: 100;
+  border-bottom: 2px solid lightgray;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  flex-direction: column;
+`;
+
 export const StyledButton = styled.button`
-  margin: ${props => props.margin || '30px 0 0 30px'};
+  margin: ${props => props.margin || "30px 0 0 30px"};
   align-self: ${props => props.alignSelf};
   color: white;
   display: flex;
-  width: ${props => props.width || '100px'};
+  width: ${props => props.width || "100px"};
   justify-content: space-evenly;
   align-items: center;
   background-color: #001d49;
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   visibility: ${props => props.displayVal};
   &:hover {
     opacity: 0.7;
@@ -65,7 +78,7 @@ export const StyledQuizButton = styled.button`
   background-color: #001d49;
   padding: 5px 10px;
   border: none;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   visibility: ${props => props.displayVal};
 `;
 
@@ -87,27 +100,27 @@ export const QuizCard = styled.div`
     text-align: left;
   }
   video {
-    width: ${props => props.customStyles && '1150px'};
+    width: ${props => props.customStyles && "1150px"};
     /* max-width: ${props =>
-      props.customStyles ? props.customStyles.imgMaxWidth : '100%'};
+      props.customStyles ? props.customStyles.imgMaxWidth : "100%"};
     max-height: ${props =>
-      props.customStyles ? props.customStyles.imgMaxHeight : '100%'};
+      props.customStyles ? props.customStyles.imgMaxHeight : "100%"};
     width: ${props =>
-      props.customStyles ? props.customStyles.imgWidth : '100%'};
+      props.customStyles ? props.customStyles.imgWidth : "100%"};
     height: ${props =>
-      props.customStyles ? props.customStyles.imgHeight : '100%'}; */
+      props.customStyles ? props.customStyles.imgHeight : "100%"}; */
     /* display: flex;
     border-radius: 0; */
   }
   img {
     max-width: ${props =>
-      props.customStyles ? props.customStyles.imgMaxWidth : '100%'};
+      props.customStyles ? props.customStyles.imgMaxWidth : "100%"};
     max-height: ${props =>
-      props.customStyles ? props.customStyles.imgMaxHeight : '100%'};
+      props.customStyles ? props.customStyles.imgMaxHeight : "100%"};
     width: ${props =>
-      props.customStyles ? props.customStyles.imgWidth : '100%'};
+      props.customStyles ? props.customStyles.imgWidth : "100%"};
     height: ${props =>
-      props.customStyles ? props.customStyles.imgHeight : '100%'};
+      props.customStyles ? props.customStyles.imgHeight : "100%"};
     display: flex;
     border-radius: 0;
   }
@@ -141,13 +154,13 @@ export const QuizCard = styled.div`
 `;
 
 export const HeaderDiv = styled.div`
-  border: ${props => (props.noBorder ? 'none' : '1px solid #e5e5e5')};
+  border: ${props => (props.noBorder ? "none" : "1px solid #e5e5e5")};
   padding: 0 20px;
-  border-radius: ${props => (props.noBorder ? '0' : '5px 5px 0 0')};
+  border-radius: ${props => (props.noBorder ? "0" : "5px 5px 0 0")};
   font-size: 12px;
   max-width: 1250px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #ffffff;
   background-color: ${props => props.theme.midnightBlue};
   h3 {

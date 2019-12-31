@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Modal = styled.div`
   position: fixed;
@@ -13,13 +13,13 @@ const Modal = styled.div`
     position: fixed;
     border-radius: 8px;
     background-color: #ffffff;
-    width: ${props => (props.width ? props.width : '100%')};
-    top: 25%;
+    width: ${props => (props.width ? props.width : "100%")};
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
     transition: left 0.5s;
-    left: ${props => (props.sideNavOpen ? 'calc(50% + 50px)' : '50%')};
+    left: ${props => (props.sideNavOpen ? "calc(50% + 50px)" : "50%")};
   }
 `;
 

@@ -31,6 +31,31 @@ const Query = {
     const res = await db.nightly_report_tables.findAll();
     return res;
   },
+  async imReportsById(_, args, { db }) {
+    let { id } = args;
+    try {
+      const res = await db.nightly_im_report.findAll({
+        where: { submittedBy: id },
+        include: [{ model: db.nightly_report_users }]
+      });
+      console.log(res);
+      return res;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+  async saReportsById(_, args, { db }) {
+    let { id } = args;
+    try {
+      const res = await db.nightly_sa_report.findAll({
+        where: { submittedBy: id },
+        include: [{ model: db.nightly_report_users }]
+      });
+      return res;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
   async findUser(_, args, { db }) {
     let { id, user } = args;
     let res;

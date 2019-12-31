@@ -51,11 +51,22 @@ const Home = ({ accountInfo, history }) => {
           {data.findUser.nightly_report_tables.find(
             x => x.table_type === "auth"
           ) && (
-            <Card
-              onClick={() => history.push("/auth", { userData: data.findUser })}
-            >
-              <h1>AUTH</h1>
-            </Card>
+            <>
+              <Card
+                onClick={() =>
+                  history.push("/auth", { userData: data.findUser })
+                }
+              >
+                <h1>AUTH</h1>
+              </Card>
+              <Card
+                onClick={() =>
+                  history.push("/adminview", { userData: data.findUser })
+                }
+              >
+                <h1>ADMIN VIEW</h1>
+              </Card>
+            </>
           )}
         </>
       )}

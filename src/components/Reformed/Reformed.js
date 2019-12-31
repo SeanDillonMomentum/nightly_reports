@@ -10,6 +10,7 @@ import {
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import ReformedArray from "./ReformedArray";
+import ReformedSelect from "./ReformedSelect";
 
 const StyledFormDiv = styled.div`
   margin: 15px;
@@ -41,7 +42,6 @@ const Reformed = ({ data, setData, dataValidation, flex, style }) => {
             <MuiPickersUtilsProvider key={key} utils={DateFnsUtils}>
               <KeyboardDatePicker
                 className="textFieldWrap"
-                disableToolbar
                 variant="inline"
                 format="MM/dd/yyyy"
                 margin="normal"
@@ -62,8 +62,6 @@ const Reformed = ({ data, setData, dataValidation, flex, style }) => {
             <MuiPickersUtilsProvider key={key} utils={DateFnsUtils}>
               <KeyboardTimePicker
                 className="textFieldWrap"
-                disableToolbar
-                variant="inline"
                 margin="normal"
                 name={key}
                 id={`time-picker-pitched${key}`}
@@ -91,6 +89,19 @@ const Reformed = ({ data, setData, dataValidation, flex, style }) => {
                 />
               }
               label={sentence}
+            />
+          );
+        }
+        if (currValidation.type === "select") {
+          return (
+            <ReformedSelect
+              key={key}
+              label={sentence}
+              keyVal={key}
+              data={data}
+              val={val}
+              setData={setData}
+              config={currValidation}
             />
           );
         }
