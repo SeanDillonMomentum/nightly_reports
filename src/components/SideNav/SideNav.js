@@ -4,9 +4,9 @@ import StyledSidebar from "./styles";
 //adminlevel
 import { Context } from "../../routers/AppRouter";
 import NavList from "../NavList/NavList";
-import { Home, Assignment, BarChart } from "@material-ui/icons";
+import { Home } from "@material-ui/icons";
 
-const SideNav = ({ accountInfo }) => {
+const SideNav = () => {
   const { show } = useContext(Context);
   return (
     <>
@@ -14,12 +14,6 @@ const SideNav = ({ accountInfo }) => {
         <ul>
           <NavList link="/">
             <Home />
-          </NavList>
-          <NavList link="/viewdata">
-            <Assignment />
-          </NavList>
-          <NavList link="/aggregation">
-            <BarChart />
           </NavList>
         </ul>
       </StyledSidebar>

@@ -108,6 +108,7 @@ const AuthPage = ({ history, location }) => {
       </StyledSubmit>
       <StyledSubmit style={{ width: "90%" }}>
         <Table
+          localStorageVal="authTable"
           initialSearch="user"
           data={dataTwo.allUsers}
           tableHeaders={tableHeaders}

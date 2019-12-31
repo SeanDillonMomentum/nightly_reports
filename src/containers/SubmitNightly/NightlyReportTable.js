@@ -63,6 +63,7 @@ const NightlyReportTable = ({ id }) => {
   return (
     <StyledSubmit style={{ overflow: "scroll" }}>
       <Table
+        localStorageVal="userImTable"
         initialSearch="customerName"
         data={newerData}
         tableHeaders={tableHeaders}

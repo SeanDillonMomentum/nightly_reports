@@ -41,6 +41,7 @@ const SaReports = () => {
   return (
     <StyledSubmit style={{ overflow: "scroll" }}>
       <Table
+        localStorageVal="adminSaTable"
         initialSearch="customerName"
         data={newerData}
         tableHeaders={tableHeaders}

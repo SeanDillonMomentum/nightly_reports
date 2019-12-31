@@ -19,7 +19,7 @@ import {
   Showing,
   StyledNoData
 } from "./styles";
-
+import useStateWithLocalStorage from "../../utils/localstoragehook";
 import moment from "moment";
 
 /** 
@@ -27,16 +27,23 @@ import moment from "moment";
 TableHeaders: object in format {id: "", label: "", key: ""}
 */
 
-const Table = ({ data, initialSearch, initialRowsPer = 10, tableHeaders }) => {
+const Table = ({
+  data,
+  initialSearch,
+  initialRowsPer = 10,
+  tableHeaders,
+  localStorageVal
+}) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPer);
-  const [hidden, setHidden] = useState([]);
+  // const [hidden, setHidden] = useState([]);
+  const [hidden, setHidden] = useStateWithLocalStorage(localStorageVal, []);
   const [page, setPage] = React.useState(1);
   const [currSort, setCurrSort] = useState({ key: "", direction: "" });
   const [currSearch, setCurrSearch] = useState(initialSearch);
   const [search, setSearch] = useState("");
   // util funcs
-
+  // console.log(localVal);
   // handle sort on column header clicks
   const sortHandler = column => {
     let { key, sortless } = column;

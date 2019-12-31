@@ -183,12 +183,6 @@ const NullCell = styled.td`
   font-family: ${props => props.theme.font};
   font-size: 14px;
   word-break: break-word;
-  &:first-child {
-    border-radius: 5px 0 0 0;
-  }
-  &:last-child {
-    border-radius: 0 5px 0 0;
-  }
 `;
 
 const ListViewContainer = styled.div`
