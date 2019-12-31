@@ -5,8 +5,8 @@ import AppRouter from "./routers/AppRouter";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 const client = new ApolloClient({
-  // uri: "https://trainingchecklist.momentumsolar.app/graphql"
-  uri: "http://localhost:4000"
+  uri: "https://nightlyreports.momentumsolar.app/graphql"
+  // uri: "http://localhost:4000"
 });
 
 export const Context = React.createContext({});
