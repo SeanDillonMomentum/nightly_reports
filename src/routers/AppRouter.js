@@ -7,8 +7,6 @@ import Header from "../components/Header/Header";
 import styled from "styled-components";
 import SideNav from "../components/SideNav/SideNav";
 import Login from "../components/Login";
-import ViewData from "../containers/View/ViewData";
-import Aggregation from "../containers/Aggregation/Aggregation";
 import SubmitNightly from "../containers/SubmitNightly/SubmitNightly";
 import SubmitSA from "../containers/SubmitSA/SubmitSA";
 import AuthPage from "../containers/AuthPage/AuthPage";
@@ -52,18 +50,6 @@ const AppRouter = () => {
       <BrowserRouter>
         <Switch>
           <PrivateRoute show={show} path="/" component={Home} exact={true} />
-          <PrivateRoute
-            show={show}
-            path="/viewdata"
-            component={ViewData}
-            exact={true}
-          />
-          <PrivateRoute
-            show={show}
-            path="/aggregation"
-            component={Aggregation}
-            exact={true}
-          />
           <PrivateRoute
             show={show}
             path="/submitim"
