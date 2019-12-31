@@ -3,7 +3,7 @@
     "username": "Webapp",
     "password": "MMTMwebapp01!",
     "database": "CornerStone",
-    "host": "108.60.132.254",
+    "host": "NJSRVNAV1",
     "dialect": "mssql",
     "driver": "tedious"
   },
