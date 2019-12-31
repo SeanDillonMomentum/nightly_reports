@@ -5,7 +5,9 @@ import AppRouter from "./routers/AppRouter";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 const client = new ApolloClient({
-  uri: "https://nightlyreports.momentumsolar.app/graphql"
+  // uri: "https://nightlyreports.momentumsolar.app/graphql"
+  uri:
+    "https://gbiv8i3n4m.execute-api.us-east-1.amazonaws.com/production/graphql"
   // uri: "http://localhost:4000"
 });
 
