@@ -1,0 +1,18 @@
+import { gql } from "apollo-boost";
+
+const NIGHTLY_INSTALL_BY_ID = gql`
+  query nightlyInstallById($projectNumber: String, $oppNumber: String) {
+    nightlyInstallById(projectNumber: $projectNumber, oppNumber: $oppNumber) {
+      projectNumber
+      oppNumber
+      customerName
+      address
+      foreman
+      systemSize
+      panelType
+      panelQuantity
+    }
+  }
+`;
+
+export default NIGHTLY_INSTALL_BY_ID;

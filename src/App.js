@@ -28,7 +28,7 @@ const theme = {
 };
 
 const App = () => {
-  const [state, setState] = useState("Orlando");
+  const [state, setState] = useState("SA REPORTS");
   return (
     <Context.Provider value={{ state, setState }}>
       <ApolloProvider client={client}>

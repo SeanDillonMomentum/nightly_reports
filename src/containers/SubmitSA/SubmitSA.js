@@ -13,10 +13,10 @@ const initialData = {
   customerAddress: "",
   opportunityNumber: "",
   jobType: "",
-  date: moment().format("MM/DD/YYYY"),
+  date: moment().format("MM/DD/YY"),
   siteAssessor: "",
-  sp: moment().format("MM/DD/YYYY"),
-  os: moment().format("MM/DD/YYYY"),
+  sp: moment().format("MM/DD/YY"),
+  os: moment().format("MM/DD/YY"),
   totalInterior: "",
   totalExterior: "",
   winterSolstice: 0,
@@ -35,20 +35,22 @@ const dataValidation = [
   },
   { field: "date", type: "date" },
   { field: "siteAssessor", type: "text" },
-  { field: "sp", type: "time" },
-  { field: "os", type: "time" },
+  { field: "sp", type: "time", label: "Start Project" },
+  { field: "os", type: "time", label: "Off Site" },
   { field: "totalInterior", type: "text" },
   { field: "totalExterior", type: "text" },
   { field: "notes", type: "text" },
   { field: "winterSolstice", type: "bool" },
-  { field: "saComplete", type: "bool" }
+  { field: "saComplete", type: "bool", label: "SA Complete" }
 ];
 
 const SubmitNightly = ({ location, history }) => {
   useEffect(() => {
     if (
       !location.state ||
-      !location.state.userData.nightly_report_tables.find(x => x.id === "3")
+      !location.state.userData.nightly_report_tables.find(
+        x => x.table_type === "sareport"
+      )
     )
       history.push("/");
   }, [location, history]);

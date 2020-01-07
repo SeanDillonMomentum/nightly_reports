@@ -20,15 +20,16 @@ const Home = ({ accountInfo, history }) => {
   });
   if (loading) return <OtherLoader />;
   if (error) return <div>Error</div>;
+
+  const cardCheck = authType =>
+    data.findUser.nightly_report_tables.find(x => x.table_type === authType);
   return (
     <StyledHome>
       {!data.findUser || !data.findUser.nightly_report_tables.length ? (
         <h1>No Current Permissioned Tables</h1>
       ) : (
         <>
-          {data.findUser.nightly_report_tables.find(
-            x => x.table_type === "sareport"
-          ) && (
+          {cardCheck("sareport") && (
             <Card
               onClick={() =>
                 history.push("/submitsa", { userData: data.findUser })
@@ -37,9 +38,7 @@ const Home = ({ accountInfo, history }) => {
               <h1>SA REPORT</h1>
             </Card>
           )}
-          {data.findUser.nightly_report_tables.find(
-            x => x.table_type === "imreport"
-          ) && (
+          {cardCheck("imreport") && (
             <Card
               onClick={() =>
                 history.push("/submitim", { userData: data.findUser })
@@ -48,9 +47,7 @@ const Home = ({ accountInfo, history }) => {
               <h1>IM REPORT</h1>
             </Card>
           )}
-          {data.findUser.nightly_report_tables.find(
-            x => x.table_type === "auth"
-          ) && (
+          {cardCheck("auth") && (
             <>
               <Card
                 onClick={() =>
@@ -65,6 +62,13 @@ const Home = ({ accountInfo, history }) => {
                 }
               >
                 <h1>ADMIN VIEW</h1>
+              </Card>
+              <Card
+                onClick={() =>
+                  history.push("/editcrew", { userData: data.findUser })
+                }
+              >
+                <h1>EDIT CREW</h1>
               </Card>
             </>
           )}

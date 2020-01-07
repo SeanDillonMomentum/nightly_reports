@@ -8,14 +8,18 @@ export const StyledButton = styled.button`
   width: ${props => props.width || "100px"};
   justify-content: space-evenly;
   align-items: center;
-  background-color: #001d49;
+  background-color: ${props => props.theme.midnightBlue};
   padding: 5px 10px;
-  border: none;
+  border: 2px solid white;
   border-radius: 5px;
   font-family: "Roboto", sans-serif;
   visibility: ${props => props.displayVal};
+  transition: all 0.3s;
   &:hover {
-    opacity: 0.7;
+    /* opacity: 0.7; */
+    border: 2px solid ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.midnightBlue};
+    background-color: white;
   }
 `;
 

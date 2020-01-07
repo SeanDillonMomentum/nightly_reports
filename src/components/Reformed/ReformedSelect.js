@@ -7,10 +7,7 @@ const ReformedSelect = ({ label, data, setData, keyVal, val, config }) => (
     <Select
       name={keyVal}
       value={val}
-      onChange={e =>
-        console.log(e.target) ||
-        setData({ ...data, [e.target.name]: e.target.value })
-      }
+      onChange={e => setData({ ...data, [e.target.name]: e.target.value })}
     >
       {config.options.map(option => (
         <MenuItem key={option} value={option}>

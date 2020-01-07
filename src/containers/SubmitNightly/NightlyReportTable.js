@@ -44,6 +44,11 @@ const tableHeaders = [
     label: "Submitted By",
     key: "nightly_report_user",
     secondKey: "user"
+  },
+  {
+    id: "25",
+    label: "Crew Members",
+    key: "crewMembers"
   }
 ];
 
@@ -56,7 +61,10 @@ const NightlyReportTable = ({ id }) => {
   let newerData = data.imReportsById.reduce((arr, curr) => {
     arr.push({
       ...curr,
-      nightly_report_user: curr["nightly_report_user"].user
+      nightly_report_user: curr["nightly_report_user"].user,
+      crewMembers: curr.crew_member_reports.map(
+        curr => `${curr.crew_member.name} : ${curr.crew_member_type.type}`
+      )
     });
     return arr;
   }, []);

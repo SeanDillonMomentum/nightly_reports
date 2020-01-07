@@ -36,7 +36,6 @@ const Table = ({
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPer);
-  // const [hidden, setHidden] = useState([]);
   const [hidden, setHidden] = useStateWithLocalStorage(localStorageVal, []);
   const [page, setPage] = React.useState(1);
   const [currSort, setCurrSort] = useState({ key: "", direction: "" });
@@ -122,14 +121,25 @@ const Table = ({
 
     if (Array.isArray(value))
       return (
-        <ul>
-          {value.map((y, index) => (
-            <li key={index}>{arrayVal ? y[arrayVal] : y}</li>
-          ))}
+        <ul
+          style={{
+            display: "flex",
+            listStyleType: "none",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            width: "200px"
+          }}
+        >
+          {value
+            ? value.map((y, index) => (
+                <li key={index}>{arrayVal ? y[arrayVal] : y}</li>
+              ))
+            : "N / A"}
         </ul>
       );
     if (!type) return value;
-    if (type === "date") return moment(value).format("MM/DD/YYYY h:mm a");
+    if (type === "date") return moment(value).format("MM/DD/YY h:mm a");
     if (type === "bool")
       return value === 0 ? (
         <Cancel style={{ color: "red" }} />

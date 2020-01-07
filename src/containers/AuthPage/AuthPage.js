@@ -47,7 +47,9 @@ const AuthPage = ({ history, location }) => {
   useEffect(() => {
     if (
       !location.state ||
-      !location.state.userData.nightly_report_tables.find(x => x.id === "5")
+      !location.state.userData.nightly_report_tables.find(
+        x => x.table_type === "auth"
+      )
     )
       history.push("/");
   }, [location, history]);

@@ -1,16 +1,15 @@
 import React from "react";
-import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
 import styled from "styled-components";
 import startcase from "lodash.startcase";
 import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  KeyboardDatePicker,
-  KeyboardTimePicker,
-  MuiPickersUtilsProvider
-} from "@material-ui/pickers";
-import ReformedArray from "./ReformedArray";
-import ReformedSelect from "./ReformedSelect";
+import ReformedArray from "./ReformedComponents/ReformedArray";
+import ReformedSelect from "./ReformedComponents/ReformedSelect";
+import ReformedDate from "./ReformedComponents/ReformedDate";
+import ReformedTime from "./ReformedComponents/ReformedTime";
+import ReformedSwitch from "./ReformedComponents/ReformedSwitch";
+import ReformedText from "./ReformedComponents/ReformedText";
+
+export const ReformedContext = React.createContext();
 
 const StyledFormDiv = styled.div`
   margin: 15px;
@@ -24,111 +23,59 @@ const StyledFormDiv = styled.div`
 `;
 
 const Reformed = ({ data, setData, dataValidation, flex, style }) => {
-  const handleChange = e =>
-    setData({ ...data, [e.target.name]: e.target.value });
-  const handleBool = key => {
-    setData({ ...data, [key]: data[key] ? 0 : 1 });
+  const inputType = type => {
+    let comp;
+    switch (type) {
+      case "date": {
+        comp = ReformedDate;
+        break;
+      }
+      case "time": {
+        comp = ReformedTime;
+        break;
+      }
+      case "bool": {
+        comp = ReformedSwitch;
+        break;
+      }
+      case "select": {
+        comp = ReformedSelect;
+        break;
+      }
+      case "array": {
+        comp = ReformedArray;
+        break;
+      }
+      default: {
+        comp = ReformedText;
+        break;
+      }
+    }
+    return comp;
   };
-  const handleDate = (dateVal, name) => setData({ ...data, [name]: dateVal });
-
+  console.log("renderer");
   return (
-    <StyledFormDiv style={style || null} flex={flex}>
-      {Object.entries(data).map(([key, val]) => {
-        let sentence = startcase(key);
-        let currValidation = dataValidation.find(x => x.field === key);
-        if (!currValidation) return null;
-        if (currValidation.type === "date") {
+    <ReformedContext.Provider
+      value={{ data, setData, dataValidation, flex, style }}
+    >
+      <StyledFormDiv style={style || null} flex={flex}>
+        {Object.entries(data).map(([key, val]) => {
+          let currValidation = dataValidation.find(x => x.field === key);
+          if (!currValidation) return null;
+          let sentence = currValidation.label || startcase(key);
+          let InputComponent = inputType(currValidation.type);
           return (
-            <MuiPickersUtilsProvider key={key} utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                className="textFieldWrap"
-                variant="inline"
-                format="MM/dd/yyyy"
-                margin="normal"
-                name={key}
-                id={`date-picker-pitched${key}`}
-                label={sentence}
-                value={val}
-                onChange={e => handleDate(e, key)}
-                KeyboardButtonProps={{
-                  "aria-label": "change date"
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          );
-        }
-        if (currValidation.type === "time") {
-          return (
-            <MuiPickersUtilsProvider key={key} utils={DateFnsUtils}>
-              <KeyboardTimePicker
-                className="textFieldWrap"
-                margin="normal"
-                name={key}
-                id={`time-picker-pitched${key}`}
-                label={sentence}
-                value={val}
-                onChange={e => handleDate(e, key)}
-                KeyboardButtonProps={{
-                  "aria-label": "change time"
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          );
-        }
-        if (currValidation.type === "bool") {
-          return (
-            <FormControlLabel
+            <InputComponent
               key={key}
-              control={
-                <Checkbox
-                  checked={val ? true : false}
-                  onChange={() => handleBool(key)}
-                  name={key}
-                  value={key}
-                  color="primary"
-                />
-              }
+              input={key}
               label={sentence}
-            />
-          );
-        }
-        if (currValidation.type === "select") {
-          return (
-            <ReformedSelect
-              key={key}
-              label={sentence}
-              keyVal={key}
-              data={data}
               val={val}
-              setData={setData}
               config={currValidation}
             />
           );
-        }
-        if (currValidation.type === "array") {
-          return (
-            <ReformedArray
-              key={key}
-              label={sentence}
-              data={data}
-              config={currValidation}
-              setData={setData}
-            />
-          );
-        }
-        return (
-          <TextField
-            key={key}
-            className="textFieldWrap"
-            label={sentence}
-            name={key}
-            value={val}
-            onChange={e => handleChange(e)}
-            placeholder={sentence}
-          />
-        );
-      })}
-    </StyledFormDiv>
+        })}
+      </StyledFormDiv>
+    </ReformedContext.Provider>
   );
 };
 

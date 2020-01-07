@@ -1,8 +1,11 @@
 import { gql } from "apollo-boost";
 
 const CREATE_IM_REPORT = gql`
-  mutation createImReport($report: ImReportInput) {
-    createImReport(report: $report) {
+  mutation createImReport(
+    $report: ImReportInput
+    $crewMembers: [CrewMemberInput]!
+  ) {
+    createImReport(report: $report, crewMembers: $crewMembers) {
       id
       submittedBy
     }

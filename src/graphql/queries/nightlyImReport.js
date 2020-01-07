@@ -31,6 +31,18 @@ const NIGHTLY_IM_REPORTS = gql`
       nightly_report_user {
         user
       }
+      crew_member_reports {
+        id
+        report
+        crewMember
+        crewMemberType
+        crew_member {
+          name
+        }
+        crew_member_type {
+          type
+        }
+      }
     }
   }
 `;
