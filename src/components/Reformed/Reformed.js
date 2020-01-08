@@ -53,7 +53,6 @@ const Reformed = ({ data, setData, dataValidation, flex, style }) => {
     }
     return comp;
   };
-  console.log("renderer");
   return (
     <ReformedContext.Provider
       value={{ data, setData, dataValidation, flex, style }}

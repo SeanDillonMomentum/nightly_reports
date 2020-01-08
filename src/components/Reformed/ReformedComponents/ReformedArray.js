@@ -41,12 +41,11 @@ const StyledOptions = styled.div`
   .select-wrapper {
     position: relative;
     z-index: 2;
-    border: 1px solid rgba(228, 236, 250, 0.7);
+    border: 1px solid lightgray;
     margin: 5px 0;
     border-radius: 8px;
     background: #fff;
     font-size: 14px;
-
     box-shadow: 0 4px 16px 0 rgba(#162a5a, 0.12);
     transition: box-shadow 0.3s ease;
     &:hover {
@@ -55,7 +54,7 @@ const StyledOptions = styled.div`
   }
   .flexBubbles {
     flex: 1 0 35%;
-    background: rgba(228, 236, 250, 0.7);
+    background: rgba(228, 236, 250, 1);
     margin: 5px;
     border-radius: 5px;
     font-size: 12px;

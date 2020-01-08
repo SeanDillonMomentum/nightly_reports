@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import ALL_CREW_MEMBERS from "../../graphql/queries/crewMembers";
 import ALL_CREW_MEMBER_TYPES from "../../graphql/queries/crewMemberTypes";
@@ -15,17 +15,7 @@ import { StyledEdit } from "./styles";
 import AddCrewType from "./AddCrewType";
 import AddCrewMember from "./AddCrewMember";
 
-const EditCrew = ({ history, location }) => {
-  useEffect(() => {
-    if (
-      !location.state ||
-      !location.state.userData.nightly_report_tables.find(
-        x => x.table_type === "auth"
-      )
-    )
-      history.push("/");
-  }, [location, history]);
-
+const EditCrew = () => {
   const { loading, error, data } = useQuery(ALL_CREW_MEMBERS);
   const { loading: loadingTwo, error: errorTwo, data: dataTwo } = useQuery(
     ALL_CREW_MEMBER_TYPES
@@ -49,6 +39,7 @@ const EditCrew = ({ history, location }) => {
               <TableHead>
                 <TableRow className="tableHeaders">
                   <TableCell>Name</TableCell>
+                  <TableCell>Email</TableCell>
                   <TableCell>
                     <Edit />
                   </TableCell>
@@ -66,6 +57,7 @@ const EditCrew = ({ history, location }) => {
                   crewMembers.map(member => (
                     <TableRow key={member.id}>
                       <TableCell>{member.name}</TableCell>
+                      <TableCell>{member.email || "n/a"}</TableCell>
                       <TableCell>
                         <Edit />
                       </TableCell>

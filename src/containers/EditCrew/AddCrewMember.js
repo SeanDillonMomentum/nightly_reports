@@ -10,17 +10,29 @@ const AddCrewMember = () => {
   });
   const [submitting, setSubmitting] = useState(false);
   const [memberName, setMemberName] = useState("");
+  const [memberEmail, setMemberEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
   const submitForm = async e => {
     e.preventDefault();
     setSubmitting(true);
+    if (!memberName) {
+      setError("Please Enter Member Name");
+      return;
+    }
+    if (!memberEmail) {
+      setError("Please Enter Member Email");
+      return;
+    }
     try {
-      await addCrewMember({ variables: { name: memberName } });
+      await addCrewMember({
+        variables: { name: memberName, email: memberEmail }
+      });
       error && setError("");
       setSubmitting(false);
       setMemberName("");
+      setMemberEmail("");
       setSuccess("Successfully Added!");
       setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
@@ -40,6 +52,14 @@ const AddCrewMember = () => {
           placeholder="Member Name"
           onChange={e => setMemberName(e.target.value)}
           value={memberName}
+        />
+        <TextField
+          className="inputLength"
+          label="Member Email"
+          name="email"
+          placeholder="Member Email"
+          onChange={e => setMemberEmail(e.target.value)}
+          value={memberEmail}
         />
         {error && <span className="error">{error}</span>}
         {success && <span className="success">{success}</span>}

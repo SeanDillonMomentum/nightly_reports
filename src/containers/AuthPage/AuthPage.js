@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
 import Table from "../../components/TableNew/Table";
 import Reformed from "../../components/Reformed/Reformed";
@@ -43,16 +43,7 @@ const tableHeaders = [
   }
 ];
 
-const AuthPage = ({ history, location }) => {
-  useEffect(() => {
-    if (
-      !location.state ||
-      !location.state.userData.nightly_report_tables.find(
-        x => x.table_type === "auth"
-      )
-    )
-      history.push("/");
-  }, [location, history]);
+const AuthPage = () => {
   const [addUser] = useMutation(ADD_USER);
   const { loading, error, data } = useQuery(ALL_TABLES);
   const { loading: loadingTwo, error: errorTwo, data: dataTwo } = useQuery(

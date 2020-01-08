@@ -8,11 +8,8 @@ const IM_REPORTS_BY_ID = gql`
       customerAddress
       jobType
       date
-      foreman
-      crewDesignator
       sp
       os
-      crewCount
       electricalTotalHours
       installationTotalHours
       roundTripTotalHours

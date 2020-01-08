@@ -11,6 +11,16 @@ const StyledSubmit = styled.div`
   border-bottom: 2px solid lightgray;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   flex-direction: column;
+  h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .searchTeam {
+    width: 300px;
+    margin: 15px 0;
+  }
   .deleteHover {
     &:hover {
       opacity: 0.7;

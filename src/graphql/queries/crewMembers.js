@@ -5,6 +5,7 @@ const ALL_CREW_MEMBERS = gql`
     crewMembers {
       id
       name
+      email
     }
   }
 `;

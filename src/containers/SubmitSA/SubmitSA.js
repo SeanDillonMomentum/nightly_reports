@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../../App";
 import Reformed from "../../components/Reformed/Reformed";
 import moment from "moment";
 import { StyledButton } from "../Home/styles";
 import { StyledSubmit } from "./styles";
 import { useMutation } from "@apollo/react-hooks";
 import SuccessModal from "../../components/Modal/SuccessModal";
+import FIND_USER from "../../graphql/queries/findUser";
 import CREATE_SA_REPORT from "../../graphql/mutations/createSaReport";
 import NightlySATable from "./NightlySATable";
 
@@ -31,11 +33,19 @@ const dataValidation = [
   {
     field: "jobType",
     type: "select",
-    options: ["Full", "Exterior", "Interior"]
+    options: [
+      "Full (Initial)",
+      "Exterior Only (Initial)",
+      "Interior Only (Initial)",
+      "Full (Go Back)",
+      "Exterior Only (Go Back)",
+      "Interior Only (Go Back)",
+      "Other"
+    ]
   },
   { field: "date", type: "date" },
   { field: "siteAssessor", type: "text" },
-  { field: "sp", type: "time", label: "Start Project" },
+  { field: "sp", type: "time", label: "On Site" },
   { field: "os", type: "time", label: "Off Site" },
   { field: "totalInterior", type: "text" },
   { field: "totalExterior", type: "text" },
@@ -44,16 +54,13 @@ const dataValidation = [
   { field: "saComplete", type: "bool", label: "SA Complete" }
 ];
 
-const SubmitNightly = ({ location, history }) => {
-  useEffect(() => {
-    if (
-      !location.state ||
-      !location.state.userData.nightly_report_tables.find(
-        x => x.table_type === "sareport"
-      )
-    )
-      history.push("/");
-  }, [location, history]);
+const SubmitNightly = ({ accountInfo }) => {
+  const { client } = useContext(Context);
+  const { findUser } = client.readQuery({
+    query: FIND_USER,
+    variables: { user: accountInfo.account.userName.toLowerCase() }
+  });
+
   const [createSaReport] = useMutation(CREATE_SA_REPORT);
   const [formData, setFormData] = useState(initialData);
   const [modalOpen, setModalOpen] = useState(false);
@@ -63,7 +70,7 @@ const SubmitNightly = ({ location, history }) => {
   const createReport = async () => {
     const report = {
       ...formData,
-      submittedBy: location.state.userData.id
+      submittedBy: findUser.id
     };
 
     if (Object.values(report).filter(x => x === "").length) {
@@ -103,7 +110,7 @@ const SubmitNightly = ({ location, history }) => {
           SUBMIT{submitting && "ING"}
         </StyledButton>
       </StyledSubmit>
-      <NightlySATable id={location.state.userData.id} />
+      <NightlySATable id={findUser.id} />
     </>
   );
 };

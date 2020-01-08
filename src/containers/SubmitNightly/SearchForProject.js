@@ -6,7 +6,7 @@ import { StyledSearchInputs } from "./styles";
 import { StyledButton } from "../Home/styles";
 
 const SearchForProject = ({ data, setData }) => {
-  const [nightlyInstallQuery, { loading, error, data: dataTwo }] = useLazyQuery(
+  const [nightlyInstallQuery, { loading, data: dataTwo }] = useLazyQuery(
     NIGHTLY_INSTALL_BY_ID
   );
   useEffect(() => {
@@ -16,7 +16,6 @@ const SearchForProject = ({ data, setData }) => {
         oppNumber,
         customerName,
         address,
-        foreman,
         systemSize,
         panelType,
         panelQuantity
@@ -27,7 +26,6 @@ const SearchForProject = ({ data, setData }) => {
         oppNumber,
         customerName,
         customerAddress: address,
-        foreman: foreman || "N/A",
         dcSize: systemSize.toString(),
         panelType,
         panelCount: panelQuantity
@@ -40,7 +38,6 @@ const SearchForProject = ({ data, setData }) => {
     if (type === "proj")
       nightlyInstallQuery({ variables: { projectNumber: data.projectNumber } });
   };
-
   return (
     <StyledSearchInputs>
       <div className="inputSearch">

@@ -8,11 +8,8 @@ const NIGHTLY_IM_REPORTS = gql`
       customerAddress
       jobType
       date
-      foreman
-      crewDesignator
       sp
       os
-      crewCount
       electricalTotalHours
       installationTotalHours
       roundTripTotalHours

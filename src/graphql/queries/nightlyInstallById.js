@@ -7,7 +7,6 @@ const NIGHTLY_INSTALL_BY_ID = gql`
       oppNumber
       customerName
       address
-      foreman
       systemSize
       panelType
       panelQuantity

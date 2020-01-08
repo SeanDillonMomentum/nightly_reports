@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { withRouter, BrowserRouter, Switch } from "react-router-dom";
 import Home from "../containers/Home/Home";
 import { authProvider } from "../Auth/authConfig";
@@ -12,6 +12,7 @@ import SubmitSA from "../containers/SubmitSA/SubmitSA";
 import AuthPage from "../containers/AuthPage/AuthPage";
 import AdminView from "../containers/AdminView/AdminView";
 import EditCrew from "../containers/EditCrew/EditCrew";
+import EditTeam from "../containers/EditTeam/EditTeam";
 
 const Context = React.createContext({});
 const StyledApp = styled.div`
@@ -23,7 +24,7 @@ export { Context };
 
 const PrivateRoute = withRouter(props => {
   const { component: Component, show } = props;
-
+  const { wasHome } = useContext(Context);
   return (
     <AzureAD provider={authProvider}>
       {({ accountInfo }) => {
@@ -32,7 +33,11 @@ const PrivateRoute = withRouter(props => {
             <Header accountInfo={accountInfo} />
             <SideNav accountInfo={accountInfo} />
             <StyledApp show={show}>
-              <Component {...props} accountInfo={accountInfo} />
+              {!wasHome ? (
+                <Home {...props} accountInfo={accountInfo} />
+              ) : (
+                <Component {...props} accountInfo={accountInfo} />
+              )}
             </StyledApp>
           </>
         ) : (
@@ -45,9 +50,9 @@ const PrivateRoute = withRouter(props => {
 
 const AppRouter = () => {
   const [show, setShow] = useState(true);
-
+  const [wasHome, setWasHome] = useState(false);
   return (
-    <Context.Provider value={{ show, setShow }}>
+    <Context.Provider value={{ show, setShow, wasHome, setWasHome }}>
       <BrowserRouter>
         <Switch>
           <PrivateRoute show={show} path="/" component={Home} exact={true} />
@@ -79,6 +84,12 @@ const AppRouter = () => {
             show={show}
             path="/editcrew"
             component={EditCrew}
+            exact={true}
+          />
+          <PrivateRoute
+            show={show}
+            path="/editteams"
+            component={EditTeam}
             exact={true}
           />
         </Switch>

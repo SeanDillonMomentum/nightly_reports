@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../../routers/AppRouter";
 import { Card } from "./styles";
 import { useQuery } from "@apollo/react-hooks";
 import FIND_USER from "../../graphql/queries/findUser";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
 import styled from "styled-components";
-// import NightlyReport from "./NightlyReport";
 
 const StyledHome = styled.div`
   margin: 0 auto;
@@ -15,9 +15,16 @@ const StyledHome = styled.div`
 `;
 
 const Home = ({ accountInfo, history }) => {
+  const { setWasHome, wasHome } = useContext(Context);
   const { loading, error, data } = useQuery(FIND_USER, {
     variables: { user: accountInfo.account.userName.toLowerCase() }
   });
+  useEffect(() => {
+    if (!wasHome && data && data.findUser) {
+      setWasHome(true);
+    }
+  }, [setWasHome, data, wasHome]);
+
   if (loading) return <OtherLoader />;
   if (error) return <div>Error</div>;
 
@@ -39,13 +46,22 @@ const Home = ({ accountInfo, history }) => {
             </Card>
           )}
           {cardCheck("imreport") && (
-            <Card
-              onClick={() =>
-                history.push("/submitim", { userData: data.findUser })
-              }
-            >
-              <h1>IM REPORT</h1>
-            </Card>
+            <>
+              <Card
+                onClick={() =>
+                  history.push("/submitim", { userData: data.findUser })
+                }
+              >
+                <h1>IM REPORT</h1>
+              </Card>
+              <Card
+                onClick={() =>
+                  history.push("/editteams", { userData: data.findUser })
+                }
+              >
+                <h1>EDIT TEAMS</h1>
+              </Card>
+            </>
           )}
           {cardCheck("auth") && (
             <>

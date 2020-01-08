@@ -20,12 +20,13 @@ const StyledDownshift = styled.div`
     margin-top: 10px;
     border-radius: 5px;
     padding: 5px;
-    border: 1px #e9e9e9 solid;
+    border: 1px lightgray solid;
   }
 `;
 
 const CrewMembersInput = ({ items, setData, data, memberTypes }) => {
   let currentItems = items.filter(x => !data.find(y => y.name === x.name));
+
   return (
     <>
       <SearchStyles>
@@ -47,14 +48,17 @@ const CrewMembersInput = ({ items, setData, data, memberTypes }) => {
             getRootProps
           }) => (
             <StyledDownshift>
-              <label {...getLabelProps()}>Crew Member Name</label>
+              <label {...getLabelProps()}>Search By Crew Member Name</label>
               <div
                 style={{ display: "inline-block" }}
                 {...getRootProps({}, { suppressRefError: true })}
               >
                 <input {...getInputProps()} />
               </div>
-              <div {...getMenuProps()}>
+              <div
+                style={{ maxHeight: "200px", overflow: "scroll" }}
+                {...getMenuProps()}
+              >
                 {isOpen && inputValue
                   ? currentItems
                       .filter(
@@ -64,19 +68,16 @@ const CrewMembersInput = ({ items, setData, data, memberTypes }) => {
                             .toLowerCase()
                             .includes(inputValue.toLowerCase())
                       )
-                      .map(
-                        (item, index) =>
-                          console.log(item) || (
-                            <DropDown key={index}>
-                              <DropDownItem
-                                highlighted={highlightedIndex === index}
-                                {...getItemProps({ item, index, key: item.id })}
-                              >
-                                {item.name}
-                              </DropDownItem>
-                            </DropDown>
-                          )
-                      )
+                      .map((item, index) => (
+                        <DropDown key={index}>
+                          <DropDownItem
+                            highlighted={highlightedIndex === index}
+                            {...getItemProps({ item, index, key: item.id })}
+                          >
+                            {item.name}
+                          </DropDownItem>
+                        </DropDown>
+                      ))
                   : null}
               </div>
             </StyledDownshift>
