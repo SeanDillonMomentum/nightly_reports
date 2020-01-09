@@ -12,6 +12,7 @@ const ReformedText = ({ label, input, val }) => {
     <TextField
       multiline={true}
       key={input}
+      type="number"
       className="textFieldWrap"
       label={label}
       name={input}
