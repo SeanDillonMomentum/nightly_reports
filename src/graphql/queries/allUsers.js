@@ -5,6 +5,7 @@ const ALL_USERS = gql`
     allUsers {
       id
       user
+      defaultState
       nightly_report_tables {
         id
         table_type

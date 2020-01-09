@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { TextField } from "@material-ui/core";
 import { StyledButton } from "../Home/styles";
 import ADD_CREW_MEMBER from "../../graphql/mutations/addCrewMember";
 
 const AddCrewMember = () => {
+  const timeout = useRef(false);
   const [addCrewMember] = useMutation(ADD_CREW_MEMBER, {
     refetchQueries: ["crewMembers"]
   });
@@ -13,7 +14,9 @@ const AddCrewMember = () => {
   const [memberEmail, setMemberEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  useEffect(() => {
+    return () => clearTimeout(timeout.current);
+  }, []);
   const submitForm = async e => {
     e.preventDefault();
     setSubmitting(true);
@@ -34,7 +37,7 @@ const AddCrewMember = () => {
       setMemberName("");
       setMemberEmail("");
       setSuccess("Successfully Added!");
-      setTimeout(() => setSuccess(""), 3000);
+      timeout.current = setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
       setSubmitting(false);
       setError("An error occurred");

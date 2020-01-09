@@ -10,7 +10,7 @@ import { StyledButton } from "../Home/styles";
 
 import styled from "styled-components";
 import SuccessModal from "../../components/Modal/SuccessModal";
-let initialState = { user: "", tables: [] };
+let initialState = { user: "", tables: [], defaultState: "" };
 
 const StyledSubmit = styled.div`
   display: flex;
@@ -30,7 +30,28 @@ const StyledSubmit = styled.div`
 const dataValidation = options => {
   return [
     { field: "user", type: "text" },
-    { field: "tables", type: "array", options, optionsKey: "table_type" }
+    { field: "tables", type: "array", options, optionsKey: "table_type" },
+    {
+      field: "defaultState",
+      type: "select",
+      label: "Default State",
+      options: [
+        "Cherry Hill, NJ",
+        "South Plainfield, NJ",
+        "Metuchen, NJ",
+        "Plainview, NY",
+        "Lancaster, PA",
+        "East Berlin, CT",
+        "Stamford, CT",
+        "Ft. Lauderdale, FL",
+        "Orlando, FL",
+        "Tampa, FL",
+        "Austin, TX",
+        "Dallas, TX",
+        "San Antonio, TX",
+        "Orange, CA"
+      ]
+    }
   ];
 };
 const tableHeaders = [
@@ -40,6 +61,11 @@ const tableHeaders = [
     label: "Permissions",
     key: "nightly_report_tables",
     arrayVal: "table_type"
+  },
+  {
+    id: "3",
+    label: "Default State",
+    key: "defaultState"
   }
 ];
 
@@ -58,9 +84,13 @@ const AuthPage = () => {
   if (error || errorTwo) return <div>error</div>;
 
   const submitUser = async () => {
-    let { user, tables: tablesData } = userData;
+    let { user, tables: tablesData, defaultState } = userData;
     if (!tablesData.length) {
       setErrors(["No Permissions Selected"]);
+      return;
+    }
+    if (!user || !defaultState) {
+      setErrors(["Please Enter Email and Default State"]);
       return;
     }
 
@@ -71,7 +101,7 @@ const AuthPage = () => {
     setSubmitting(true);
     try {
       await addUser({
-        variables: { tables, user },
+        variables: { tables, user, defaultState },
         refetchQueries: [{ query: ALL_USERS }]
       });
       setModalOpen(true);

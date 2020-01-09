@@ -5,6 +5,7 @@ const FIND_USER = gql`
     findUser(id: $id, user: $user) {
       id
       recentTeam
+      defaultState
       nightly_report_tables {
         id
         table_type
