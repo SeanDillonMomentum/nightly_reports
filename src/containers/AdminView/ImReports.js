@@ -32,7 +32,7 @@ const tableHeaders = [
   { id: "15", label: "Panel Type", key: "panelType" },
   { id: "16", label: "Panel Count", key: "panelCount" },
   { id: "17", label: "DC Size", key: "dcSize" },
-  { id: "18", label: "Panels Installed", key: "panelsInstalled" },
+  { id: "18", label: "Panels Installed", key: "panelsInstalled", type: "bool" },
   { id: "19", label: "Notes", key: "notes" },
   { id: "20", label: "Office", key: "office" },
   {
@@ -40,6 +40,11 @@ const tableHeaders = [
     label: "Submitted By",
     key: "nightly_report_user",
     secondKey: "user"
+  },
+  {
+    id: "22",
+    label: "Crew Members",
+    key: "crewMembers"
   }
 ];
 

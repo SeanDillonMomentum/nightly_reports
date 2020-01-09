@@ -154,7 +154,6 @@ const SubmitNightly = ({ accountInfo, history }) => {
       setError("All Crew Members must have member type");
       return;
     }
-
     const report = {
       ...formData,
       panelCount: +formData.panelCount,

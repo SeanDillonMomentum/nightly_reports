@@ -8,6 +8,7 @@ import ReformedDate from "./ReformedComponents/ReformedDate";
 import ReformedTime from "./ReformedComponents/ReformedTime";
 import ReformedSwitch from "./ReformedComponents/ReformedSwitch";
 import ReformedText from "./ReformedComponents/ReformedText";
+import ReformedSlider from "./ReformedComponents/ReformedSlider";
 
 export const ReformedContext = React.createContext();
 
@@ -40,6 +41,10 @@ const Reformed = ({ data, setData, dataValidation, flex, style }) => {
       }
       case "select": {
         comp = ReformedSelect;
+        break;
+      }
+      case "slider": {
+        comp = ReformedSlider;
         break;
       }
       case "array": {

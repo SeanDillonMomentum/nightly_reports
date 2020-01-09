@@ -24,12 +24,14 @@ export const StyledButton = styled.button`
 `;
 
 export const Card = styled.div`
-  margin: 30px auto;
+  margin: 30px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   font-family: ${props => props.theme.font};
   color: ${props => props.theme.midnightBlue};
+  flex: 1 0 30%;
+  text-align: center;
   &:hover {
     opacity: 0.7;
   }

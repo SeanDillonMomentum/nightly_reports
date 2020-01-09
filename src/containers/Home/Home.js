@@ -12,6 +12,7 @@ const StyledHome = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const Home = ({ accountInfo, history }) => {
@@ -37,54 +38,30 @@ const Home = ({ accountInfo, history }) => {
       ) : (
         <>
           {cardCheck("sareport") && (
-            <Card
-              onClick={() =>
-                history.push("/submitsa", { userData: data.findUser })
-              }
-            >
+            <Card onClick={() => history.push("/submitsa")}>
               <h1>SA REPORT</h1>
             </Card>
           )}
           {cardCheck("imreport") && (
             <>
-              <Card
-                onClick={() =>
-                  history.push("/submitim", { userData: data.findUser })
-                }
-              >
+              <Card onClick={() => history.push("/submitim")}>
                 <h1>IM REPORT</h1>
               </Card>
-              <Card
-                onClick={() =>
-                  history.push("/editteams", { userData: data.findUser })
-                }
-              >
+              <Card onClick={() => history.push("/editteams")}>
                 <h1>EDIT TEAMS</h1>
               </Card>
             </>
           )}
           {cardCheck("auth") && (
             <>
-              <Card
-                onClick={() =>
-                  history.push("/auth", { userData: data.findUser })
-                }
-              >
+              <Card onClick={() => history.push("/auth")}>
                 <h1>AUTH</h1>
               </Card>
-              <Card
-                onClick={() =>
-                  history.push("/adminview", { userData: data.findUser })
-                }
-              >
+              <Card onClick={() => history.push("/adminview")}>
                 <h1>ADMIN VIEW</h1>
               </Card>
-              <Card
-                onClick={() =>
-                  history.push("/editcrew", { userData: data.findUser })
-                }
-              >
-                <h1>EDIT CREW</h1>
+              <Card onClick={() => history.push("/editcrew")}>
+                <h1>EDIT CREW/CREW TYPES</h1>
               </Card>
             </>
           )}

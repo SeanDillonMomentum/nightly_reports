@@ -7,6 +7,7 @@ const NIGHTLY_SA_REPORTS = gql`
       customerName
       customerAddress
       opportunityNumber
+      projectNumber
       jobType
       date
       siteAssessor

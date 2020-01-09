@@ -9,21 +9,22 @@ const tableHeaders = [
   { id: "1", label: "Customer Name", key: "customerName" },
   { id: "2", label: "Address", key: "customerAddress" },
   { id: "3", label: "Opportunity Number", key: "opportunityNumber" },
-  { id: "4", label: "Job Type", key: "jobType" },
-  { id: "5", label: "Submittal Date", key: "date", type: "date" },
-  { id: "6", label: "Site Assessor", key: "siteAssessor" },
-  { id: "7", label: "S/P", key: "sp", type: "date" },
-  { id: "8", label: "O/S", key: "os", type: "date" },
-  { id: "9", label: "Winter Solstice", key: "winterSolstice", type: "bool" },
-  { id: "10", label: "Total Interior", key: "totalInterior" },
+  { id: "4", label: "Project Number", key: "projectNumber" },
+  { id: "5", label: "Job Type", key: "jobType" },
+  { id: "6", label: "Submittal Date", key: "date", type: "date" },
+  { id: "7", label: "Site Assessor", key: "siteAssessor" },
+  { id: "8", label: "S/P", key: "sp", type: "date" },
+  { id: "9", label: "O/S", key: "os", type: "date" },
+  { id: "10", label: "Winter Solstice", key: "winterSolstice", type: "bool" },
+  { id: "11", label: "Total Interior ⏰", key: "totalInterior" },
   {
-    id: "11",
-    label: "Total Exterior",
+    id: "12",
+    label: "Total Exterior ⏰",
     key: "totalExterior"
   },
-  { id: "12", label: "SA Complete", key: "saComplete", type: "bool" },
-  { id: "13", label: "Notes", key: "notes" },
-  { id: "14", label: "Submitted By", key: "nightly_report_user" }
+  { id: "13", label: "SA Complete", key: "saComplete", type: "bool" },
+  { id: "14", label: "Notes", key: "notes" },
+  { id: "15", label: "Submitted By", key: "nightly_report_user" }
 ];
 
 const SAReportTable = ({ id }) => {

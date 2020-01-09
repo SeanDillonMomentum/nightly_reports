@@ -7,6 +7,7 @@ const SA_REPORTS_BY_ID = gql`
       customerName
       customerAddress
       opportunityNumber
+      projectNumber
       jobType
       date
       siteAssessor

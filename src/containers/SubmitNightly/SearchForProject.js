@@ -16,22 +16,24 @@ const SearchForProject = ({ data, setData }) => {
         oppNumber,
         customerName,
         address,
-        systemSize,
-        panelType,
-        panelQuantity
+        systemSize
+        // panelType,
+        // panelQuantity
       } = dataTwo.nightlyInstallById;
-      setData({
-        ...data,
-        projectNumber,
-        oppNumber,
-        customerName,
-        customerAddress: address,
-        dcSize: systemSize.toString(),
-        panelType,
-        panelCount: panelQuantity
+      setData(prevData => {
+        return {
+          ...prevData,
+          projectNumber,
+          oppNumber,
+          customerName,
+          customerAddress: address,
+          dcSize: systemSize.toString()
+          // panelType,
+          // panelCount: panelQuantity
+        };
       });
     }
-  }, [dataTwo]);
+  }, [dataTwo, setData]);
   const queryProj = type => {
     if (type === "opp")
       nightlyInstallQuery({ variables: { oppNumber: data.oppNumber } });

@@ -13,6 +13,7 @@ const ReformedSwitch = ({ val, input, label }) => {
   return (
     <FormControlLabel
       key={input}
+      className="textFieldWrap"
       control={
         <Checkbox
           checked={val ? true : false}
