@@ -52,8 +52,7 @@ const dataValidation = options => {
         "Interior Only (Initial)",
         "Full (Go Back)",
         "Exterior Only (Go Back)",
-        "Interior Only (Go Back)",
-        "Other"
+        "Interior Only (Go Back)"
       ]
     },
     { field: "date", type: "date" },

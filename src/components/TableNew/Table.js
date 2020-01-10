@@ -139,7 +139,10 @@ const Table = ({
         </ul>
       );
     if (!type) return value;
-    if (type === "date") return moment(value).format("MM/DD/YY h:mm a");
+    if (type === "date")
+      return moment(value)
+        .utc()
+        .format("MM/DD/YY h:mm a");
     if (type === "bool")
       return value === 0 ? (
         <Cancel style={{ color: "red" }} />

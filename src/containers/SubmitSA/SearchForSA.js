@@ -35,7 +35,7 @@ const SearchForSA = ({ data, setData }) => {
   }, [dataTwo, setData]);
   const queryProj = type => {
     if (type === "opp")
-      siteAssessById({ variables: { oppNumber: data.oppNumber } });
+      siteAssessById({ variables: { oppNumber: data.opportunityNumber } });
     if (type === "proj")
       siteAssessById({ variables: { projectNumber: data.projectNumber } });
   };
