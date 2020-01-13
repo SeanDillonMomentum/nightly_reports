@@ -23,9 +23,9 @@ const SearchForSA = ({ data, setData }) => {
         return {
           ...prevData,
           customerName: name,
-          date:
-            moment(iis_sitevisitappt).format("MM/DD/YY") ||
-            moment().format("MM/DD/YY"),
+          date: iis_sitevisitappt
+            ? moment(iis_sitevisitappt).format("MM/DD/YY")
+            : moment().format("MM/DD/YY"),
           projectNumber: velosio_projectnumber,
           opportunityNumber: iis_opportunitynumber,
           customerAddress: address1_composite

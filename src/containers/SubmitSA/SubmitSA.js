@@ -92,13 +92,16 @@ const SubmitNightly = ({ accountInfo }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  //   console.log(formData);
+
   const createReport = async () => {
     const report = {
       ...formData,
       totalInterior: convertToTime(formData.totalInterior),
       totalExterior: convertToTime(formData.totalExterior),
-      submittedBy: findUser.id
+      submittedBy: findUser.id,
+      sp: moment(formData.sp).format("MM/DD/YY h:mm a"),
+      os: moment(formData.os).format("MM/DD/YY h:mm a"),
+      date: moment(formData.date).format("MM/DD/YY")
     };
 
     if (Object.values(report).filter(x => x === "").length) {
