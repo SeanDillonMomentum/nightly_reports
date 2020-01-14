@@ -6,7 +6,7 @@ import { StyledSearchInputs } from "./styles";
 import { StyledButton } from "../Home/styles";
 import moment from "moment";
 
-const SearchForSA = ({ data, setData }) => {
+const SearchForSA = ({ data, setData, setCrmId }) => {
   const [siteAssessById, { loading, data: dataTwo }] = useLazyQuery(
     SITE_ASSESS_BY_ID
   );
@@ -17,8 +17,10 @@ const SearchForSA = ({ data, setData }) => {
         velosio_projectnumber,
         iis_opportunitynumber,
         name,
-        iis_sitevisitappt
+        iis_sitevisitappt,
+        iis_projectid
       } = dataTwo.siteAssessById;
+      setCrmId(iis_projectid);
       setData(prevData => {
         return {
           ...prevData,

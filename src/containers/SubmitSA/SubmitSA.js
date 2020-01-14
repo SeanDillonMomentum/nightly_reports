@@ -13,6 +13,7 @@ import NightlySATable from "./NightlySATable";
 import SearchForProject from "./SearchForSA";
 import ALL_SITE_ASSESSORS from "../../graphql/queries/allSiteAssessors";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
+import axios from "axios";
 
 function convertToTime(n) {
   var num = n;
@@ -88,6 +89,9 @@ const SubmitNightly = ({ accountInfo }) => {
       { query: SA_REPORTS_BY_ID, variables: { id: findUser.id } }
     ]
   });
+
+  const [crmId, setCrmId] = useState("");
+
   const [formData, setFormData] = useState(initialData);
   const [modalOpen, setModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -112,6 +116,10 @@ const SubmitNightly = ({ accountInfo }) => {
     setError(false);
     try {
       await createSaReport({ variables: { report } });
+      await axios.post(
+        "https://9gxdh56qg8.execute-api.us-east-1.amazonaws.com/api/updatenotes",
+        { notes: report.notes, submittedBy: report.submittedBy, appid: crmId }
+      );
       setModalOpen(true);
       setSubmitting(false);
       setFormData(initialData);
@@ -127,7 +135,11 @@ const SubmitNightly = ({ accountInfo }) => {
     <>
       <StyledSubmit>
         <h1>NIGHTLY SA REPORT</h1>
-        <SearchForProject data={formData} setData={setFormData} />
+        <SearchForProject
+          setCrmId={setCrmId}
+          data={formData}
+          setData={setFormData}
+        />
         <Reformed
           flex="25%"
           data={formData}

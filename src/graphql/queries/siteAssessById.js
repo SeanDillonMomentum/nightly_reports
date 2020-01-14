@@ -8,6 +8,7 @@ const SITE_ASSESS_BY_ID = gql`
       iis_opportunitynumber
       iis_sitevisitappt
       name
+      iis_projectid
     }
   }
 `;
