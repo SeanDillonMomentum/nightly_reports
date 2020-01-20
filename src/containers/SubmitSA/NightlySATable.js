@@ -23,8 +23,23 @@ const tableHeaders = [
     key: "totalExterior"
   },
   { id: "13", label: "SA Complete", key: "saComplete", type: "bool" },
-  { id: "14", label: "Notes", key: "notes" },
-  { id: "15", label: "Submitted By", key: "nightly_report_user" }
+  { id: "14", label: "Number Of Arrays", key: "numberOfArrays" },
+  { id: "15", label: "Roof Type", key: "roofType" },
+  {
+    id: "16",
+    label: "Forty Foot Ladder",
+    key: "fortyFootLadder",
+    type: "bool"
+  },
+  {
+    id: "17",
+    label: "Roof Assessment QA (FL Only)",
+    key: "roofAssessment",
+    type: "bool"
+  },
+  { id: "18", label: "Second Assessor", key: "ifSecondAssessor" },
+  { id: "19", label: "Notes", key: "notes" },
+  { id: "20", label: "Submitted By", key: "nightly_report_user" }
 ];
 
 const SAReportTable = ({ id }) => {
@@ -40,6 +55,7 @@ const SAReportTable = ({ id }) => {
     });
     return arr;
   }, []);
+  // console.log(newerData);
   return (
     <StyledSubmit style={{ overflow: "scroll" }}>
       <Table

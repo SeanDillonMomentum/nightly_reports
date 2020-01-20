@@ -68,6 +68,13 @@ const Reformed = ({ data, setData, dataValidation, flex, style }) => {
           if (!currValidation) return null;
           let sentence = currValidation.label || startcase(key);
           let InputComponent = inputType(currValidation.type);
+          // console.log(currValidation.hiddenTrigger);
+          if (
+            currValidation.hiddenTrigger &&
+            !data[currValidation.hiddenTrigger]
+          ) {
+            return null;
+          }
           return (
             <InputComponent
               key={key}

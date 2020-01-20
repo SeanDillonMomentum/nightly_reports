@@ -34,7 +34,7 @@ const SearchForSA = ({ data, setData, setCrmId }) => {
         };
       });
     }
-  }, [dataTwo, setData]);
+  }, [dataTwo, setData, setCrmId]);
   const queryProj = type => {
     if (type === "opp")
       siteAssessById({ variables: { oppNumber: data.opportunityNumber } });

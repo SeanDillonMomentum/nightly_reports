@@ -35,9 +35,15 @@ const initialData = {
   os: moment().format("MM/DD/YY"),
   totalInterior: "",
   totalExterior: "",
+  numberOfArrays: "",
+  roofType: "",
+  notes: "",
   winterSolstice: 0,
   saComplete: 0,
-  notes: ""
+  fortyFootLadder: 0,
+  roofAssessment: 0,
+  secondAssessor: 0,
+  ifSecondAssessor: ""
 };
 
 const dataValidation = options => {
@@ -60,6 +66,12 @@ const dataValidation = options => {
     { field: "siteAssessor", type: "select", options },
     { field: "sp", type: "time", label: "On Site" },
     { field: "os", type: "time", label: "Off Site" },
+    { field: "numberOfArrays", type: "text", label: "Number of Arrays" },
+    {
+      field: "roofType",
+      type: "select",
+      options: ["Shingle", "Tile", "Metal"]
+    },
     {
       field: "totalInterior",
       type: "slider",
@@ -72,7 +84,25 @@ const dataValidation = options => {
     },
     { field: "notes", type: "text" },
     { field: "winterSolstice", type: "bool" },
-    { field: "saComplete", type: "bool", label: "SA Complete" }
+    { field: "saComplete", type: "bool", label: "SA Complete" },
+    {
+      field: "fortyFootLadder",
+      type: "bool",
+      label: "Forty Foot Ladder Needed"
+    },
+    {
+      field: "roofAssessment",
+      type: "bool",
+      label: "Roof Assessment QA (FL Only)"
+    },
+    { field: "secondAssessor", type: "bool", label: "If Second Assessor" },
+    {
+      field: "ifSecondAssessor",
+      hiddenTrigger: "secondAssessor",
+      type: "select",
+      options,
+      label: "Second Assessor"
+    }
   ];
 };
 
@@ -103,6 +133,10 @@ const SubmitNightly = ({ accountInfo }) => {
       totalInterior: convertToTime(formData.totalInterior),
       totalExterior: convertToTime(formData.totalExterior),
       submittedBy: findUser.id,
+      isSecondAssessor: formData.secondAssessor
+        ? formData.isSecondAssessor
+        : "N/A",
+      numberOfArrays: +formData.numberOfArrays,
       sp: moment(formData.sp).format("MM/DD/YY h:mm a"),
       os: moment(formData.os).format("MM/DD/YY h:mm a"),
       date: moment(formData.date).format("MM/DD/YY")
@@ -114,12 +148,16 @@ const SubmitNightly = ({ accountInfo }) => {
     }
     setSubmitting(true);
     setError(false);
+
     try {
+      if (crmId) {
+        await axios.post(
+          "https://9gxdh56qg8.execute-api.us-east-1.amazonaws.com/api/updatenotes",
+          { notes: report.notes, submittedBy: report.submittedBy, appid: crmId }
+        );
+      }
       await createSaReport({ variables: { report } });
-      await axios.post(
-        "https://9gxdh56qg8.execute-api.us-east-1.amazonaws.com/api/updatenotes",
-        { notes: report.notes, submittedBy: report.submittedBy, appid: crmId }
-      );
+
       setModalOpen(true);
       setSubmitting(false);
       setFormData(initialData);

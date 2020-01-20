@@ -144,7 +144,9 @@ const Table = ({
         .utc()
         .format("MM/DD/YY h:mm a");
     if (type === "bool")
-      return value === 0 ? (
+      return value === null ? (
+        "N/A"
+      ) : value === 0 ? (
         <Cancel style={{ color: "red" }} />
       ) : (
         <CheckBox style={{ color: "green" }} />

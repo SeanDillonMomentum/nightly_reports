@@ -19,6 +19,11 @@ const NIGHTLY_SA_REPORTS = gql`
       saComplete
       notes
       submittedBy
+      fortyFootLadder
+      ifSecondAssessor
+      roofAssessment
+      numberOfArrays
+      roofType
       nightly_report_user {
         user
       }

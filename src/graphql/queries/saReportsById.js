@@ -17,6 +17,11 @@ const SA_REPORTS_BY_ID = gql`
       totalInterior
       totalExterior
       saComplete
+      fortyFootLadder
+      ifSecondAssessor
+      roofAssessment
+      numberOfArrays
+      roofType
       notes
       submittedBy
       nightly_report_user {
