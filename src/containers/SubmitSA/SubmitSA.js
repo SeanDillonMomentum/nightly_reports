@@ -133,7 +133,7 @@ const SubmitNightly = ({ accountInfo }) => {
       totalInterior: convertToTime(formData.totalInterior),
       totalExterior: convertToTime(formData.totalExterior),
       submittedBy: findUser.id,
-      isSecondAssessor: formData.secondAssessor
+      ifSecondAssessor: formData.secondAssessor
         ? formData.isSecondAssessor
         : "N/A",
       numberOfArrays: +formData.numberOfArrays,
@@ -142,7 +142,11 @@ const SubmitNightly = ({ accountInfo }) => {
       date: moment(formData.date).format("MM/DD/YY")
     };
 
-    if (Object.values(report).filter(x => x === "").length) {
+    if (
+      Object.entries(report).filter(
+        ([key, val]) => val === "" && key !== "ifSecondAssessor"
+      ).length
+    ) {
       setError("Please Fill Out All Fields Prior to Submittal");
       return;
     }
