@@ -13,7 +13,10 @@ import NightlySATable from "./NightlySATable";
 import SearchForProject from "./SearchForSA";
 import ALL_SITE_ASSESSORS from "../../graphql/queries/allSiteAssessors";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
+import { sendEmail } from "../../utils/API";
 import axios from "axios";
+
+const truthyCheck = val => (val === 0 ? false : true);
 
 function convertToTime(n) {
   var num = n;
@@ -41,9 +44,9 @@ const initialData = {
   winterSolstice: 0,
   saComplete: 0,
   fortyFootLadder: 0,
-  roofAssessment: 0,
   secondAssessor: 0,
-  ifSecondAssessor: ""
+  ifSecondAssessor: "",
+  escalation: []
 };
 
 const dataValidation = options => {
@@ -59,7 +62,8 @@ const dataValidation = options => {
         "Interior Only (Initial)",
         "Full (Go Back)",
         "Exterior Only (Go Back)",
-        "Interior Only (Go Back)"
+        "Interior Only (Go Back)",
+        "Roof Assessment (QA)"
       ]
     },
     { field: "date", type: "date" },
@@ -82,18 +86,13 @@ const dataValidation = options => {
       type: "slider",
       label: "Total Exterior (Minutes)"
     },
-    { field: "notes", type: "text" },
+    { field: "notes", type: "text", maxlength: "1800" },
     { field: "winterSolstice", type: "bool" },
     { field: "saComplete", type: "bool", label: "SA Complete" },
     {
       field: "fortyFootLadder",
       type: "bool",
       label: "Forty Foot Ladder Needed"
-    },
-    {
-      field: "roofAssessment",
-      type: "bool",
-      label: "Roof Assessment QA (FL Only)"
     },
     { field: "secondAssessor", type: "bool", label: "If Second Assessor" },
     {
@@ -102,6 +101,44 @@ const dataValidation = options => {
       type: "select",
       options,
       label: "Second Assessor"
+    },
+    {
+      field: "escalation",
+      type: "select",
+      multiple: true,
+      noOther: true,
+      tooltips: [
+        {
+          option: "Project Executive",
+          tooltip:
+            "Project Executive Example: A Project Executive needs to handle a potential situation"
+        },
+        {
+          option: "Retention",
+          tooltip: "Retention Example: Customer has pricing concerns"
+        },
+        {
+          option: "Design",
+          tooltip:
+            "Design Example: Customer doesn't want panels on front of house"
+        },
+        {
+          option: "Exterior Mods",
+          tooltip: "Exterior Mods Example: Roof Replacement needed to install"
+        },
+        {
+          option: "Install",
+          tooltip:
+            "Install Example: Customer doesn't want wires/conduits visible"
+        }
+      ],
+      options: [
+        "Project Executive",
+        "Retention",
+        "Design",
+        "Exterior Mods",
+        "Install"
+      ]
     }
   ];
 };
@@ -121,30 +158,57 @@ const SubmitNightly = ({ accountInfo }) => {
   });
 
   const [crmId, setCrmId] = useState("");
-
   const [formData, setFormData] = useState(initialData);
   const [modalOpen, setModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   const createReport = async () => {
+    let body;
+    if (formData.escalation.length) {
+      body = formData.escalation.map(x => {
+        return {
+          escalationType: x,
+          emailReport: {
+            ...formData,
+            totalInterior: convertToTime(formData.totalInterior),
+            totalExterior: convertToTime(formData.totalExterior),
+            submittedBy: findUser.user,
+            ifSecondAssessor: formData.secondAssessor
+              ? formData.ifSecondAssessor
+              : "N/A",
+            numberOfArrays: +formData.numberOfArrays,
+            winterSolstice: truthyCheck(formData.winterSolstice),
+            fortyFootLadder: truthyCheck(formData.fortyFootLadder),
+            saComplete: truthyCheck(formData.saComplete),
+            sp: moment(formData.sp).format("MM/DD/YY h:mm a"),
+            os: moment(formData.os).format("MM/DD/YY h:mm a"),
+            date: moment(formData.date).format("MM/DD/YY"),
+            escalation: JSON.stringify(formData.escalation)
+          }
+        };
+      });
+    }
+
     const report = {
       ...formData,
       totalInterior: convertToTime(formData.totalInterior),
       totalExterior: convertToTime(formData.totalExterior),
       submittedBy: findUser.id,
       ifSecondAssessor: formData.secondAssessor
-        ? formData.isSecondAssessor
+        ? formData.ifSecondAssessor
         : "N/A",
       numberOfArrays: +formData.numberOfArrays,
       sp: moment(formData.sp).format("MM/DD/YY h:mm a"),
       os: moment(formData.os).format("MM/DD/YY h:mm a"),
-      date: moment(formData.date).format("MM/DD/YY")
+      date: moment(formData.date).format("MM/DD/YY"),
+      escalation: JSON.stringify(formData.escalation)
     };
 
+    let nonRequired = ["ifSecondAssessor", "escalation"];
     if (
       Object.entries(report).filter(
-        ([key, val]) => val === "" && key !== "ifSecondAssessor"
+        ([key, val]) => val === "" && !nonRequired.includes(key)
       ).length
     ) {
       setError("Please Fill Out All Fields Prior to Submittal");
@@ -154,6 +218,10 @@ const SubmitNightly = ({ accountInfo }) => {
     setError(false);
 
     try {
+      if (body) {
+        let a = body.map(x => sendEmail(x));
+        await Promise.all(a);
+      }
       if (crmId) {
         await axios.post(
           "https://9gxdh56qg8.execute-api.us-east-1.amazonaws.com/api/updatenotes",
@@ -161,7 +229,6 @@ const SubmitNightly = ({ accountInfo }) => {
         );
       }
       await createSaReport({ variables: { report } });
-
       setModalOpen(true);
       setSubmitting(false);
       setFormData(initialData);
@@ -195,7 +262,7 @@ const SubmitNightly = ({ accountInfo }) => {
         />
         {error && <p style={{ color: "red" }}>{error}</p>}
         <StyledButton disabled={submitting} onClick={() => createReport()}>
-          SUBMIT{submitting && "ING"}
+          SUBMIT{submitting && "TING"}
         </StyledButton>
       </StyledSubmit>
       <NightlySATable id={findUser.id} />

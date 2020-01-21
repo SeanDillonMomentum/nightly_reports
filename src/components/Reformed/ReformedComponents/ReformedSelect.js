@@ -23,18 +23,47 @@ const ReformedSelect = ({ label, input, val, config }) => {
   useEffect(() => {
     if (val === "Other" && !alt) setAlt(true);
   }, [val, alt]);
+  const options = config.noOther
+    ? config.options
+    : [...config.options, "Other"];
+  // console.log(config.tooltips && config.tooltips.map(x => console.log(x)));
+  // if (config.tooltips)
+  // console.log(config.tooltips.filter(x => val.includes(x.option)));
+  // console.log(
+  //   config.tooltips &&
+  //     val.length &&
+  //     config.tooltips.filter(x => val.findIndex(x.option) !== -1)
+  // );
   return (
     <>
       {!alt ? (
         <FormControl className="textFieldWrap">
           <InputLabel>{label}</InputLabel>
-          <Select name={input} value={val} onChange={handleChange}>
-            {[...config.options, "Other"].map(option => (
+          <Select
+            multiple={config.multiple}
+            name={input}
+            value={val}
+            onChange={handleChange}
+          >
+            {options.map(option => (
               <MenuItem key={option} value={option}>
                 {option}
               </MenuItem>
             ))}
           </Select>
+          {config.tooltips &&
+          config.tooltips.filter(x => val.includes(x.option)).length
+            ? config.tooltips
+                .filter(x => val.includes(x.option))
+                .map(y => (
+                  <div
+                    key={y.option}
+                    style={{ color: "red", marginTop: "5px" }}
+                  >
+                    {y.tooltip}
+                  </div>
+                ))
+            : null}
         </FormControl>
       ) : (
         <div className="textFieldWrap">

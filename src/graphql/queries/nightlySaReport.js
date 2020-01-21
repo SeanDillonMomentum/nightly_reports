@@ -21,7 +21,7 @@ const NIGHTLY_SA_REPORTS = gql`
       submittedBy
       fortyFootLadder
       ifSecondAssessor
-      roofAssessment
+      escalation
       numberOfArrays
       roofType
       nightly_report_user {

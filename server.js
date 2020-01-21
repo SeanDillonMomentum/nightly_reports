@@ -5,6 +5,7 @@ const fs = require("fs");
 const dotenv = require("dotenv");
 const app = express();
 const https = require("https");
+const routes = require("./routes");
 
 // Initialize variables.
 var PORT = 443 || process.env.PORT;
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse application/json
 app.use(bodyParser.json());
+app.use(routes);
 
 dotenv.config({ debug: process.env.DEBUG });
 

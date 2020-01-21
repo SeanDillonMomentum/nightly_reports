@@ -2,7 +2,7 @@ import React, { useContext, useCallback } from "react";
 import { ReformedContext } from "../Reformed";
 import { TextField } from "@material-ui/core";
 
-const ReformedText = ({ label, input, val }) => {
+const ReformedText = ({ label, input, val, config }) => {
   const { data, setData } = useContext(ReformedContext);
   const handleChange = useCallback(
     e => setData({ ...data, [e.target.name]: e.target.value }),
@@ -10,6 +10,9 @@ const ReformedText = ({ label, input, val }) => {
   );
   return (
     <TextField
+      inputProps={{
+        maxLength: config.maxlength || null
+      }}
       multiline={true}
       key={input}
       type="number"

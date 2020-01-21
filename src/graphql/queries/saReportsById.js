@@ -19,7 +19,7 @@ const SA_REPORTS_BY_ID = gql`
       saComplete
       fortyFootLadder
       ifSecondAssessor
-      roofAssessment
+      escalation
       numberOfArrays
       roofType
       notes

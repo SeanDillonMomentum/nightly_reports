@@ -31,15 +31,10 @@ const tableHeaders = [
     key: "fortyFootLadder",
     type: "bool"
   },
-  {
-    id: "17",
-    label: "Roof Assessment QA (FL Only)",
-    key: "roofAssessment",
-    type: "bool"
-  },
-  { id: "18", label: "Second Assessor", key: "ifSecondAssessor" },
-  { id: "19", label: "Notes", key: "notes" },
-  { id: "20", label: "Submitted By", key: "nightly_report_user" }
+  { id: "17", label: "Second Assessor", key: "ifSecondAssessor" },
+  { id: "18", label: "Notes", key: "notes" },
+  { id: "19", label: "Submitted By", key: "nightly_report_user" },
+  { id: "20", label: "Escalation", key: "escalation" }
 ];
 
 const SaReports = () => {
