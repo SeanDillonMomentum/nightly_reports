@@ -130,6 +130,10 @@ const dataValidation = options => {
           option: "Install",
           tooltip:
             "Install Example: Customer doesn't want wires/conduits visible"
+        },
+        {
+          option: "Scheduling",
+          tooltip: "Scheduling Example: Need to call ahead and have gate code"
         }
       ],
       options: [
@@ -137,7 +141,8 @@ const dataValidation = options => {
         "Retention",
         "Design",
         "Exterior Mods",
-        "Install"
+        "Install",
+        "Scheduling"
       ]
     }
   ];

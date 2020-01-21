@@ -29,6 +29,11 @@ const distros = {
     "westcoastIM@momentumsolar.com",
     "eastcoastim@momentumsolar.com",
     "JValerioti@MomentumSolar.com"
+  ],
+  Scheduling: [
+    "amidoneck@momentumsolar.com",
+    "tcaytuiro@momentumsolar.com",
+    "dyabut@momentumsolar.com"
   ]
 };
 
