@@ -14,6 +14,7 @@ import SearchForProject from "./SearchForSA";
 import ALL_SITE_ASSESSORS from "../../graphql/queries/allSiteAssessors";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
 import { sendEmail } from "../../utils/API";
+import axios from "axios";
 
 const truthyCheck = val => (val === 0 ? false : true);
 
@@ -237,7 +238,6 @@ const SubmitNightly = ({ accountInfo }) => {
       setSubmitting(false);
       setFormData(initialData);
     } catch (err) {
-      console;
       setSubmitting(false);
       setError("An Error Occurred While Submitting");
     }
