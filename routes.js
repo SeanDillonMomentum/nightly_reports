@@ -64,36 +64,30 @@ require("dotenv").config();
 // });
 
 router.post("/api/send", async (req, res) => {
-  readHTMLFile("./emailtemplate.html", req, async function(err, html) {
+  const body = readHTMLFile("./emailtemplate.html", req, function(err, html) {
     var template = handlebars.compile(html);
     let { emailReport, escalationType } = req.body;
     var htmlToSend = template(emailReport);
 
-    const body = {
+    const bodyVals = {
       to: distros[escalationType],
       from: "nightlyreports@momentumsolar.app",
       subject: `${escalationType} - SA NIGHTLY REPORT ESCALATION`,
       body: htmlToSend
     };
-
-    try {
-      const res = await axios.post(
-        "https://veeyieqt20.execute-api.us-east-1.amazonaws.com/api/sendmailbulk",
-        { ...body },
-        { headers: { "Content-Type": "application/json" } }
-      );
-      // console.log(res);
-      return res.send("success");
-    } catch (err) {
-      throw new Error(err);
-    }
-    // transporter.sendMail(msg, function(error, response) {
-    //   if (error) {
-    //     console.log(error);
-    //   }
-    //   res.send("success");
-    // });
+    return bodyVals;
   });
-});
 
+  try {
+    await axios.post(
+      "https://veeyieqt20.execute-api.us-east-1.amazonaws.com/api/sendmailbulk",
+      { ...body },
+      { headers: { "Content-Type": "application/json" } }
+    );
+    // console.log(res);
+    return res.send("success");
+  } catch (err) {
+    throw new Error(err);
+  }
+});
 module.exports = router;
