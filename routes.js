@@ -83,7 +83,7 @@ router.post("/api/send", async (req, res) => {
         { headers: { "Content-Type": "application/json" } }
       );
       // console.log(res);
-      return res;
+      return res.send("success");
     } catch (err) {
       throw new Error(err);
     }
