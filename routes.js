@@ -1,7 +1,8 @@
 const router = require("express").Router();
-var nodemailer = require("nodemailer");
+
 var handlebars = require("handlebars");
 var fs = require("fs");
+const axios = require("axios");
 
 const distros = {
   "Project Executive": [
@@ -49,36 +50,49 @@ var readHTMLFile = function(path, object, callback) {
 
 require("dotenv").config();
 
-var transporter = nodemailer.createTransport({
-  host: "smtp.office365.com", // Office 365 server
-  port: 587, // secure SMTP
-  auth: {
-    user: "mtscancels@momentumsolar.com",
-    pass: "Solar1210"
-  },
-  tls: {
-    ciphers: "SSLv3"
-  },
-  requireTLS: true
-});
+// var transporter = nodemailer.createTransport({
+//   host: "smtp.office365.com", // Office 365 server
+//   port: 587, // secure SMTP
+//   auth: {
+//     user: "mtscancels@momentumsolar.com",
+//     pass: "Solar1210"
+//   },
+//   tls: {
+//     ciphers: "SSLv3"
+//   },
+//   requireTLS: true
+// });
 
 router.post("/api/send", async (req, res) => {
-  readHTMLFile("./emailtemplate.html", req, function(err, html) {
+  readHTMLFile("./emailtemplate.html", req, async function(err, html) {
     var template = handlebars.compile(html);
     let { emailReport, escalationType } = req.body;
     var htmlToSend = template(emailReport);
-    const msg = {
+
+    const body = {
       to: distros[escalationType],
-      from: "SA-Nightly@momentumsolar.com",
+      from: "nightlyreports@momentumsolar.app",
       subject: `${escalationType} - SA NIGHTLY REPORT ESCALATION`,
-      html: htmlToSend
+      body: htmlToSend
     };
-    transporter.sendMail(msg, function(error, response) {
-      if (error) {
-        console.log(error);
-      }
-      res.send("success");
-    });
+
+    try {
+      const res = await axios.post(
+        "https://veeyieqt20.execute-api.us-east-1.amazonaws.com/api/sendmailbulk",
+        { ...body },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      // console.log(res);
+      return res;
+    } catch (err) {
+      throw new Error(err);
+    }
+    // transporter.sendMail(msg, function(error, response) {
+    //   if (error) {
+    //     console.log(error);
+    //   }
+    //   res.send("success");
+    // });
   });
 });
 

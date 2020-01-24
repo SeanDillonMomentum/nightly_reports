@@ -227,13 +227,13 @@ const SubmitNightly = ({ accountInfo }) => {
         let a = body.map(x => sendEmail(x));
         await Promise.all(a);
       }
-      if (crmId) {
-        await axios.post(
-          "https://9gxdh56qg8.execute-api.us-east-1.amazonaws.com/api/updatenotes",
-          { notes: report.notes, submittedBy: report.submittedBy, appid: crmId }
-        );
-      }
-      await createSaReport({ variables: { report } });
+      // if (crmId) {
+      //   await axios.post(
+      //     "https://9gxdh56qg8.execute-api.us-east-1.amazonaws.com/api/updatenotes",
+      //     { notes: report.notes, submittedBy: report.submittedBy, appid: crmId }
+      //   );
+      // }
+      // await createSaReport({ variables: { report } });
       setModalOpen(true);
       setSubmitting(false);
       setFormData(initialData);

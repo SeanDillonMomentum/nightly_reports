@@ -1,149 +1,133 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<body style="margin:0; padding:0; background-color:#F2F2F2;">
+  <center>
+    <table
+      width="100%"
+      border="0"
+      cellpadding="10"
+      cellspacing="10"
+      bgcolor="#F2F2F2"
+    >
+      <tr>
+        <td align="center" valign="top">
+          Customer Name
+        </td>
+        <td align="center" valign="top">
+          Address
+        </td>
+        <td align="center" valign="top">
+          Opportunity Number
+        </td>
+        <td align="center" valign="top">
+          Project Number
+        </td>
+        <td align="center" valign="top">
+          Job Type
+        </td>
+        <td align="center" valign="top">
+          Submittal Date
+        </td>
+        <td align="center" valign="top">
+          Site Assessor
+        </td>
+        <td align="center" valign="top">
+          S/P
+        </td>
+        <td align="center" valign="top">
+          O/S
+        </td>
+        <td align="center" valign="top">
+          Winter Solstice
+        </td>
+        <td align="center" valign="top">
+          Total Interior
+        </td>
+        <td align="center" valign="top">
+          Total Exterior
+        </td>
+        <td align="center" valign="top">
+          SA Complete
+        </td>
+        <td align="center" valign="top">
+          Number of Arrays
+        </td>
+        <td align="center" valign="top">
+          Roof Type
+        </td>
+        <td align="center" valign="top">
+          Forty Foot Ladder
+        </td>
+        <td align="center" valign="top">
+          Second Assessor
+        </td>
+        <td align="center" valign="top">
+          Submitted By
+        </td>
+        <td align="center" valign="top">
+          Escalation
+        </td>
+      </tr>
+      <tr>
+        <td align="center" valign="top">
+          {{ customerName }}
+        </td>
+        <td align="center" valign="top">
+          {{ customerAddress }}
+        </td>
+        <td align="center" valign="top">
+          {{ opportunityNumber }}
+        </td>
+        <td align="center" valign="top">
+          {{ projectNumber }}
+        </td>
+        <td align="center" valign="top">
+          {{ jobType }}
+        </td>
+        <td align="center" valign="top">
+          {{ date }}
+        </td>
+        <td align="center" valign="top">
+          {{ siteAssessor }}
+        </td>
+        <td align="center" valign="top">
+          {{ sp }}
+        </td>
+        <td align="center" valign="top">
+          {{ os }}
+        </td>
+        <td align="center" valign="top">
+          {{ winterSolstice }}
+        </td>
+        <td align="center" valign="top">
+          {{ totalInterior }}
+        </td>
+        <td align="center" valign="top">
+          {{ totalExterior }}
+        </td>
+        <td align="center" valign="top">
+          {{ saComplete }}
+        </td>
+        <td align="center" valign="top">
+          {{ numberOfArrays }}
+        </td>
+        <td align="center" valign="top">
+          {{ roofType }}
+        </td>
+        <td align="center" valign="top">
+          {{ fortyFootLadder }}
+        </td>
+        <td align="center" valign="top">
+          {{ ifSecondAssessor }}
+        </td>
+        <td align="center" valign="top">
+          {{ submittedBy }}
+        </td>
+        <td align="center" valign="top">
+          {{ escalation }}
+        </td>
+      </tr>
+    </table>
 
-    <title></title>
-
-    <style type="text/css">
-      #id {
-        font-size: 32px;
-      }
-    </style>
-  </head>
-  <body style="margin:0; padding:0; background-color:#F2F2F2;">
-    <center>
-      <table
-        width="100%"
-        border="0"
-        cellpadding="10"
-        cellspacing="10"
-        bgcolor="#F2F2F2"
-      >
-        <tr>
-          <td align="center" valign="top">
-            Customer Name
-          </td>
-          <td align="center" valign="top">
-            Address
-          </td>
-          <td align="center" valign="top">
-            Opportunity Number
-          </td>
-          <td align="center" valign="top">
-            Project Number
-          </td>
-          <td align="center" valign="top">
-            Job Type
-          </td>
-          <td align="center" valign="top">
-            Submittal Date
-          </td>
-          <td align="center" valign="top">
-            Site Assessor
-          </td>
-          <td align="center" valign="top">
-            S/P
-          </td>
-          <td align="center" valign="top">
-            O/S
-          </td>
-          <td align="center" valign="top">
-            Winter Solstice
-          </td>
-          <td align="center" valign="top">
-            Total Interior
-          </td>
-          <td align="center" valign="top">
-            Total Exterior
-          </td>
-          <td align="center" valign="top">
-            SA Complete
-          </td>
-          <td align="center" valign="top">
-            Number of Arrays
-          </td>
-          <td align="center" valign="top">
-            Roof Type
-          </td>
-          <td align="center" valign="top">
-            Forty Foot Ladder
-          </td>
-          <td align="center" valign="top">
-            Second Assessor
-          </td>
-          <td align="center" valign="top">
-            Submitted By
-          </td>
-          <td align="center" valign="top">
-            Escalation
-          </td>
-        </tr>
-        <tr>
-          <td align="center" valign="top">
-            {{ customerName }}
-          </td>
-          <td align="center" valign="top">
-            {{ customerAddress }}
-          </td>
-          <td align="center" valign="top">
-            {{ opportunityNumber }}
-          </td>
-          <td align="center" valign="top">
-            {{ projectNumber }}
-          </td>
-          <td align="center" valign="top">
-            {{ jobType }}
-          </td>
-          <td align="center" valign="top">
-            {{ date }}
-          </td>
-          <td align="center" valign="top">
-            {{ siteAssessor }}
-          </td>
-          <td align="center" valign="top">
-            {{ sp }}
-          </td>
-          <td align="center" valign="top">
-            {{ os }}
-          </td>
-          <td align="center" valign="top">
-            {{ winterSolstice }}
-          </td>
-          <td align="center" valign="top">
-            {{ totalInterior }}
-          </td>
-          <td align="center" valign="top">
-            {{ totalExterior }}
-          </td>
-          <td align="center" valign="top">
-            {{ saComplete }}
-          </td>
-          <td align="center" valign="top">
-            {{ numberOfArrays }}
-          </td>
-          <td align="center" valign="top">
-            {{ roofType }}
-          </td>
-          <td align="center" valign="top">
-            {{ fortyFootLadder }}
-          </td>
-          <td align="center" valign="top">
-            {{ ifSecondAssessor }}
-          </td>
-          <td align="center" valign="top">
-            {{ submittedBy }}
-          </td>
-          <td align="center" valign="top">
-            {{ escalation }}
-          </td>
-        </tr>
-      </table>
-
-      <div id="larger">NOTES</div>
-      <div>{{notes}}</div>
-    </center>
-  </body>
-</html>
+    <div id="larger">NOTES</div>
+    <div>{{notes}}</div>
+  </center>
+</body>
