@@ -6,20 +6,18 @@ const axios = require("axios");
 
 const distros = {
   "Project Executive": [
-    "sdillon@momentumsolar.com"
-    // "OKalat@momentumsolar.com",
-    // "spetinga@momentumsolar.com",
-    // "sung@momentumsolar.com",
-    // "jmahoney@momentumsolar.com",
-    // "dmorrissey@momentumsolar.com"
+    "OKalat@momentumsolar.com",
+    "spetinga@momentumsolar.com",
+    "sung@momentumsolar.com",
+    "jmahoney@momentumsolar.com",
+    "dmorrissey@momentumsolar.com"
   ],
   Retention: [
-    "clantier@momentumsolar.com"
-    // "APerez@MomentumSolar.com",
-    // "RosselysGonzalez@MomentumSolar.com",
-    // "JHenne@momentumsolar.com",
-    // "JValerioti@MomentumSolar.com",
-    // "JDeAnna@MomentumSolar.com"
+    "APerez@MomentumSolar.com",
+    "RosselysGonzalez@MomentumSolar.com",
+    "JHenne@momentumsolar.com",
+    "JValerioti@MomentumSolar.com",
+    "JDeAnna@MomentumSolar.com"
   ],
   Design: ["GPrado@MomentumSolar.com", "SKou@momentumsolar.com"],
   "Exterior Mods": [
