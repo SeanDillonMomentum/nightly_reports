@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+var nodemailer = require("nodemailer");
 var handlebars = require("handlebars");
 var fs = require("fs");
 const axios = require("axios");
@@ -66,30 +66,30 @@ require("dotenv").config();
 // });
 
 router.post("/api/send", async (req, res) => {
-  const body = readHTMLFile("./emailtemplate.html", req, function(err, html) {
+  readHTMLFile("./emailtemplate.html", req, async function(err, html) {
     var template = handlebars.compile(html);
     let { emailReport, escalationType } = req.body;
     var htmlToSend = template(emailReport);
 
-    const bodyVals = {
+    const body = {
       to: distros[escalationType],
       from: "nightlyreports@momentumsolar.app",
       subject: `${escalationType} - SA NIGHTLY REPORT ESCALATION`,
       body: htmlToSend
     };
-    return bodyVals;
-  });
 
-  try {
-    await axios.post(
-      "https://veeyieqt20.execute-api.us-east-1.amazonaws.com/api/sendmailbulk",
-      { ...body },
-      { headers: { "Content-Type": "application/json" } }
-    );
-    // console.log(res);
-    return res.send("success");
-  } catch (err) {
-    throw new Error(err);
-  }
+    try {
+      await axios.post(
+        "https://veeyieqt20.execute-api.us-east-1.amazonaws.com/api/sendmailbulk",
+        { ...body },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      res.end("success");
+    } catch (err) {
+      console.log(err);
+      throw new Error(err);
+    }
+  });
 });
+
 module.exports = router;

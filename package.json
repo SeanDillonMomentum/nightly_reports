@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:443",
+  "proxy": "http://localhost:3005",
   "name": "generic_app",
   "version": "0.1.0",
   "private": true,
