@@ -34,7 +34,8 @@ const tableHeaders = [
   { id: "17", label: "Second Assessor", key: "ifSecondAssessor" },
   { id: "18", label: "Notes", key: "notes" },
   { id: "19", label: "Submitted By", key: "nightly_report_user" },
-  { id: "20", label: "Escalation", key: "escalation" }
+  { id: "20", label: "Market", key: "market" },
+  { id: "21", label: "Escalation", key: "escalation" }
 ];
 
 const SAReportTable = ({ id }) => {

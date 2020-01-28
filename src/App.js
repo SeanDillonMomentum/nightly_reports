@@ -8,7 +8,7 @@ const client = new ApolloClient({
   // uri: "https://nightlyreports.momentumsolar.app/graphql"
   uri:
     "https://gbiv8i3n4m.execute-api.us-east-1.amazonaws.com/production/graphql"
-  // uri: "http://localhost:"
+  // uri: "http://localhost:4000"
 });
 
 export const Context = React.createContext({});

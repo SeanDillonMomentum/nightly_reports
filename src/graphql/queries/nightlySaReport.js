@@ -13,6 +13,7 @@ const NIGHTLY_SA_REPORTS = gql`
       siteAssessor
       sp
       os
+      market
       winterSolstice
       totalInterior
       totalExterior

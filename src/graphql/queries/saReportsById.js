@@ -13,6 +13,7 @@ const SA_REPORTS_BY_ID = gql`
       siteAssessor
       sp
       os
+      market
       winterSolstice
       totalInterior
       totalExterior

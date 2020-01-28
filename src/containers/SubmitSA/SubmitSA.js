@@ -46,7 +46,8 @@ const initialData = {
   fortyFootLadder: 0,
   secondAssessor: 0,
   ifSecondAssessor: "",
-  escalation: []
+  escalation: [],
+  market: ""
 };
 
 const dataValidation = options => {
@@ -64,6 +65,26 @@ const dataValidation = options => {
         "Exterior Only (Go Back)",
         "Interior Only (Go Back)",
         "Roof Assessment (QA)"
+      ]
+    },
+    {
+      field: "market",
+      type: "select",
+      options: [
+        "Cherry Hill, NJ",
+        "South Plainfield, NJ",
+        "Metuchen, NJ",
+        "Plainview, NY",
+        "Lancaster, PA",
+        "East Berlin, CT",
+        "Stamford, CT",
+        "Ft. Lauderdale, FL",
+        "Orlando, FL",
+        "Tampa, FL",
+        "Austin, TX",
+        "Dallas, TX",
+        "San Antonio, TX",
+        "Orange, CA"
       ]
     },
     { field: "date", type: "date" },
