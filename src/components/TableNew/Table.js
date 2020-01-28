@@ -32,7 +32,8 @@ const Table = ({
   initialSearch,
   initialRowsPer = 10,
   tableHeaders,
-  localStorageVal
+  localStorageVal,
+  initialSort
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPer);
@@ -109,8 +110,8 @@ const Table = ({
 
   // memoize currently filtered data - re-render when applicable variables change;
   const tableData = useMemo(
-    () => tableFilter(data, search, currSort, currSearch),
-    [data, search, currSort, currSearch]
+    () => tableFilter(data, search, currSort, currSearch, initialSort),
+    [data, search, currSort, currSearch, initialSort]
   );
   const handleDropdown = event => setDropdownOpen(event.currentTarget);
   const openDropdown = Boolean(dropdownOpen);

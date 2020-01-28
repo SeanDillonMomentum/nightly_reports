@@ -1,4 +1,6 @@
-const tableFilter = (data, search, currSort, currSearch) => {
+const tableFilter = (data, search, currSort, currSearch, initialSort) => {
+  initialSort &&
+    data.sort((a, b) => (a[initialSort] < b[initialSort] ? 1 : -1));
   let searched = searchFilter(data, search, currSearch);
   let sorted = sortFilter(searched, currSort);
   return sorted;

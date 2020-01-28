@@ -51,10 +51,11 @@ const SAReportTable = ({ id }) => {
     });
     return arr;
   }, []);
-  // console.log(newerData);
+
   return (
     <StyledSubmit style={{ overflow: "scroll" }}>
       <Table
+        initialSort="date"
         localStorageVal="userSaTable"
         initialSearch="customerName"
         data={newerData}
