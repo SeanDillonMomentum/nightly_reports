@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
 import Table from "../../components/TableNew/Table";
-import Reformed from "../../components/Reformed/Reformed";
+import Reformed from "reformed-material";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import ALL_TABLES from "../../graphql/queries/allTables";
 import ALL_USERS from "../../graphql/queries/allUsers";

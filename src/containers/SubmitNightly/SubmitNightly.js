@@ -5,7 +5,7 @@ import { Context } from "../../App";
 import { StyledSubmit } from "./styles";
 import { StyledButton } from "../Home/styles";
 //components
-import Reformed from "../../components/Reformed/Reformed";
+import Reformed from "reformed-material";
 import SuccessModal from "../../components/Modal/SuccessModal";
 import NightlyReportTable from "./NightlyReportTable";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";

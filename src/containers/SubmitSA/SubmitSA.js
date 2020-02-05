@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../../App";
-import Reformed from "../../components/Reformed/Reformed";
+// import Reformed from "reformed";
+import Reformed from "reformed-material";
 import moment from "moment";
 import { StyledButton } from "../Home/styles";
 import { StyledSubmit } from "./styles";
