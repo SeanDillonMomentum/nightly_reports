@@ -254,6 +254,7 @@ const SubmitNightly = ({ accountInfo }) => {
           "https://9gxdh56qg8.execute-api.us-east-1.amazonaws.com/api/updatenotes",
           { notes: report.notes, submittedBy: report.submittedBy, appid: crmId }
         );
+        setCrmId("");
       }
       await createSaReport({ variables: { report } });
       setModalOpen(true);

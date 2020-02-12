@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/react-hooks";
 import SITE_ASSESS_BY_ID from "../../graphql/queries/siteAssessById";
 import { TextField } from "@material-ui/core";
@@ -7,6 +7,7 @@ import { StyledButton } from "../Home/styles";
 import moment from "moment";
 
 const SearchForSA = ({ data, setData, setCrmId }) => {
+  const [noProj, setNoProj] = useState(false);
   const [siteAssessById, { loading, data: dataTwo }] = useLazyQuery(
     SITE_ASSESS_BY_ID
   );
@@ -33,6 +34,18 @@ const SearchForSA = ({ data, setData, setCrmId }) => {
           customerAddress: address1_composite
         };
       });
+    } else if (dataTwo && !dataTwo.siteAssessById) {
+      setNoProj(true);
+      setTimeout(() => setNoProj(false), 3000);
+      setCrmId("");
+      setData(prevData => {
+        return {
+          ...prevData,
+          customerName: "",
+          date: moment().format("MM/DD/YY"),
+          customerAddress: ""
+        };
+      });
     }
   }, [dataTwo, setData, setCrmId]);
   const queryProj = type => {
@@ -55,6 +68,7 @@ const SearchForSA = ({ data, setData, setCrmId }) => {
           {!loading ? "SEARCH BY OPP #" : "SEARCHING"}
         </StyledButton>
       </div>
+      {noProj && <h3 style={{ color: "red" }}> No Corresponding Number</h3>}
       <div className="inputSearch">
         <TextField
           value={data.projectNumber}
