@@ -219,6 +219,7 @@ const SubmitNightly = ({ accountInfo }) => {
 
     const report = {
       ...formData,
+      submissionTimestamp: moment().format("MM/DD/YY h:mm a"),
       totalInterior: convertToTime(formData.totalInterior),
       totalExterior: convertToTime(formData.totalExterior),
       submittedBy: findUser.id,
