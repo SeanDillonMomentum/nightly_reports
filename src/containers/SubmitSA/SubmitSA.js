@@ -48,7 +48,9 @@ const initialData = {
   secondAssessor: 0,
   ifSecondAssessor: "",
   escalation: [],
-  market: ""
+  market: "",
+  saStatus: "",
+  saStatusNotes: ""
 };
 
 const dataValidation = options => {
@@ -123,6 +125,21 @@ const dataValidation = options => {
       type: "select",
       options,
       label: "Second Assessor"
+    },
+    {
+      field: "saStatus",
+      type: "select",
+      noOther: true,
+      options: [
+        "Full SA Complete",
+        "Interior Complete (Winter Solstice)",
+        "Exterior Only Complete",
+        "Interior Complete (Go Back Required)",
+        "SA Not Complete",
+        "SA Not Complete (Customer No Show)",
+        "SA Not Complete (Customer Cancel)"
+      ],
+      label: "SA Status"
     },
     {
       field: "escalation",
@@ -230,10 +247,12 @@ const SubmitNightly = ({ accountInfo }) => {
       sp: moment(formData.sp).format("MM/DD/YY h:mm a"),
       os: moment(formData.os).format("MM/DD/YY h:mm a"),
       date: moment(formData.date).format("MM/DD/YY"),
-      escalation: JSON.stringify(formData.escalation)
+      escalation: JSON.stringify(formData.escalation),
+      saStatusNotes:
+        formData.saStatus === "SA Not Complete" ? formData.saStatusNotes : ""
     };
 
-    let nonRequired = ["ifSecondAssessor", "escalation"];
+    let nonRequired = ["ifSecondAssessor", "escalation", "saStatusNotes"];
     if (
       Object.entries(report).filter(
         ([key, val]) => val === "" && !nonRequired.includes(key)
@@ -257,6 +276,7 @@ const SubmitNightly = ({ accountInfo }) => {
         );
         setCrmId("");
       }
+
       await createSaReport({ variables: { report } });
       setModalOpen(true);
       setSubmitting(false);
@@ -284,6 +304,17 @@ const SubmitNightly = ({ accountInfo }) => {
           setData={setFormData}
           dataValidation={dataValidation(optionsData)}
         />
+        {formData.saStatus === "SA Not Complete" && (
+          <Reformed
+            style={{ width: "100%" }}
+            flex="100%"
+            data={formData}
+            setData={setFormData}
+            dataValidation={[
+              { field: "saStatusNotes", type: "text", label: "SA Status Notes" }
+            ]}
+          />
+        )}
         <SuccessModal
           modalOpen={modalOpen}
           setModalOpen={() => setModalOpen(false)}
