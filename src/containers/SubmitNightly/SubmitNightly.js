@@ -50,7 +50,6 @@ const initialData = {
   panelType: "",
   panelCount: "",
   dcSize: "",
-  notes: "",
   office: "",
   submittedBy: "",
   correctPic: 0,
@@ -58,7 +57,8 @@ const initialData = {
   salesRepVisit: 0,
   faOnSite: 0,
   panelsInstalled: 0,
-  constructionComplete: 0
+  constructionComplete: 0,
+  notes: ""
 };
 
 const dataValidation = [
