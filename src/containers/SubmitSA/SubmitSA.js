@@ -42,8 +42,6 @@ const initialData = {
   numberOfArrays: "",
   roofType: "",
   notes: "",
-  winterSolstice: 0,
-  saComplete: 0,
   fortyFootLadder: 0,
   secondAssessor: 0,
   ifSecondAssessor: "",
@@ -111,8 +109,6 @@ const dataValidation = options => {
       label: "Total Exterior (Minutes)"
     },
     { field: "notes", type: "text", maxlength: "1800" },
-    { field: "winterSolstice", type: "bool" },
-    { field: "saComplete", type: "bool", label: "SA Complete" },
     {
       field: "fortyFootLadder",
       type: "bool",
@@ -222,9 +218,9 @@ const SubmitNightly = ({ accountInfo }) => {
               ? formData.ifSecondAssessor
               : "N/A",
             numberOfArrays: +formData.numberOfArrays,
-            winterSolstice: truthyCheck(formData.winterSolstice),
+
             fortyFootLadder: truthyCheck(formData.fortyFootLadder),
-            saComplete: truthyCheck(formData.saComplete),
+
             sp: moment(formData.sp).format("MM/DD/YY h:mm a"),
             os: moment(formData.os).format("MM/DD/YY h:mm a"),
             date: moment(formData.date).format("MM/DD/YY"),

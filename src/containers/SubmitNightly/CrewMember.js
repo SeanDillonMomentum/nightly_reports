@@ -29,7 +29,11 @@ const CrewMember = ({ data, index, allData, allSetter, memberTypes }) => {
             onChange={e => dataSetter(e)}
           >
             {memberTypes.map(option => (
-              <MenuItem key={option.id} value={option.id}>
+              <MenuItem
+                style={{ display: "flex", flexDirection: "column" }}
+                key={option.id}
+                value={option.id}
+              >
                 {option.type}
               </MenuItem>
             ))}

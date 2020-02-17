@@ -14,10 +14,8 @@ const SA_REPORTS_BY_ID = gql`
       sp
       os
       market
-      winterSolstice
       totalInterior
       totalExterior
-      saComplete
       fortyFootLadder
       ifSecondAssessor
       escalation

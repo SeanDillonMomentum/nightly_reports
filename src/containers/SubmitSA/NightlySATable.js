@@ -15,27 +15,25 @@ const tableHeaders = [
   { id: "7", label: "Site Assessor", key: "siteAssessor" },
   { id: "8", label: "S/P", key: "sp", type: "date" },
   { id: "9", label: "O/S", key: "os", type: "date" },
-  { id: "10", label: "Winter Solstice", key: "winterSolstice", type: "bool" },
-  { id: "11", label: "Total Interior ⏰", key: "totalInterior" },
+  { id: "10", label: "Total Interior ⏰", key: "totalInterior" },
   {
-    id: "12",
+    id: "11",
     label: "Total Exterior ⏰",
     key: "totalExterior"
   },
-  { id: "13", label: "SA Complete", key: "saComplete", type: "bool" },
-  { id: "14", label: "Number Of Arrays", key: "numberOfArrays" },
-  { id: "15", label: "Roof Type", key: "roofType" },
+  { id: "12", label: "Number Of Arrays", key: "numberOfArrays" },
+  { id: "13", label: "Roof Type", key: "roofType" },
   {
-    id: "16",
+    id: "14",
     label: "Forty Foot Ladder",
     key: "fortyFootLadder",
     type: "bool"
   },
-  { id: "17", label: "Second Assessor", key: "ifSecondAssessor" },
-  { id: "18", label: "Notes", key: "notes" },
-  { id: "19", label: "Submitted By", key: "nightly_report_user" },
-  { id: "20", label: "Market", key: "market" },
-  { id: "21", label: "Escalation", key: "escalation" }
+  { id: "15", label: "Second Assessor", key: "ifSecondAssessor" },
+  { id: "16", label: "Notes", key: "notes" },
+  { id: "17", label: "Submitted By", key: "nightly_report_user" },
+  { id: "18", label: "Market", key: "market" },
+  { id: "19", label: "Escalation", key: "escalation" }
 ];
 
 const SAReportTable = ({ id }) => {

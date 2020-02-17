@@ -14,10 +14,8 @@ const NIGHTLY_SA_REPORTS = gql`
       sp
       os
       market
-      winterSolstice
       totalInterior
       totalExterior
-      saComplete
       notes
       submittedBy
       fortyFootLadder
