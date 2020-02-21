@@ -7,7 +7,6 @@ const CREATE_IM_REPORT = gql`
   ) {
     createImReport(report: $report, crewMembers: $crewMembers) {
       id
-      submittedBy
     }
   }
 `;

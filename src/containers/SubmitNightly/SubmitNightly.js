@@ -129,10 +129,19 @@ const SubmitNightly = ({ history, permissions }) => {
   const createReport = async () => {
     const report = {
       ...formData,
-      panelCount: +formData.panelCount,
-      submittedBy: permissions.id
+      panelCount: +formData.panelCount || 1,
+      submittedBy: permissions.id,
+      installCrewId: +crewID.insCrewId,
+      office: +formData.office
     };
-    const crewMembers = [];
+
+    const crewMembers = crew.reduce((arr, curr) => {
+      arr.push({ crewMember: curr.coad_id, crewMemberType: curr.memberType });
+      return arr;
+    }, []);
+
+    console.log(crewMembers);
+    console.log(report);
 
     if (Object.values(report).filter(x => x === "").length) {
       setError("Please Fill Out All Fields Prior to Submittal");
@@ -186,7 +195,7 @@ const SubmitNightly = ({ history, permissions }) => {
         <h1>NIGHTLY IM REPORT</h1>
         {data.allInstallCrewsByMarket.length ? (
           <>
-            <div style={{ width: "50%", margin: "0 auto" }}>
+            <div style={{ width: "50%", margin: "15px auto" }}>
               <Autocomplete
                 id="crews"
                 value={crewID}
@@ -238,7 +247,7 @@ const SubmitNightly = ({ history, permissions }) => {
           </h2>
         )}
       </StyledSubmit>
-      {/* <NightlyReportTable id={permissions.id} /> */}
+      <NightlyReportTable data={data.imReportsById} />
     </>
   );
 };

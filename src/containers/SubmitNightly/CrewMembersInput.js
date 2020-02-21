@@ -1,7 +1,5 @@
 import React from "react";
-import styled from "styled-components";
 import CrewMember from "./CrewMember";
-import { DeleteForever } from "@material-ui/icons";
 import {
   Table,
   TableHead,
@@ -11,7 +9,6 @@ import {
 } from "@material-ui/core";
 
 const CrewMembersInput = ({ setData, data, memberTypes }) => {
-  console.log(data);
   return (
     <Table
       style={{

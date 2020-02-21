@@ -14,8 +14,7 @@ const CrewMember = ({ data, index, allData, allSetter, memberTypes }) => {
     mutable[index].memberType = e.target.value;
     allSetter(mutable);
   };
-  console.log(data);
-  console.log(allData);
+
   return (
     <TableRow>
       <TableCell>{index + 1}</TableCell>

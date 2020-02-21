@@ -35,33 +35,31 @@ const tableHeaders = [
   { id: "17", label: "DC Size", key: "dcSize" },
   { id: "18", label: "Panels Installed", key: "panelsInstalled", type: "bool" },
   { id: "19", label: "Notes", key: "notes" },
-  { id: "20", label: "Office", key: "office" },
+  { id: "20", label: "Market", key: "market" },
+  { id: "21", label: "Install Crew", key: "install_crew" },
   {
-    id: "21",
+    id: "22",
     label: "Submitted By",
     key: "nightly_report_user",
     secondKey: "user"
   },
   {
-    id: "22",
+    id: "23",
     label: "Crew Members",
     key: "crewMembers"
   }
 ];
 
-const NightlyReportTable = ({ id }) => {
-  const { loading, error, data } = useQuery(IM_REPORTS_BY_ID, {
-    variables: { id }
-  });
-  if (loading) return <OtherLoader />;
-  if (error) return <div>Error</div>;
-  let newerData = data.imReportsById.reduce((arr, curr) => {
+const NightlyReportTable = ({ data }) => {
+  let newerData = data.reduce((arr, curr) => {
     arr.push({
       ...curr,
       nightly_report_user: curr["nightly_report_user"].user,
       crewMembers: curr.crew_member_reports.map(
-        curr => `${curr.crew_member.name} : ${curr.crew_member_type.type}`
-      )
+        curr => `${curr.FLDINST_USER.FULL_NAME} : ${curr.crew_member_type.type}`
+      ),
+      market: curr.all_market.name,
+      install_crew: curr.install_crew.name
     });
     return arr;
   }, []);

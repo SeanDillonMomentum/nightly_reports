@@ -45,7 +45,13 @@ const IM_REPORT_QUERY = gql`
       constructionComplete
       notes
       office
-
+      nightly_report_user {
+        user
+      }
+      all_market {
+        market_id
+        name
+      }
       install_crew {
         insCrewId
         name
@@ -58,6 +64,7 @@ const IM_REPORT_QUERY = gql`
         FLDINST_USER {
           EMAIL
           COAD_ID
+          FULL_NAME
         }
       }
     }

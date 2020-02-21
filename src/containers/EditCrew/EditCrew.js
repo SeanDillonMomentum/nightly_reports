@@ -60,7 +60,7 @@ const EditCrew = () => {
                   </TableRow>
                 ) : (
                   crewMemberTypes.map(member => (
-                    <TableRow key={member.id}>
+                    <TableRow key={member.crew_memb_type_id}>
                       <TableCell>{member.type}</TableCell>
                       <TableCell>
                         <Edit />
