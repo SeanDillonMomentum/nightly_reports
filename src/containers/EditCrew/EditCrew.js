@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import ALL_CREW_MEMBERS from "../../graphql/queries/crewMembers";
-import ALL_CREW_MEMBER_TYPES from "../../graphql/queries/crewMemberTypes";
-import DELETE_CREW_MEMBER from "../../graphql/mutations/deleteCrewMember";
+
+// import DELETE_CREW_MEMBER from "../../graphql/mutations/deleteCrewMember";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
 import {
   Table,
@@ -13,85 +13,28 @@ import {
 } from "@material-ui/core";
 import { Edit, DeleteForever } from "@material-ui/icons";
 import { StyledEdit } from "./styles";
+import ALL_CREW_MEMBER_TYPES from "../../graphql/queries/crewMemberTypes";
 import AddCrewType from "./AddCrewType";
-import AddCrewMember from "./AddCrewMember";
+// import AddCrewMember from "./AddCrewMember";
 
 const EditCrew = () => {
-  const { loading, error, data } = useQuery(ALL_CREW_MEMBERS);
-  const { loading: loadingTwo, error: errorTwo, data: dataTwo } = useQuery(
-    ALL_CREW_MEMBER_TYPES
-  );
-  const [deleteCrewMember] = useMutation(DELETE_CREW_MEMBER, {
-    refetchQueries: ["crewMembers"]
-  });
+  const { loading, error, data } = useQuery(ALL_CREW_MEMBER_TYPES);
 
-  if (loading || loadingTwo) return <OtherLoader />;
-  if (error || errorTwo) return <div>Error</div>;
+  if (loading) return <OtherLoader />;
+  if (error) return <div>Error</div>;
 
-  let { crewMembers } = data;
-  let { crewMemberTypes } = dataTwo;
-
-  const deleteUser = async id => {
-    try {
-      await deleteCrewMember({ variables: { id } });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+  // const deleteUser = async id => {
+  //   try {
+  //     await deleteCrewMember({ variables: { id } });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  const { crewMemberTypes } = data;
   return (
     <StyledEdit>
       <h1>Edit Crew Members/Types</h1>
       <div className="lowerFlex">
-        <div className="split">
-          <AddCrewMember />
-          <div className="tableContainer">
-            <h2>Crew Members</h2>
-            <Table>
-              <TableHead>
-                <TableRow className="tableHeaders">
-                  <TableCell>Name</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>
-                    <DeleteForever />
-                  </TableCell>
-                  <TableCell>
-                    <Edit />
-                  </TableCell>
-                  <TableCell>
-                    <DeleteForever />
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {!crewMembers.length ? (
-                  <TableRow>
-                    <TableCell colSpan="3">No Current Members</TableCell>
-                  </TableRow>
-                ) : (
-                  crewMembers.map(member => (
-                    <TableRow key={member.id}>
-                      <TableCell>{member.name}</TableCell>
-                      <TableCell>{member.email || "n/a"}</TableCell>
-                      <TableCell>
-                        <DeleteForever
-                          style={{ color: "red" }}
-                          onClick={() => deleteUser(member.id)}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Edit />
-                      </TableCell>
-                      <TableCell>
-                        <DeleteForever />
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </div>
         <div className="split">
           <AddCrewType />
           <div className="tableContainer">

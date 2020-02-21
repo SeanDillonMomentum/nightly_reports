@@ -1,12 +1,8 @@
 import { gql } from "apollo-boost";
 
 const ADD_USER = gql`
-  mutation addUser(
-    $user: String!
-    $tables: [TableInput]
-    $defaultState: String
-  ) {
-    addUser(user: $user, tables: $tables, defaultState: $defaultState) {
+  mutation addUser($user: String!, $tables: [TableInput], $market: Int!) {
+    addUser(user: $user, tables: $tables, market: $market) {
       id
       user
     }

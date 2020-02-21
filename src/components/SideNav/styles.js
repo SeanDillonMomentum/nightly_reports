@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledSidebar = styled.div`
   position: fixed;
   top: 64px;
-  bottom: ${props => (!props.open ? null : '0')};
-  transform: translateX(${props => (!props.open ? '-100px' : '0')});
-  width: 100px;
+  bottom: ${props => (!props.open ? null : "0")};
+  transform: translateX(${props => (!props.open ? "-135px" : "0")});
+  width: 135px;
   transition: all 0.5s;
   border-right: 1px solid ${props => props.theme.backgroundLightGrey};
   bottom: 0;

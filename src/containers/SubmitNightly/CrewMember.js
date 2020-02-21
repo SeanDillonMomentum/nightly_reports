@@ -7,7 +7,6 @@ import {
   TableRow,
   TableCell
 } from "@material-ui/core";
-import { DeleteForever } from "@material-ui/icons";
 
 const CrewMember = ({ data, index, allData, allSetter, memberTypes }) => {
   const dataSetter = e => {
@@ -15,11 +14,12 @@ const CrewMember = ({ data, index, allData, allSetter, memberTypes }) => {
     mutable[index].memberType = e.target.value;
     allSetter(mutable);
   };
-  const remove = () => allSetter(allData.filter((_, ind) => index !== ind));
+  console.log(data);
+  console.log(allData);
   return (
     <TableRow>
       <TableCell>{index + 1}</TableCell>
-      <TableCell>{data.name}</TableCell>
+      <TableCell>{data.FLDINST_USER.FULL_NAME}</TableCell>
       <TableCell>
         <FormControl style={{ width: "50%" }} className="textFieldWrap">
           <InputLabel>Crew Type</InputLabel>
@@ -31,17 +31,14 @@ const CrewMember = ({ data, index, allData, allSetter, memberTypes }) => {
             {memberTypes.map(option => (
               <MenuItem
                 style={{ display: "flex", flexDirection: "column" }}
-                key={option.id}
-                value={option.id}
+                key={option.crew_memb_type_id}
+                value={option.crew_memb_type_id}
               >
                 {option.type}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
-      </TableCell>
-      <TableCell>
-        <DeleteForever className="deleteHover" onClick={remove} />
       </TableCell>
     </TableRow>
   );

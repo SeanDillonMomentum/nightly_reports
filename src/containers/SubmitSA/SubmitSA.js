@@ -1,13 +1,10 @@
-import React, { useState, useContext } from "react";
-import { Context } from "../../App";
-// import Reformed from "reformed";
+import React, { useState } from "react";
 import Reformed from "reformed-material";
 import moment from "moment";
 import { StyledButton } from "../Home/styles";
 import { StyledSubmit } from "./styles";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import SuccessModal from "../../components/Modal/SuccessModal";
-import FIND_USER from "../../graphql/queries/findUser";
 import CREATE_SA_REPORT from "../../graphql/mutations/createSaReport";
 import SA_REPORTS_BY_ID from "../../graphql/queries/saReportsById";
 import NightlySATable from "./NightlySATable";
@@ -82,6 +79,7 @@ const dataValidation = options => {
         "Ft. Lauderdale, FL",
         "Orlando, FL",
         "Tampa, FL",
+        "Tamarac, FL",
         "Austin, TX",
         "Dallas, TX",
         "San Antonio, TX",
@@ -183,17 +181,18 @@ const dataValidation = options => {
   ];
 };
 
-const SubmitNightly = ({ accountInfo }) => {
-  const { client } = useContext(Context);
-  const { findUser } = client.readQuery({
-    query: FIND_USER,
-    variables: { user: accountInfo.account.userName.toLowerCase() }
-  });
+const SubmitNightly = ({ accountInfo, permissions }) => {
+  // const { client } = useContext(Context);
+  // const { findUser } = client.readQuery({
+  //   query: FIND_USER,
+  //   variables: { user: accountInfo.account.userName.toLowerCase() }
+  // });
+  console.log(permissions);
   const { loading, error: errorTwo, data } = useQuery(ALL_SITE_ASSESSORS);
 
   const [createSaReport] = useMutation(CREATE_SA_REPORT, {
     refetchQueries: [
-      { query: SA_REPORTS_BY_ID, variables: { id: findUser.id } }
+      { query: SA_REPORTS_BY_ID, variables: { id: permissions.id } }
     ]
   });
 
@@ -213,7 +212,7 @@ const SubmitNightly = ({ accountInfo }) => {
             ...formData,
             totalInterior: convertToTime(formData.totalInterior),
             totalExterior: convertToTime(formData.totalExterior),
-            submittedBy: findUser.user,
+            submittedBy: permissions.user,
             ifSecondAssessor: formData.secondAssessor
               ? formData.ifSecondAssessor
               : "N/A",
@@ -235,7 +234,7 @@ const SubmitNightly = ({ accountInfo }) => {
       submissionTimestamp: moment().format("MM/DD/YY h:mm a"),
       totalInterior: convertToTime(formData.totalInterior),
       totalExterior: convertToTime(formData.totalExterior),
-      submittedBy: findUser.id,
+      submittedBy: permissions.id,
       ifSecondAssessor: formData.secondAssessor
         ? formData.ifSecondAssessor
         : "N/A",
@@ -321,7 +320,7 @@ const SubmitNightly = ({ accountInfo }) => {
           SUBMIT{submitting && "TING"}
         </StyledButton>
       </StyledSubmit>
-      <NightlySATable id={findUser.id} />
+      <NightlySATable id={permissions.id} />
     </>
   );
 };

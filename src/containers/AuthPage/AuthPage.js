@@ -3,14 +3,15 @@ import OtherLoader from "../../components/OtherLoader/OtherLoader";
 import Table from "../../components/TableNew/Table";
 import Reformed from "reformed-material";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import ALL_TABLES from "../../graphql/queries/allTables";
+import EditModal from "./EditModal";
 import ALL_USERS from "../../graphql/queries/allUsers";
 import ADD_USER from "../../graphql/mutations/addUser";
 import { StyledButton } from "../Home/styles";
 
 import styled from "styled-components";
 import SuccessModal from "../../components/Modal/SuccessModal";
-let initialState = { user: "", tables: [], defaultState: "" };
+import { Edit } from "@material-ui/icons";
+let initialState = { user: "", tables: [], market: "" };
 
 const StyledSubmit = styled.div`
   display: flex;
@@ -27,30 +28,32 @@ const StyledSubmit = styled.div`
   margin: 30px auto;
 `;
 
-const dataValidation = options => {
+const dataValidation = (options, markets) => {
   return [
     { field: "user", type: "text" },
-    { field: "tables", type: "array", options, optionsKey: "table_type" },
     {
-      field: "defaultState",
+      field: "tables",
       type: "select",
-      label: "Default State",
-      options: [
-        "Cherry Hill, NJ",
-        "South Plainfield, NJ",
-        "Metuchen, NJ",
-        "Plainview, NY",
-        "Lancaster, PA",
-        "East Berlin, CT",
-        "Stamford, CT",
-        "Ft. Lauderdale, FL",
-        "Orlando, FL",
-        "Tampa, FL",
-        "Austin, TX",
-        "Dallas, TX",
-        "San Antonio, TX",
-        "Orange, CA"
-      ]
+      options,
+      selectObject: {
+        key: "id",
+        show: "table_type",
+        value: "id"
+      },
+      multiple: true,
+      noOther: true
+    },
+    {
+      field: "market",
+      type: "select",
+      label: "Market",
+      options: markets,
+      selectObject: {
+        key: "market_id",
+        show: "name",
+        value: "market_id"
+      },
+      noOther: true
     }
   ];
 };
@@ -64,32 +67,31 @@ const tableHeaders = [
   },
   {
     id: "3",
-    label: "Default State",
-    key: "defaultState"
-  }
+    label: "Market",
+    key: "market"
+  },
+  { id: "4", label: <Edit />, key: "edit", sortless: true }
 ];
 
 const AuthPage = () => {
   const [addUser] = useMutation(ADD_USER);
-  const { loading, error, data } = useQuery(ALL_TABLES);
-  const { loading: loadingTwo, error: errorTwo, data: dataTwo } = useQuery(
-    ALL_USERS
-  );
+  const { loading, error, data } = useQuery(ALL_USERS);
   const [userData, setUserData] = useState(initialState);
   const [errors, setErrors] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-
-  if (loading || loadingTwo) return <OtherLoader />;
-  if (error || errorTwo) return <div>error</div>;
+  const [editModal, setEditModal] = useState(false);
+  console.log(userData);
+  if (loading) return <OtherLoader />;
+  if (error) return <div>error</div>;
 
   const submitUser = async () => {
-    let { user, tables: tablesData, defaultState } = userData;
+    let { user, tables: tablesData, market } = userData;
     if (!tablesData.length) {
       setErrors(["No Permissions Selected"]);
       return;
     }
-    if (!user || !defaultState) {
+    if (!user || !market) {
       setErrors(["Please Enter Email and Default State"]);
       return;
     }
@@ -101,7 +103,7 @@ const AuthPage = () => {
     setSubmitting(true);
     try {
       await addUser({
-        variables: { tables, user, defaultState },
+        variables: { tables, user, market: +market },
         refetchQueries: [{ query: ALL_USERS }]
       });
       setModalOpen(true);
@@ -113,6 +115,15 @@ const AuthPage = () => {
     }
   };
 
+  const reducedData = data.allUsers.reduce((arr, curr) => {
+    arr.push({
+      ...curr,
+      market: curr.all_market.name,
+      edit: <Edit onClick={() => setEditModal(curr)} />
+    });
+    return arr;
+  }, []);
+
   return (
     <>
       <StyledSubmit>
@@ -122,7 +133,7 @@ const AuthPage = () => {
           flex="25%"
           data={userData}
           setData={setUserData}
-          dataValidation={dataValidation(data.allTables)}
+          dataValidation={dataValidation(data.allTables, data.allMarkets)}
         />
         {errors.length ? errors.map(err => <p key={err}>{err}</p>) : null}
         <StyledButton disabled={submitting} onClick={() => submitUser()}>
@@ -133,7 +144,7 @@ const AuthPage = () => {
         <Table
           localStorageVal="authTable"
           initialSearch="user"
-          data={dataTwo.allUsers}
+          data={reducedData}
           tableHeaders={tableHeaders}
         />
       </StyledSubmit>
@@ -142,6 +153,15 @@ const AuthPage = () => {
         setModalOpen={() => setModalOpen(false)}
         specialText="SUCCESSFULLY ADDED"
       />
+      {editModal && (
+        <EditModal
+          allTables={data.allTables}
+          allMarkets={data.allMarkets}
+          modalOpen={editModal}
+          setModalOpen={() => setEditModal(false)}
+          setSuccessModalOpen={() => setModalOpen(true)}
+        />
+      )}
     </>
   );
 };

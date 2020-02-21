@@ -5,11 +5,22 @@ const ALL_USERS = gql`
     allUsers {
       id
       user
-      defaultState
+      all_market {
+        market_id
+        name
+      }
       nightly_report_tables {
         id
         table_type
       }
+    }
+    allMarkets {
+      market_id
+      name
+    }
+    allTables {
+      id
+      table_type
     }
   }
 `;

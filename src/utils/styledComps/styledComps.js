@@ -21,21 +21,25 @@ export const StyledSubmit = styled.div`
 `;
 
 export const StyledButton = styled.button`
-  margin: ${props => props.margin || "30px 0 0 30px"};
+  margin: ${props => props.margin || "15px auto"};
   align-self: ${props => props.alignSelf};
   color: white;
   display: flex;
   width: ${props => props.width || "100px"};
   justify-content: space-evenly;
   align-items: center;
-  background-color: #001d49;
+  background-color: ${props => props.theme.midnightBlue};
   padding: 5px 10px;
-  border: none;
+  border: 2px solid white;
   border-radius: 5px;
   font-family: "Roboto", sans-serif;
   visibility: ${props => props.displayVal};
+  transition: all 0.3s;
   &:hover {
-    opacity: 0.7;
+    /* opacity: 0.7; */
+    border: 2px solid ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.midnightBlue};
+    background-color: white;
   }
 `;
 
@@ -202,7 +206,7 @@ background-color: white;
   }
 
   .errorField {
-    margin-top: 5px;
+    margin-top: 5px auto;
     text-align: center;
     color: ${props => props.theme.alertRed};
     font-size: 14px;

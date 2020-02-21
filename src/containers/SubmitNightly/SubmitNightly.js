@@ -10,33 +10,16 @@ import SuccessModal from "../../components/Modal/SuccessModal";
 import NightlyReportTable from "./NightlyReportTable";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
 import CrewMembersInput from "./CrewMembersInput";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { TextField } from "@material-ui/core";
 import SearchForProject from "./SearchForProject";
-import UserTeams from "./UserTeams";
 //mutations/queries
-import FIND_USER from "../../graphql/queries/findUser";
 import CREATE_IM_REPORT from "../../graphql/mutations/createImReport";
-import ALL_CREW_MEMBER_TYPES from "../../graphql/queries/crewMemberTypes";
-import ALL_CREW_MEMBERS from "../../graphql/queries/crewMembers";
-import IM_REPORTS_BY_ID from "../../graphql/queries/imReportsById";
-import RECENT_TEAM from "../../graphql/queries/recentTeam";
+import IM_REPORT_QUERY from "../../graphql/queries/imReportQuery";
 //utilities
 import moment from "moment";
-import UPDATE_RECENT from "../../graphql/mutations/updateRecent";
-
-//reduce over recent team to populate table
-export const membersInitial = prevCrew => {
-  return prevCrew.team_members.reduce((arr, curr) => {
-    arr.push({
-      id: curr.crew_member.id,
-      name: curr.crew_member.name,
-      memberType: curr.crew_member_type.id
-    });
-    return arr;
-  }, []);
-};
 
 const initialData = {
-  oppNumber: "",
   projectNumber: "",
   customerName: "",
   customerAddress: "",
@@ -47,8 +30,6 @@ const initialData = {
   electricalTotalHours: "",
   installationTotalHours: "",
   roundTripTotalHours: "",
-  panelType: "",
-  panelCount: "",
   dcSize: "",
   office: "",
   submittedBy: "",
@@ -61,7 +42,7 @@ const initialData = {
   notes: ""
 };
 
-const dataValidation = [
+const dataValidation = markets => [
   { field: "customerName", type: "text" },
   { field: "customerAddress", type: "text" },
   { field: "jobType", type: "text" },
@@ -75,8 +56,12 @@ const dataValidation = [
   { field: "onsiteRevision", type: "bool" },
   { field: "salesRepVisit", type: "bool" },
   { field: "faOnSite", label: "FA On Site", type: "bool" },
-  { field: "panelType", type: "text" },
-  { field: "panelCount", type: "text" },
+  // {
+  //   field: "faNotes",
+  //   label: "FA On Site Notes",
+  //   type: "text",
+  //   hiddenTrigger: "faOnSite"
+  // },
   { field: "dcSize", type: "text" },
   { field: "panelsInstalled", type: "bool" },
   { field: "constructionComplete", type: "bool" },
@@ -84,85 +69,70 @@ const dataValidation = [
   {
     field: "office",
     type: "select",
-    options: [
-      "Cherry Hill, NJ",
-      "South Plainfield, NJ",
-      "Metuchen, NJ",
-      "Plainview, NY",
-      "Lancaster, PA",
-      "East Berlin, CT",
-      "Stamford, CT",
-      "Ft. Lauderdale, FL",
-      "Orlando, FL",
-      "Tampa, FL",
-      "Austin, TX",
-      "Dallas, TX",
-      "San Antonio, TX",
-      "Orange, CA"
-    ]
+    options: markets,
+    selectObject: {
+      key: "market_id",
+      show: "name",
+      value: "market_id"
+    },
+    noOther: true
   }
 ];
 
-const SubmitNightly = ({ accountInfo, history }) => {
-  const { client } = useContext(Context);
-  const { findUser } = client.readQuery({
-    query: FIND_USER,
-    variables: { user: accountInfo.account.userName.toLowerCase() }
-  });
-
+const SubmitNightly = ({ history, permissions }) => {
+  // console.log(permissions);
   //queries
-  const { loading: loadingTwo, data: dataTwo, error: dataErrorTwo } = useQuery(
-    ALL_CREW_MEMBER_TYPES
-  );
-  const {
-    loading: loadingThree,
-    data: dataThree,
-    error: dataErrorThree
-  } = useQuery(RECENT_TEAM, {
-    variables: { id: findUser.recentTeam }
-  });
-  const { loading, data, error: dataError } = useQuery(ALL_CREW_MEMBERS);
-  //check if recentTeam associated to logged in user and populate if so;
-  useEffect(() => {
-    if (dataThree && dataThree.recentTeam) {
-      setMembers(membersInitial(dataThree.recentTeam));
-      setTeam(dataThree.recentTeam.id);
+  // const { loading: loadingTwo, data: dataTwo, error: dataErrorTwo } = useQuery(
+  //   ALL_CREW_MEMBER_TYPES
+  // );
+  // const {
+  //   loading: loadingThree,
+  //   data: dataThree,
+  //   error: dataErrorThree
+  // } = useQuery(RECENT_TEAM, {
+  //   variables: { id: findUser.recentTeam }
+  // });
+  const { loading, data, error: dataError } = useQuery(IM_REPORT_QUERY, {
+    variables: {
+      id: permissions.id,
+      market_id: +permissions.all_market.market_id
     }
-  }, [dataThree]);
+  });
+  //check if recentTeam associated to logged in user and populate if so;
+  // useEffect(() => {
+  //   if (dataThree && dataThree.recentTeam) {
+  //     setMembers(membersInitial(dataThree.recentTeam));
+  //     setTeam(dataThree.recentTeam.id);
+  //   }
+  // }, [dataThree]);
 
   //mutations
   const [createImReport] = useMutation(CREATE_IM_REPORT, {
     refetchQueries: [
-      { query: IM_REPORTS_BY_ID, variables: { id: findUser.id } }
+      {
+        query: IM_REPORT_QUERY,
+        variables: {
+          id: permissions.id,
+          market_id: +permissions.all_market.market_id
+        }
+      }
     ]
   });
-  const [updateRecent] = useMutation(UPDATE_RECENT);
   // state objects
+  const [crewID, setCrewID] = useState({ name: "" });
+  const [crew, setCrew] = useState([]);
   const [formData, setFormData] = useState(initialData);
   const [modalOpen, setModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [members, setMembers] = useState([]);
-  const [team, setTeam] = useState("");
 
   const createReport = async () => {
-    if (!members.length) {
-      setError("Must select at least one crew member.");
-      return;
-    }
-    if (members.length && members.find(x => !x.memberType)) {
-      setError("All Crew Members must have member type");
-      return;
-    }
     const report = {
       ...formData,
       panelCount: +formData.panelCount,
-      submittedBy: findUser.id
+      submittedBy: permissions.id
     };
-    const crewMembers = members.reduce((arr, curr) => {
-      arr.push({ crewMember: curr.id, crewMemberType: curr.memberType });
-      return arr;
-    }, []);
+    const crewMembers = [];
 
     if (Object.values(report).filter(x => x === "").length) {
       setError("Please Fill Out All Fields Prior to Submittal");
@@ -171,50 +141,83 @@ const SubmitNightly = ({ accountInfo, history }) => {
     setSubmitting(true);
     setError(false);
     try {
-      await updateRecent({
-        variables: { user: findUser.id, team }
-      });
       await createImReport({ variables: { report, crewMembers } });
       setModalOpen(true);
       setSubmitting(false);
       setFormData(initialData);
-      setMembers([]);
     } catch (err) {
       setSubmitting(false);
       setError("An Error Occurred While Submitting");
     }
   };
 
-  if (loading || loadingTwo || loadingThree) return <OtherLoader />;
-  if (dataError || dataErrorTwo || dataErrorThree) return <div>Error</div>;
-  let { crewMembers } = data;
-  let { crewMemberTypes } = dataTwo;
-  // console.log(location.state.userData);
+  if (loading) return <OtherLoader />;
+  if (dataError) return <div>Error</div>;
+
+  //"installCrewId": 1,
+  // "office": "Cherry Hill, NJ",
+  // "submittedBy": 2
+  //   },
+  //   "crewMembers": [
+  //     {"crewMember": "A98275", "crewMemberType": 1},
+  //        {"crewMember": "D88510", "crewMemberType":2}
+  //   ]
+  // console.log(crew);
+
+  const handleSetCrew = newValue => {
+    if (!newValue) {
+      setCrew([]);
+      setCrewID({ name: "" });
+    } else {
+      setCrew(
+        newValue.crew_team_members.map(x => {
+          return {
+            ...x,
+            memberType: ""
+          };
+        })
+      );
+      setCrewID({ name: newValue.name, insCrewId: newValue.insCrewId });
+    }
+  };
   return (
     <>
       <StyledSubmit>
         <h1>NIGHTLY IM REPORT</h1>
-        {findUser.teams.length ? (
+        {data.allInstallCrewsByMarket.length ? (
           <>
-            <UserTeams
-              setTeam={setTeam}
-              currTeam={team}
-              setMembers={setMembers}
-              allTeams={findUser.teams}
-            />
-
-            <CrewMembersInput
-              data={members}
-              setData={setMembers}
-              items={crewMembers}
-              memberTypes={crewMemberTypes}
-            />
+            <div style={{ width: "50%", margin: "0 auto" }}>
+              <Autocomplete
+                id="crews"
+                value={crewID}
+                options={data.allInstallCrewsByMarket}
+                getOptionLabel={option => option.name}
+                onChange={(_, newValue) => handleSetCrew(newValue)}
+                filterSelectedOptions
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Crew"
+                    placeholder="Find Crew"
+                    fullWidth
+                  />
+                )}
+              />
+            </div>
+            {crew.length ? (
+              <CrewMembersInput
+                data={crew}
+                setData={setCrew}
+                memberTypes={data.crewMemberTypes}
+              />
+            ) : null}
             <SearchForProject data={formData} setData={setFormData} />
             <Reformed
               flex="20%"
               data={formData}
               setData={setFormData}
-              dataValidation={dataValidation}
+              dataValidation={dataValidation(data.allMarkets)}
             />
             <SuccessModal
               modalOpen={modalOpen}
@@ -235,7 +238,7 @@ const SubmitNightly = ({ accountInfo, history }) => {
           </h2>
         )}
       </StyledSubmit>
-      <NightlyReportTable id={findUser.id} />
+      {/* <NightlyReportTable id={permissions.id} /> */}
     </>
   );
 };

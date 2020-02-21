@@ -25,19 +25,18 @@ const NIGHTLY_IM_REPORTS = gql`
       notes
       office
       submittedBy
-      nightly_report_user {
-        user
+      install_crew {
+        insCrewId
+        name
       }
       crew_member_reports {
-        id
-        report
-        crewMember
-        crewMemberType
-        crew_member {
-          name
-        }
         crew_member_type {
+          crew_memb_type_id
           type
+        }
+        FLDINST_USER {
+          EMAIL
+          COAD_ID
         }
       }
     }

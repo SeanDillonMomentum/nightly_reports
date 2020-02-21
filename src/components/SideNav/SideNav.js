@@ -4,17 +4,55 @@ import StyledSidebar from "./styles";
 //adminlevel
 import { Context } from "../../routers/AppRouter";
 import NavList from "../NavList/NavList";
-import { Home } from "@material-ui/icons";
+import { Home, BarChart, Lock } from "@material-ui/icons";
 
-const SideNav = () => {
+const SideNav = ({ permissions }) => {
   const { show } = useContext(Context);
+  const cardCheck = authType =>
+    permissions.nightly_report_tables.find(x => x.table_type === authType);
+  // console.log(permissions);
   return (
     <>
       <StyledSidebar open={show}>
         <ul>
           <NavList link="/">
             <Home />
+            Home
           </NavList>
+          {cardCheck("sareport") && (
+            <NavList link="/submitsa">
+              <BarChart />
+              Submit SA
+            </NavList>
+          )}
+          {cardCheck("imreport") && (
+            <>
+              <NavList link="/submitim">
+                <BarChart />
+                Submit IM
+              </NavList>
+              <NavList link="/editteams">
+                <BarChart />
+                Edit Teams
+              </NavList>
+            </>
+          )}
+          {cardCheck("auth") && (
+            <>
+              <NavList link="/auth">
+                <Lock />
+                Auth
+              </NavList>
+              <NavList link="/adminview">
+                <Lock />
+                Admin View
+              </NavList>
+              <NavList link="/editcrew">
+                <BarChart />
+                Edit Crews
+              </NavList>
+            </>
+          )}
         </ul>
       </StyledSidebar>
     </>

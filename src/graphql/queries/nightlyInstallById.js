@@ -10,6 +10,7 @@ const NIGHTLY_INSTALL_BY_ID = gql`
       systemSize
       panelType
       panelQuantity
+      Office
     }
   }
 `;

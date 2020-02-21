@@ -4,8 +4,10 @@ const FIND_USER = gql`
   query findUser($id: ID, $user: String) {
     findUser(id: $id, user: $user) {
       id
-      recentTeam
-      defaultState
+      all_market {
+        market_id
+        name
+      }
       nightly_report_tables {
         id
         table_type
@@ -14,22 +16,6 @@ const FIND_USER = gql`
         id
         faOnSite
         notes
-      }
-      teams {
-        id
-        name
-        team_members {
-          id
-          team_id
-          crew_member {
-            name
-            id
-          }
-          crew_member_type {
-            type
-            id
-          }
-        }
       }
       user
     }

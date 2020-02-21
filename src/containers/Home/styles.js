@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledButton = styled.button`
-  margin: ${props => props.margin || "15px 0"};
+  margin: ${props => props.margin || "15px auto"};
   align-self: ${props => props.alignSelf};
   color: white;
   display: flex;
@@ -16,7 +16,6 @@ export const StyledButton = styled.button`
   visibility: ${props => props.displayVal};
   transition: all 0.3s;
   &:hover {
-    /* opacity: 0.7; */
     border: 2px solid ${props => props.theme.midnightBlue};
     color: ${props => props.theme.midnightBlue};
     background-color: white;
