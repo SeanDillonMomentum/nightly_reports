@@ -9,7 +9,6 @@ import SubmitSA from "../containers/SubmitSA/SubmitSA";
 import AuthPage from "../containers/AuthPage/AuthPage";
 import AdminView from "../containers/AdminView/AdminView";
 import EditCrew from "../containers/EditCrew/EditCrew";
-import InstallManagers from "../containers/HandleInstallManagers/InstallManagers";
 import EditTeams from "../containers/EditTeam/EditTeams";
 import Wrapper from "../Wrapper";
 const Context = React.createContext({});
@@ -74,12 +73,6 @@ const AppRouter = () => {
             show={show}
             path="/editteams"
             component={EditTeams}
-            exact={true}
-          />
-          <PrivateRoute
-            show={show}
-            path="/handleinstallmanagers"
-            component={InstallManagers}
             exact={true}
           />
         </Switch>
