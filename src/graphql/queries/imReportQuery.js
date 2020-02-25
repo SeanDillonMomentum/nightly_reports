@@ -1,7 +1,7 @@
 import { gql } from "apollo-boost";
 
 const IM_REPORT_QUERY = gql`
-  query imReportQuery($market_id: Int!, $id: ID!) {
+  query imReportQuery($market_id: Int!, $id: ID!, $office: String!) {
     allInstallCrewsByMarket(market_id: $market_id) {
       name
       insCrewId
@@ -23,23 +23,24 @@ const IM_REPORT_QUERY = gql`
       market_id
       name
     }
+
+    allSalesRepsByMarket(office: $office) {
+      OFFICE
+      HR_NAME
+    }
+
     imReportsById(id: $id) {
       id
-      customerName
-      customerAddress
       jobType
-      date
       sp
       os
-      electricalTotalHours
-      installationTotalHours
       roundTripTotalHours
       correctPic
       onsiteRevision
       salesRepVisit
+      salesRep
       faOnSite
-      panelType
-      panelCount
+      fieldAssurance
       dcSize
       panelsInstalled
       constructionComplete

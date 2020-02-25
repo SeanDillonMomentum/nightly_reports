@@ -1,8 +1,5 @@
 import React from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import ALL_CREW_MEMBERS from "../../graphql/queries/crewMembers";
-
-// import DELETE_CREW_MEMBER from "../../graphql/mutations/deleteCrewMember";
+import { useQuery } from "@apollo/react-hooks";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
 import {
   Table,
@@ -23,13 +20,6 @@ const EditCrew = () => {
   if (loading) return <OtherLoader />;
   if (error) return <div>Error</div>;
 
-  // const deleteUser = async id => {
-  //   try {
-  //     await deleteCrewMember({ variables: { id } });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
   const { crewMemberTypes } = data;
   return (
     <StyledEdit>

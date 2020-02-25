@@ -4,21 +4,16 @@ const IM_REPORTS_BY_ID = gql`
   query imReportsById($id: ID!) {
     imReportsById(id: $id) {
       id
-      customerName
-      customerAddress
       jobType
-      date
       sp
       os
-      electricalTotalHours
-      installationTotalHours
       roundTripTotalHours
       correctPic
       onsiteRevision
       salesRepVisit
+      saleRep
       faOnSite
-      panelType
-      panelCount
+      fieldAssurance
       dcSize
       panelsInstalled
       constructionComplete

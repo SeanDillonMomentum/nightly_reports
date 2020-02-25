@@ -10,7 +10,7 @@ const SideNav = ({ permissions }) => {
   const { show } = useContext(Context);
   const cardCheck = authType =>
     permissions.nightly_report_tables.find(x => x.table_type === authType);
-  // console.log(permissions);
+
   return (
     <>
       <StyledSidebar open={show}>

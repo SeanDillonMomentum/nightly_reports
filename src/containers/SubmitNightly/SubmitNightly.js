@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { Context } from "../../App";
 //styles
 import { StyledSubmit } from "./styles";
 import { StyledButton } from "../Home/styles";
@@ -21,91 +20,89 @@ import moment from "moment";
 
 const initialData = {
   projectNumber: "",
-  customerName: "",
-  customerAddress: "",
   jobType: "",
-  date: moment().format("MM/DD/YY"),
   sp: moment().format("MM/DD/YY"),
   os: moment().format("MM/DD/YY"),
-  electricalTotalHours: "",
-  installationTotalHours: "",
   roundTripTotalHours: "",
   dcSize: "",
-  office: "",
   submittedBy: "",
   correctPic: 0,
   onsiteRevision: 0,
   salesRepVisit: 0,
+  salesRep: "",
   faOnSite: 0,
+  fieldAssurance: "",
   panelsInstalled: 0,
   constructionComplete: 0,
   notes: ""
 };
 
-const dataValidation = markets => [
-  { field: "customerName", type: "text" },
-  { field: "customerAddress", type: "text" },
-  { field: "jobType", type: "text" },
-  { field: "date", type: "date" },
-  { field: "sp", type: "time", label: "S/P" },
-  { field: "os", type: "time", label: "O/S" },
-  { field: "electricalTotalHours", type: "text" },
-  { field: "installationTotalHours", type: "text" },
+const dataValidation = salesReps => [
+  {
+    field: "jobType",
+    type: "select",
+    noOther: true,
+    options: [
+      "Initial",
+      "Return 1",
+      "Return 2",
+      "Return 3",
+      "Return 4",
+      "Uninstall",
+      "Reinstall"
+    ]
+  },
+  { field: "sp", type: "time", label: "Departed Home Office" },
+  { field: "os", type: "time", label: "Departed Customer Site" },
   { field: "roundTripTotalHours", type: "text" },
   { field: "correctPic", type: "bool" },
   { field: "onsiteRevision", type: "bool" },
   { field: "salesRepVisit", type: "bool" },
+  {
+    field: "salesRep",
+    type: "select",
+    noOther: true,
+    options: salesReps,
+    selectObject: {
+      key: "HR_NAME",
+      show: "HR_NAME",
+      value: "HR_NAME"
+    },
+    hiddenTrigger: "salesRepVisit"
+  },
   { field: "faOnSite", label: "FA On Site", type: "bool" },
-  // {
-  //   field: "faNotes",
-  //   label: "FA On Site Notes",
-  //   type: "text",
-  //   hiddenTrigger: "faOnSite"
-  // },
+  {
+    field: "fieldAssurance",
+    type: "select",
+    noOther: true,
+    options: [
+      { name: "HERE" },
+      { name: "IS" },
+      { name: "SOME" },
+      { name: "FAKE" },
+      { name: "OPTIONS" }
+    ],
+    selectObject: {
+      key: "name",
+      show: "name",
+      value: "name"
+    },
+    hiddenTrigger: "faOnSite"
+  },
   { field: "dcSize", type: "text" },
   { field: "panelsInstalled", type: "bool" },
   { field: "constructionComplete", type: "bool" },
-  { field: "notes", type: "text" },
-  {
-    field: "office",
-    type: "select",
-    options: markets,
-    selectObject: {
-      key: "market_id",
-      show: "name",
-      value: "market_id"
-    },
-    noOther: true
-  }
+  { field: "notes", type: "text" }
 ];
 
 const SubmitNightly = ({ history, permissions }) => {
-  // console.log(permissions);
-  //queries
-  // const { loading: loadingTwo, data: dataTwo, error: dataErrorTwo } = useQuery(
-  //   ALL_CREW_MEMBER_TYPES
-  // );
-  // const {
-  //   loading: loadingThree,
-  //   data: dataThree,
-  //   error: dataErrorThree
-  // } = useQuery(RECENT_TEAM, {
-  //   variables: { id: findUser.recentTeam }
-  // });
   const { loading, data, error: dataError } = useQuery(IM_REPORT_QUERY, {
     variables: {
       id: permissions.id,
-      market_id: +permissions.all_market.market_id
+      market_id: +permissions.all_market.market_id,
+      office: permissions.all_market.name
     }
   });
-  //check if recentTeam associated to logged in user and populate if so;
-  // useEffect(() => {
-  //   if (dataThree && dataThree.recentTeam) {
-  //     setMembers(membersInitial(dataThree.recentTeam));
-  //     setTeam(dataThree.recentTeam.id);
-  //   }
-  // }, [dataThree]);
-
   //mutations
   const [createImReport] = useMutation(CREATE_IM_REPORT, {
     refetchQueries: [
@@ -113,7 +110,8 @@ const SubmitNightly = ({ history, permissions }) => {
         query: IM_REPORT_QUERY,
         variables: {
           id: permissions.id,
-          market_id: +permissions.all_market.market_id
+          market_id: +permissions.all_market.market_id,
+          office: permissions.all_market.name
         }
       }
     ]
@@ -129,10 +127,11 @@ const SubmitNightly = ({ history, permissions }) => {
   const createReport = async () => {
     const report = {
       ...formData,
-      panelCount: +formData.panelCount || 1,
       submittedBy: permissions.id,
+      fieldAssurance: formData.faOnSite ? formData.fieldAssurance : null,
+      salesRep: formData.salesRepVisit ? formData.salesRep : null,
       installCrewId: +crewID.insCrewId,
-      office: +formData.office
+      office: +permissions.all_market.market_id
     };
 
     const crewMembers = crew.reduce((arr, curr) => {
@@ -140,13 +139,11 @@ const SubmitNightly = ({ history, permissions }) => {
       return arr;
     }, []);
 
-    console.log(crewMembers);
-    console.log(report);
-
     if (Object.values(report).filter(x => x === "").length) {
       setError("Please Fill Out All Fields Prior to Submittal");
       return;
     }
+
     setSubmitting(true);
     setError(false);
     try {
@@ -162,16 +159,6 @@ const SubmitNightly = ({ history, permissions }) => {
 
   if (loading) return <OtherLoader />;
   if (dataError) return <div>Error</div>;
-
-  //"installCrewId": 1,
-  // "office": "Cherry Hill, NJ",
-  // "submittedBy": 2
-  //   },
-  //   "crewMembers": [
-  //     {"crewMember": "A98275", "crewMemberType": 1},
-  //        {"crewMember": "D88510", "crewMemberType":2}
-  //   ]
-  // console.log(crew);
 
   const handleSetCrew = newValue => {
     if (!newValue) {
@@ -226,7 +213,7 @@ const SubmitNightly = ({ history, permissions }) => {
               flex="20%"
               data={formData}
               setData={setFormData}
-              dataValidation={dataValidation(data.allMarkets)}
+              dataValidation={dataValidation(data.allSalesRepsByMarket)}
             />
             <SuccessModal
               modalOpen={modalOpen}

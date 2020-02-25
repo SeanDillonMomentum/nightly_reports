@@ -43,7 +43,7 @@ const Table = ({
   const [currSearch, setCurrSearch] = useState(initialSearch);
   const [search, setSearch] = useState("");
   // util funcs
-  // console.log(localVal);
+
   // handle sort on column header clicks
   const sortHandler = column => {
     let { key, sortless } = column;

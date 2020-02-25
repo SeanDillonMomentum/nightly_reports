@@ -86,7 +86,6 @@ router.post("/api/send", async (req, res) => {
       );
       res.end("success");
     } catch (err) {
-      console.log(err);
       throw new Error(err);
     }
   });

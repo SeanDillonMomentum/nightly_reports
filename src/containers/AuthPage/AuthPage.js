@@ -81,7 +81,7 @@ const AuthPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  console.log(userData);
+
   if (loading) return <OtherLoader />;
   if (error) return <div>error</div>;
 

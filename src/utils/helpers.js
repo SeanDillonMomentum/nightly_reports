@@ -1,5 +1,5 @@
 import { thisMonthFilter, lastMonthFilter } from "../filterUtils/dateFilters";
-import moment from 'moment'
+import moment from "moment";
 
 /** @param tableCalculation table calculation takes in whether it is a paginated/non-paginated dataset and returns data back filtered*/
 const tableCalculation = (
@@ -19,7 +19,7 @@ const tableCalculation = (
   let formatDate = date => moment(date).format("MMMM Do YYYY");
 
   if (rows) {
-    if (!query && search && searchTwo){
+    if (!query && search && searchTwo) {
       filteredRows = rows.filter(row => {
         if (typeof row[rowSearched] === "string")
           return (
@@ -40,10 +40,13 @@ const tableCalculation = (
           );
         }
       });
-      filteredRows = rows.filter(row => formatDate(row[1]).toLowerCase().indexOf(searchTwo.toLowerCase()) !== -1)
-      
-    }
-    else if (!query && search) {
+      filteredRows = rows.filter(
+        row =>
+          formatDate(row[1])
+            .toLowerCase()
+            .indexOf(searchTwo.toLowerCase()) !== -1
+      );
+    } else if (!query && search) {
       filteredRows = rows.filter(row => {
         if (typeof row[rowSearched] === "string")
           return (
@@ -66,13 +69,13 @@ const tableCalculation = (
       });
     } else if (!query && searchTwo) {
       filteredRows = rows.filter(row => {
-            return formatDate(row[1]).toLowerCase().indexOf(searchTwo.toLowerCase()) !== -1
-      }
-     
-    
-      );
-
-    }else {
+        return (
+          formatDate(row[1])
+            .toLowerCase()
+            .indexOf(searchTwo.toLowerCase()) !== -1
+        );
+      });
+    } else {
       filteredRows = rows;
     }
 
@@ -82,7 +85,6 @@ const tableCalculation = (
       ? headings.indexOf(sorter)
       : headingSort.indexOf(sorter);
 
-    // console.log(headings);
     let filterColumnIndex = headingSort.indexOf(filterValue.header);
 
     if (filterValue.value) {

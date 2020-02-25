@@ -4,21 +4,16 @@ const NIGHTLY_IM_REPORTS = gql`
   query nightlyImReport {
     nightlyImReport {
       id
-      customerName
-      customerAddress
       jobType
-      date
       sp
       os
-      electricalTotalHours
-      installationTotalHours
       roundTripTotalHours
       correctPic
       onsiteRevision
       salesRepVisit
+      salesRep
       faOnSite
-      panelType
-      panelCount
+      fieldAssurance
       dcSize
       panelsInstalled
       constructionComplete

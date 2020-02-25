@@ -26,6 +26,9 @@ const StyledSubmit = styled.div`
       opacity: 0.7;
     }
   }
+  .MuiAutocomplete-endAdornment {
+    top: auto;
+  }
 `;
 
 const StyledSearchInputs = styled.div`

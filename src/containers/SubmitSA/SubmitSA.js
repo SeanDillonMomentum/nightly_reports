@@ -182,12 +182,6 @@ const dataValidation = options => {
 };
 
 const SubmitNightly = ({ accountInfo, permissions }) => {
-  // const { client } = useContext(Context);
-  // const { findUser } = client.readQuery({
-  //   query: FIND_USER,
-  //   variables: { user: accountInfo.account.userName.toLowerCase() }
-  // });
-  console.log(permissions);
   const { loading, error: errorTwo, data } = useQuery(ALL_SITE_ASSESSORS);
 
   const [createSaReport] = useMutation(CREATE_SA_REPORT, {

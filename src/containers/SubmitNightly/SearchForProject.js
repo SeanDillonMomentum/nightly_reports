@@ -11,18 +11,11 @@ const SearchForProject = ({ data, setData }) => {
   );
   useEffect(() => {
     if (dataTwo && dataTwo.nightlyInstallById) {
-      let {
-        projectNumber,
-        customerName,
-        address,
-        systemSize
-      } = dataTwo.nightlyInstallById;
+      let { projectNumber, systemSize } = dataTwo.nightlyInstallById;
       setData(prevData => {
         return {
           ...prevData,
           projectNumber,
-          customerName,
-          customerAddress: address,
           dcSize: systemSize.toString()
         };
       });
