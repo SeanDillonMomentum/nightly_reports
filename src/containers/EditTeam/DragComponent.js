@@ -6,24 +6,52 @@ import CHANGE_CREW_TEAM from "../../graphql/mutations/changeCrewTeam";
 import CREATE_CREW_TEAM_MEMBER from "../../graphql/mutations/createCrewTeamMember";
 import REMOVE_CREW_MEMBER from "../../graphql/mutations/removeCrewMember";
 import ALL_INSTALLERS from "../../graphql/queries/allInstallers";
-import { DeleteForever } from "@material-ui/icons";
+import { DeleteForeverOutlined, DragIndicator } from "@material-ui/icons";
 import BarLoader from "react-bar-loader";
+
+const StyledHoverDrag = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  border-radius: 5px;
+  border: 2px solid #e9e9e9;
+  margin: 5px 0;
+  background: white;
+  justify-content: space-evenly;
+  opacity: ${props => (props.draggingStyle ? ".7" : 1)};
+  color: ${props => props.theme.midnightBlue};
+  .deleteCan {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &:hover {
+    background: #e9e9e9;
+    border: 2px solid white;
+  }
+`;
 
 const DraggableMember = styled.div`
   margin: 15px auto;
-  width: 45%;
-  padding: 2rem;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
   text-align: center;
-  background: #07f;
+  background: white;
   border-radius: 0.5rem;
   box-shadow: 5px 5px 10px #c0c0c0;
+  align-items: center;
+  padding: 0 1rem;
+  color: ${props => props.theme.midnightBlue};
 `;
 
 const StyledDrag = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 0 auto;
-  flex-wrap: wrap;
+
   .submittalError {
     color: red;
     margin: 0 auto;
@@ -34,12 +62,12 @@ const StyledDrag = styled.div`
     flex: 1 0 17%;
     padding: 2rem;
     text-align: center;
-    background: #07f;
+    background: #f9f9f9;
     border-radius: 0.5rem;
     box-shadow: 5px 5px 10px #c0c0c0;
   }
   .drag-drop-zone p {
-    color: #fff;
+    color: #f5f5f5;
   }
   .drag-drop-zone.inside-drag-area {
     opacity: 0.7;
@@ -49,19 +77,6 @@ const StyledDrag = styled.div`
     padding: 3px;
     text-align: left;
     font-weight: bold;
-  }
-  .hoverDrag {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 0;
-    border-radius: 5px;
-    margin: 5px 0;
-    background-color: white;
-    &:hover {
-      opacity: 0.7;
-    }
   }
 `;
 
@@ -173,6 +188,7 @@ const DragComponent = ({
       {currentSelected.FULL_NAME && (
         <DraggableMember draggable onDragStart={() => setNewMemberDrag(true)}>
           <h3>{currentSelected.FULL_NAME}</h3>
+          <DragIndicator />
         </DraggableMember>
       )}
       {submitting && <BarLoader color="#1D8BF1" height="3" />}
@@ -189,20 +205,24 @@ const DragComponent = ({
           >
             <h1>{arr.name}</h1>
             {arr.crew_team_members.map(y => (
-              <div
-                className="hoverDrag"
+              <StyledHoverDrag
+                draggingStyle={
+                  dragging && y.crew_team_id === dragging.child.crew_team_id
+                }
                 draggable
                 onDragStart={() =>
                   setDragging({ parent: arr.insCrewId, child: y })
                 }
+                onDragEnd={() => setDragging({ parent: "", child: "" })}
                 key={y.crew_team_id}
               >
                 {y.FLDINST_USER.FULL_NAME}
-                <DeleteForever
-                  style={{ color: "red" }}
+                <DeleteForeverOutlined
+                  className="deleteCan"
+                  //   style={{ color: "white" }}
                   onClick={() => removeMember(y.crew_team_id)}
                 />
-              </div>
+              </StyledHoverDrag>
             ))}
           </div>
         ))}
