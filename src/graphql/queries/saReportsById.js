@@ -23,6 +23,7 @@ const SA_REPORTS_BY_ID = gql`
       roofType
       notes
       submittedBy
+      saStatus
       nightly_report_user {
         user
       }
