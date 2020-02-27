@@ -113,7 +113,7 @@ const dataValidation = options => {
     {
       field: "roofType",
       type: "select",
-      options: ["Shingle", "Tile", "Metal"]
+      options: ["Shingle", "Tile", "Metal", "Flat", "Shingle/Flat Roll-Out"]
     },
     {
       field: "totalInterior",
@@ -147,6 +147,7 @@ const dataValidation = options => {
         "Full SA Complete",
         "Interior Complete (Winter Solstice)",
         "Exterior Only Complete",
+        "Interior Complete",
         "Interior Complete (Go Back Required)",
         "SA Not Complete",
         "SA Not Complete (Customer No Show)",
