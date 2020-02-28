@@ -107,8 +107,8 @@ const dataValidation = options => {
     },
     { field: "date", type: "date" },
     { field: "siteAssessor", type: "select", options },
-    { field: "sp", type: "time", label: "On Site" },
-    { field: "os", type: "time", label: "Off Site" },
+    { field: "sp", type: "datetime", label: "On Site" },
+    { field: "os", type: "datetime", label: "Off Site" },
     { field: "numberOfArrays", type: "text", label: "Number of Arrays" },
     {
       field: "roofType",
