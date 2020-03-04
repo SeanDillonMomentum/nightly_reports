@@ -13,9 +13,9 @@ const distros = {
     "dmorrissey@momentumsolar.com",
     "cmurray@momentumsolar.com",
     "jskiendziel@momentumsolar.com",
-   // "JWarman@momentumsolar.com",
-   //"CLugo@momentumsolar.com" ,
-    // "PWalford@MomentumSolar.com"
+    "JWarman@momentumsolar.com",
+     "CLugo@momentumsolar.com" ,
+     "PWalford@MomentumSolar.com"
   ],
   Retention: [
     "APerez@MomentumSolar.com",
