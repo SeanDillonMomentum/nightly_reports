@@ -55,6 +55,7 @@ const StyledDrag = styled.div`
   display: flex;
   overflow: auto;
   margin: 15px auto;
+  padding: 25px 0;
 
   .submittalError {
     color: red;

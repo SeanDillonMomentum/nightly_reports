@@ -75,7 +75,7 @@ const EditModal = ({
       handleClose={setModalOpen}
     >
       <FormCard style={{ width: "auto", margin: 0 }}>
-        <h1>Add Crew</h1>
+        <h1>Add Team</h1>
         <Reformed
           data={teamData}
           setData={setTeamData}
