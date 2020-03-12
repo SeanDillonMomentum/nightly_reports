@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const StyledHeader = styled.div`
   .customButton {
@@ -16,7 +16,7 @@ const StyledHeader = styled.div`
   }
   .toolbarLeft {
     width: 300px;
-    background-color: ${props => props.theme.midnightBlue};
+    background-color: ${props => props.theme.black};
     padding: 0;
     -webkit-box-shadow: 0px 1px 5px 0px rgba(28, 52, 76, 1);
     -moz-box-shadow: 0px 1px 5px 0px rgba(28, 52, 76, 1);
@@ -44,7 +44,7 @@ const StyledHeader = styled.div`
   }
   .grow {
     flex-grow: 1;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     font-family: ${props => props.theme.font};
     font-size: 28px;
     margin-left: 30px;

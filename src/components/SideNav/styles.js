@@ -1,16 +1,29 @@
 import styled from "styled-components";
+import { Menu } from "@material-ui/icons";
+
+export const StyledMenu = styled(Menu)`
+    color: white;
+    position: absolute;
+    left: 12px;
+    top: 15px;
+    z-index:100;
+    transform: rotate(${props => (props.rotation ? "0" : "90deg")});
+    transition: transform 1s;
+    &:hover {
+      opacity: 0.7;
+    }
+    /* right: ${props => !props.open && "8px"}; */
+  
+`;
 
 const StyledSidebar = styled.div`
   position: fixed;
-  top: 64px;
-  bottom: ${props => (!props.open ? null : "0")};
-  transform: translateX(${props => (!props.open ? "-135px" : "0")});
+  height: 100vh;
+  transform: translateX(${props => (!props.open ? "-85px" : "0")});
   width: 135px;
   transition: all 0.5s;
-  border-right: 1px solid ${props => props.theme.backgroundLightGrey};
-  bottom: 0;
   font-family: ${props => props.theme.font};
-  background-color: ${props => props.theme.midnightBlue};
+  background-color: ${props => props.theme.black};
   z-index: 1;
   overflow-y: auto;
   flex-direction: column;
@@ -32,21 +45,12 @@ const StyledSidebar = styled.div`
       opacity: 0.7;
     }
   }
-  .sidenavItems {
-    top: 6px;
-    text-align: center;
-    background-image: linear-gradient(
-      ${props => props.theme.lightBlue},
-      ${props => props.theme.cadetBlue}
-    );
-    width: 90%;
-    margin: 20px auto;
-    border-radius: 20px;
-  }
+ 
   .iconText {
     list-style-type: none;
     font-size: 18px;
-    color: ${props => props.theme.backgroundLightGrey};
+    color: white;
+    /* color: ${props => props.theme.backgroundLightGrey}; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,13 +68,14 @@ const StyledSidebar = styled.div`
   ul {
     list-style-type: none;
     padding: 0;
-    margin-top: 0;
     font-size: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-top: 45px;
+    border-top: 1px solid white;
   }
   img,
   svg {

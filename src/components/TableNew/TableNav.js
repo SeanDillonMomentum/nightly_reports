@@ -61,7 +61,7 @@ const PageNumberDiv = styled.div`
     font-size: 17px;
     background-color: #ffffff;
     border-radius: 3px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     width: 35px;
 
     &::before {
@@ -71,7 +71,7 @@ const PageNumberDiv = styled.div`
       height: 2px;
       bottom: -5px;
       left: 25%;
-      background-color: ${props => props.theme.midnightBlue};
+      background-color: ${props => props.theme.black};
       visibility: hidden;
       -webkit-transform: scaleX(0);
       transform: scaleX(0);
@@ -95,7 +95,7 @@ const PageNumberDiv = styled.div`
     font-size: 17px;
     background-color: #ffffff;
     border-radius: 3px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     width: 35px;
 
     &::after {
@@ -105,7 +105,7 @@ const PageNumberDiv = styled.div`
       height: 2px;
       bottom: -5px;
       left: 25%;
-      background-color: ${props => props.theme.midnightBlue};
+      background-color: ${props => props.theme.black};
       visibility: visible;
     }
   }

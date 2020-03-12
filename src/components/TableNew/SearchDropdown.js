@@ -58,7 +58,7 @@ const StyledList = styled.div`
     font-size: 14px;
   }
   .iconButton {
-    background-color: ${props => props.theme.midnightBlue};
+    background-color: ${props => props.theme.black};
     color: white;
     border-radius: 5px;
     padding: 5px;

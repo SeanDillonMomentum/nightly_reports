@@ -6,7 +6,7 @@ const SelectIconContainer = styled.div`
     padding: 18px 20px;
     border-radius: 0px;
     max-height: 64px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
   }
   .menuIconSizing {
     font-size: 30px;

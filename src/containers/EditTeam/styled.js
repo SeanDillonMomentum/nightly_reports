@@ -5,7 +5,7 @@ export const EditCrewDiv = styled.div`
   justify-content: center;
   margin: 15px 0;
   .addIt {
-    background-color: ${props => props.theme.midnightBlue};
+    background-color: ${props => props.theme.black};
     color: white;
     border-radius: 50%;
     margin-left: 5px;

@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import logo from '../assets/momentum_logo.png';
+import React from "react";
+import styled from "styled-components";
+import logo from "../assets/momentum_logo.png";
 
 const StyledLogin = styled.div`
   flex-direction: column;
@@ -11,7 +11,7 @@ const StyledLogin = styled.div`
   background: linear-gradient(
     135deg,
     ${props => props.theme.momentumBlue},
-    ${props => props.theme.midnightBlue}
+    ${props => props.theme.black}
   );
   /* background-color: ${props => props.theme.momentumBlue}; */
   font-family: ${props => props.theme.font};

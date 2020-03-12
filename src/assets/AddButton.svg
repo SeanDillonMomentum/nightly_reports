@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="95" height="95" viewBox="0 0 95 95">
+  <g id="Add_Button" data-name="Add Button" transform="translate(-425 -514)">
+    <g id="circle" transform="translate(425 514)" fill="none" stroke="#bdbdbd" stroke-width="3">
+      <circle cx="47.5" cy="47.5" r="47.5" stroke="none"/>
+      <circle cx="47.5" cy="47.5" r="46" fill="none"/>
+    </g>
+    <text id="_" data-name="+" transform="translate(458 581)" fill="#8d8d8d" font-size="50" font-family="Lato-Light, Lato" font-weight="300" letter-spacing="0.029em"><tspan x="0" y="0">+</tspan></text>
+  </g>
+</svg>

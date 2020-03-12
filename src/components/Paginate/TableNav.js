@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 //styles
 //icons
 import {
   ChevronLeft,
   ChevronRight,
   FirstPage,
-  LastPage,
-} from '@material-ui/icons';
-import styled from 'styled-components';
+  LastPage
+} from "@material-ui/icons";
+import styled from "styled-components";
 
 const PageNumberDiv = styled.div`
   display: flex;
@@ -61,17 +61,17 @@ const PageNumberDiv = styled.div`
     font-size: 17px;
     background-color: #ffffff;
     border-radius: 3px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     width: 35px;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       width: 50%;
       height: 2px;
       bottom: -5px;
       left: 25%;
-      background-color: ${props => props.theme.midnightBlue};
+      background-color: ${props => props.theme.black};
       visibility: hidden;
       -webkit-transform: scaleX(0);
       transform: scaleX(0);
@@ -95,17 +95,17 @@ const PageNumberDiv = styled.div`
     font-size: 17px;
     background-color: #ffffff;
     border-radius: 3px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     width: 35px;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       width: 50%;
       height: 2px;
       bottom: -5px;
       left: 25%;
-      background-color: ${props => props.theme.midnightBlue};
+      background-color: ${props => props.theme.black};
       visibility: visible;
     }
   }
@@ -115,12 +115,12 @@ const TableNav = ({
   pageNumbers,
   currentPage,
   handlePageClick,
-  handleArrowClick,
+  handleArrowClick
 }) => {
   let renderPageNumbers = pageNumbers.map(number => {
     return (
       <li
-        className={currentPage === number ? 'pageButtonsActive' : 'pageButtons'}
+        className={currentPage === number ? "pageButtonsActive" : "pageButtons"}
         key={number}
         id={number}
         onClick={handlePageClick}
@@ -136,7 +136,7 @@ const TableNav = ({
       return (
         <li
           className={
-            currentPage === number ? 'pageButtonsActive' : 'pageButtons'
+            currentPage === number ? "pageButtonsActive" : "pageButtons"
           }
           key={number}
           id={number}
@@ -153,7 +153,7 @@ const TableNav = ({
         return (
           <li
             className={
-              currentPage === number ? 'pageButtonsActive' : 'pageButtons'
+              currentPage === number ? "pageButtonsActive" : "pageButtons"
             }
             key={number}
             id={number}
@@ -169,27 +169,27 @@ const TableNav = ({
     <PageNumberDiv>
       <div className="pageNumbersLeftDiv">
         <FirstPage
-          className={currentPage === 1 ? 'chevronTableActive' : 'chevronTable'}
-          onClick={() => handleArrowClick('left')}
+          className={currentPage === 1 ? "chevronTableActive" : "chevronTable"}
+          onClick={() => handleArrowClick("left")}
         />
         <ChevronLeft
           className="chevronTable"
-          onClick={() => handleArrowClick('left')}
+          onClick={() => handleArrowClick("left")}
         />
       </div>
       <div className="pageNumbers">{renderPageNumbers}</div>
       <div className="pageNumbersRightDiv">
         <ChevronRight
           className="chevronTable"
-          onClick={() => handleArrowClick('right')}
+          onClick={() => handleArrowClick("right")}
         />
         <LastPage
           className={
             currentPage === pageNumbers.length
-              ? 'chevronTableActive'
-              : 'chevronTable'
+              ? "chevronTableActive"
+              : "chevronTable"
           }
-          onClick={() => handleArrowClick('right')}
+          onClick={() => handleArrowClick("right")}
         />
       </div>
     </PageNumberDiv>

@@ -19,7 +19,7 @@ const StyledEdit = styled.div`
     margin: 0px;
     padding: 10px;
     border-bottom: 1px solid #e9e9e9;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
   }
   .split {
     flex: 5;

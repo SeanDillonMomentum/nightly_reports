@@ -28,7 +28,7 @@ export const StyledButton = styled.button`
   width: ${props => props.width || "100px"};
   justify-content: space-evenly;
   align-items: center;
-  background-color: ${props => props.theme.midnightBlue};
+  background-color: ${props => props.theme.black};
   padding: 5px 10px;
   border: 2px solid white;
   border-radius: 5px;
@@ -37,8 +37,8 @@ export const StyledButton = styled.button`
   transition: all 0.3s;
   &:hover {
     /* opacity: 0.7; */
-    border: 2px solid ${props => props.theme.midnightBlue};
-    color: ${props => props.theme.midnightBlue};
+    border: 2px solid ${props => props.theme.black};
+    color: ${props => props.theme.black};
     background-color: white;
   }
 `;
@@ -50,7 +50,7 @@ export const InfoGrid = styled.div`
   padding: 30px 0;
   overflow: auto;
   display: ${props => props.display};
-  color: ${props => props.theme.midnightBlue};
+  color: ${props => props.theme.black};
   font-family: ${props => props.theme.font};
   position: relative;
   .filling-empty-space-childs {
@@ -141,7 +141,7 @@ export const QuizCard = styled.div`
     justify-content: center;
     align-items: center;
     margin: 30px auto;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     font-family: ${props => props.theme.font};
     border: 8px solid #ffffff;
     /* width: 200px; */
@@ -166,18 +166,74 @@ export const HeaderDiv = styled.div`
   text-align: center;
   font-family: "Roboto", sans-serif;
   color: #ffffff;
-  background-color: ${props => props.theme.midnightBlue};
+  background-color: ${props => props.theme.black};
   h3 {
     font-weight: 500;
   }
 `;
+
+export const StyledUpper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 0 15px;
+  align-items: center;
+  svg {
+    color: white;
+  }
+  h1 {
+    flex: 1;
+  }
+  .MuiInput-underline {
+    &::before {
+      border-bottom: none !important;
+    }
+    &::after {
+      border-bottom: none !important;
+    }
+  }
+  .buttonContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .logoutButton {
+    background-color: #933e3e;
+    color: white;
+    border-radius: 50%;
+    padding: 15px;
+    width: 45px;
+    height: 45px;
+  }
+  #allMenuItems {
+    margin: 10px 30px;
+    color: white;
+  }
+  .autoComplete {
+    flex: 2;
+    border: none;
+    margin: 15px;
+  }
+  .autoCompleteInput {
+    border-radius: 30px;
+    background-color: #373737;
+    &::placeholder {
+      color: white;
+    }
+  }
+  /* .MuiOutlinedInput-adornedEnd {
+    border-radius: 30px;
+    background-color: #373737;
+  } */
+`;
+
 export const FormCard = styled.div`
 background-color: white;
   width: 90%;
   margin: 30px auto;
   display: flex;
   flex-direction: column;
-  color: ${props => props.theme.midnightBlue};
+  color: ${props => props.theme.black};
   font-family: ${props => props.theme.font};
   /* border: 8px solid #ffffff; */
   border-radius: 8px;
@@ -282,7 +338,7 @@ export const StyledMemberCard = styled.div`
   }
 `;
 export const StyledTable = styled(Table)`
-  border: 3px solid ${props => props.theme.midnightBlue};
+  border: 3px solid ${props => props.theme.black};
   font-family: ${props => props.theme.font};
   margin: 15px 0;
   .cell {
@@ -295,7 +351,7 @@ export const StyledTable = styled(Table)`
     }
   }
   .highlighted {
-    background-color: ${props => props.theme.midnightBlue};
+    background-color: ${props => props.theme.black};
   }
   .highlightedCell {
     color: white;

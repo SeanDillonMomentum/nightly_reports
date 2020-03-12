@@ -10,9 +10,8 @@ import FIND_USER from "./graphql/queries/findUser";
 
 const StyledApp = styled.div`
   margin: 15px;
-  margin-left: ${props => (props.show ? "150px" : "15px")};
+  margin-left: ${props => (props.show ? "150px" : "60px")};
   transition: margin-left 0.5s;
-  padding-top: 64px;
 `;
 
 const Wrapper = ({ component, accountInfo, ...props }) => {
@@ -27,7 +26,7 @@ const Wrapper = ({ component, accountInfo, ...props }) => {
 
   return (
     <>
-      <Header accountInfo={accountInfo} />
+      {/* <Header accountInfo={accountInfo} /> */}
       <SideNav permissions={data.findUser} />
       <StyledApp show={show}>
         {!data.findUser ? (

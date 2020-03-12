@@ -3,13 +3,12 @@ import { useQuery } from "@apollo/react-hooks";
 import SuccessModal from "../../components/Modal/SuccessModal";
 import OtherLoader from "../../components/OtherLoader/OtherLoader";
 import ALL_INSTALLERS from "../../graphql/queries/allInstallers";
-import { FormCard } from "../../utils/styledComps/styledComps";
 import DragComponent from "./DragComponent";
-import { AddOutlined } from "@material-ui/icons";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { TextField } from "@material-ui/core";
 import EditModal from "./EditModal";
-import { EditCrewDiv } from "./styled";
+import { StyledUpper } from "../../utils/styledComps/styledComps";
+import { makeStyles } from "@material-ui/core/styles";
 export const CrewContext = React.createContext({});
 
 const EditTeams = ({ permissions }) => {
@@ -35,13 +34,10 @@ const EditTeams = ({ permissions }) => {
   if (error) return <div>An Error Occurred</div>;
   return (
     <CrewContext.Provider value={data}>
-      <FormCard>
-        <EditCrewDiv>
-          <div>Add New Crew</div>{" "}
-          <AddOutlined className="addIt" onClick={() => setEditing(true)} />
-        </EditCrewDiv>
-
+      <StyledUpper>
+        <h1>IM Reports</h1>
         <Autocomplete
+          className="autoComplete"
           id="allMenuItems"
           value={currentSelected}
           options={filteredInstallers()}
@@ -53,14 +49,17 @@ const EditTeams = ({ permissions }) => {
           renderInput={params => (
             <TextField
               {...params}
-              variant="outlined"
-              label="Unassigned Members"
-              placeholder="Find Member"
+              className="autoCompleteInput"
+              placeholder="Search"
               fullWidth
+              // InputProps={{ classes }}
             />
           )}
         />
-      </FormCard>
+        <div className="buttonContainer">
+          <button className="logoutButton">S</button>
+        </div>
+      </StyledUpper>
       {editing && (
         <EditModal
           setSuccessModalOpen={setSuccess}
@@ -70,6 +69,7 @@ const EditTeams = ({ permissions }) => {
         />
       )}
       <DragComponent
+        setEditing={setEditing}
         currentSelected={currentSelected}
         setCurrentSelected={setCurrentSelected}
         permissions={permissions}

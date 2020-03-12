@@ -8,6 +8,10 @@ import REMOVE_CREW_MEMBER from "../../graphql/mutations/removeCrewMember";
 import ALL_INSTALLERS from "../../graphql/queries/allInstallers";
 import { DeleteForeverOutlined, DragIndicator } from "@material-ui/icons";
 import BarLoader from "react-bar-loader";
+import Knight from "../../assets/Knights.svg";
+import Shark from "../../assets/shark.svg";
+import AddButton from "../../assets/AddButton.svg";
+import { ReactSVG } from "react-svg";
 
 const StyledHoverDrag = styled.div`
   display: flex;
@@ -21,7 +25,7 @@ const StyledHoverDrag = styled.div`
   background: white;
   justify-content: space-evenly;
   opacity: ${props => (props.draggingStyle ? ".7" : 1)};
-  color: ${props => props.theme.midnightBlue};
+  color: ${props => props.theme.black};
   .deleteCan {
     &:hover {
       opacity: 0.7;
@@ -44,27 +48,69 @@ const DraggableMember = styled.div`
   box-shadow: 5px 5px 10px #c0c0c0;
   align-items: center;
   padding: 0 1rem;
-  color: ${props => props.theme.midnightBlue};
+  color: ${props => props.theme.black};
 `;
 
 const StyledDrag = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  margin: 0 auto;
+  display: flex;
+  overflow: auto;
+  margin: 15px auto;
 
   .submittalError {
     color: red;
     margin: 0 auto;
     font-size: 16px;
   }
+  .teamHeaderContainer {
+    position: absolute;
+    top: -15px;
+    width: 100%;
+    text-align: center;
+    left: 0;
+  }
+  .teamHeaders {
+    color: white;
+    font-size: 24px;
+    background: #181818;
+    border-radius: 28px;
+    padding: 10px 25px;
+    margin: 0 auto;
+    width: fit-content;
+  }
   .drag-drop-zone {
+    position: relative;
     margin: 15px;
     flex: 1 0 17%;
     padding: 2rem;
     text-align: center;
-    background: #f9f9f9;
-    border-radius: 0.5rem;
-    box-shadow: 5px 5px 10px #c0c0c0;
+    background: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 19px 21px 24px -2px rgba(0, 0, 0, 0.16);
+  }
+  .drag-drop-zone-edit {
+    margin: 15px;
+    flex: 1 0 17%;
+    padding: 2rem;
+    text-align: center;
+    background: #f2f2f2;
+    border-radius: 8px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #8d8d8d;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  .addIt {
+    border-radius: 50%;
+    border: 1px solid #8d8d8d;
+    width: 60px;
+    height: 60px;
+    &:hover {
+      opacity: 0.7;
+    }
   }
   .drag-drop-zone p {
     color: #f5f5f5;
@@ -78,12 +124,17 @@ const StyledDrag = styled.div`
     text-align: left;
     font-weight: bold;
   }
+  .scrollContainer {
+    overflow: auto;
+    max-height: 250px;
+  }
 `;
 
 const DragComponent = ({
   currentSelected,
   setCurrentSelected,
-  permissions
+  permissions,
+  setEditing
 }) => {
   const { allInstallCrewsByMarket } = useContext(CrewContext);
   const [submitting, setSubmitting] = useState(false);
@@ -194,7 +245,11 @@ const DragComponent = ({
       {submitting && <BarLoader color="#1D8BF1" height="3" />}
       {submittalError && <div className="errorField">{submittalError}</div>}
       <StyledDrag>
-        {allInstallCrewsByMarket.map(arr => (
+        <div className="drag-drop-zone-edit">
+          <ReactSVG src={AddButton} onClick={() => setEditing(true)} />
+          <div>Add Team</div>
+        </div>
+        {allInstallCrewsByMarket.map((arr, i) => (
           <div
             key={arr.insCrewId}
             className="drag-drop-zone"
@@ -203,27 +258,41 @@ const DragComponent = ({
             onDragEnter={handleDragEnter}
             onDragLeave={handleDragLeave}
           >
-            <h1>{arr.name}</h1>
-            {arr.crew_team_members.map(y => (
-              <StyledHoverDrag
-                draggingStyle={
-                  dragging && y.crew_team_id === dragging.child.crew_team_id
-                }
-                draggable
-                onDragStart={() =>
-                  setDragging({ parent: arr.insCrewId, child: y })
-                }
-                onDragEnd={() => setDragging({ parent: "", child: "" })}
-                key={y.crew_team_id}
+            <div className="teamHeaderContainer">
+              <div
+                className="teamHeaders"
+                style={i !== 0 ? { backgroundColor: "#C8A84A" } : null}
               >
-                {y.FLDINST_USER.FULL_NAME}
-                <DeleteForeverOutlined
-                  className="deleteCan"
-                  //   style={{ color: "white" }}
-                  onClick={() => removeMember(y.crew_team_id)}
-                />
-              </StyledHoverDrag>
-            ))}
+                {i === 0 ? "The Highlanders" : "Solar Sharks"}
+              </div>
+            </div>
+            <ReactSVG
+              src={i === 0 ? Knight : Shark}
+              style={{ marginTop: "15px" }}
+            />
+            <h1>{arr.name}</h1>
+            <div className="scrollContainer">
+              {arr.crew_team_members.map(y => (
+                <StyledHoverDrag
+                  draggingStyle={
+                    dragging && y.crew_team_id === dragging.child.crew_team_id
+                  }
+                  draggable
+                  onDragStart={() =>
+                    setDragging({ parent: arr.insCrewId, child: y })
+                  }
+                  onDragEnd={() => setDragging({ parent: "", child: "" })}
+                  key={y.crew_team_id}
+                >
+                  {y.FLDINST_USER.FULL_NAME}
+                  <DeleteForeverOutlined
+                    className="deleteCan"
+                    //   style={{ color: "white" }}
+                    onClick={() => removeMember(y.crew_team_id)}
+                  />
+                </StyledHoverDrag>
+              ))}
+            </div>
           </div>
         ))}
       </StyledDrag>

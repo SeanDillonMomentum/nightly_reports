@@ -50,7 +50,7 @@ const StyledList = styled.div`
     font-size: 14px;
   }
   .iconButton {
-    background-color: ${props => props.theme.midnightBlue};
+    background-color: ${props => props.theme.black};
     color: white;
     border-radius: 5px;
     padding: 5px;
@@ -68,7 +68,7 @@ const StyledList = styled.div`
 
 const StyledNoData = styled.h1`
   font-family: ${props => props.theme.font};
-  color: ${props => props.theme.midnightBlue};
+  color: ${props => props.theme.black};
   text-align: center;
 `;
 const Wrapper = styled.div`
@@ -112,7 +112,7 @@ const Button = styled.button`
   margin-left: 20px;
   border-radius: 5px;
   font-size: 24px;
-  color: ${props => props.theme.midnightBlue};
+  color: ${props => props.theme.black};
   border: 1px solid ${props => props.theme.backgroundLightGrey};
   &:hover {
     background-color: ${props => props.theme.backgroundDarkGrey};
@@ -141,7 +141,7 @@ const CellHeader = styled.th`
     justify-content: space-between;
     font-family: ${props => props.theme.font};
     font-size: 16px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
   }
   .cellDivContact {
     display: flex;
@@ -149,7 +149,7 @@ const CellHeader = styled.th`
     justify-content: space-evenly;
     font-family: ${props => props.theme.font};
     font-size: 16px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
   }
   .cellDivIcon {
     display: flex;
@@ -157,7 +157,7 @@ const CellHeader = styled.th`
     justify-content: center;
     font-family: ${props => props.theme.font};
     font-size: 16px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
   }
   .arrow {
     /* margin-left: auto; */
@@ -256,7 +256,7 @@ const FilterBar = styled.div`
 
 const NullTable = styled.div`
   justify-content: center;
-  color: ${props => props.theme.midnightBlue};
+  color: ${props => props.theme.black};
   padding: 15px 0 15px 30px;
   font-size: 24px;
   font-family: ${props => props.theme.font};
@@ -295,7 +295,7 @@ const PageNumbers = styled.ul`
     font-size: 17px;
     background-color: #ffffff;
     border-radius: 3px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     width: 35px;
 
     &::before {
@@ -305,7 +305,7 @@ const PageNumbers = styled.ul`
       height: 2px;
       bottom: -5px;
       left: 25%;
-      background-color: ${props => props.theme.midnightBlue};
+      background-color: ${props => props.theme.black};
       visibility: hidden;
       -webkit-transform: scaleX(0);
       transform: scaleX(0);
@@ -329,7 +329,7 @@ const PageNumbers = styled.ul`
     font-size: 17px;
     background-color: #ffffff;
     border-radius: 3px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     width: 35px;
 
     &::after {
@@ -339,7 +339,7 @@ const PageNumbers = styled.ul`
       height: 2px;
       bottom: -5px;
       left: 25%;
-      background-color: ${props => props.theme.midnightBlue};
+      background-color: ${props => props.theme.black};
       visibility: visible;
     }
   }
@@ -397,7 +397,7 @@ const PageNumberDiv = styled.div`
     font-size: 17px;
     background-color: #ffffff;
     border-radius: 3px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     width: 35px;
 
     &::before {
@@ -407,7 +407,7 @@ const PageNumberDiv = styled.div`
       height: 2px;
       bottom: -5px;
       left: 25%;
-      background-color: ${props => props.theme.midnightBlue};
+      background-color: ${props => props.theme.black};
       visibility: hidden;
       -webkit-transform: scaleX(0);
       transform: scaleX(0);
@@ -431,7 +431,7 @@ const PageNumberDiv = styled.div`
     font-size: 17px;
     background-color: #ffffff;
     border-radius: 3px;
-    color: ${props => props.theme.midnightBlue};
+    color: ${props => props.theme.black};
     width: 35px;
 
     &::after {
@@ -441,7 +441,7 @@ const PageNumberDiv = styled.div`
       height: 2px;
       bottom: -5px;
       left: 25%;
-      background-color: ${props => props.theme.midnightBlue};
+      background-color: ${props => props.theme.black};
       visibility: visible;
     }
   }

@@ -8,7 +8,7 @@ export const StyledButton = styled.button`
   width: ${props => props.width || "100px"};
   justify-content: space-evenly;
   align-items: center;
-  background-color: ${props => props.theme.midnightBlue};
+  background-color: ${props => props.theme.black};
   padding: 5px 10px;
   border: 2px solid white;
   border-radius: 5px;
@@ -16,8 +16,8 @@ export const StyledButton = styled.button`
   visibility: ${props => props.displayVal};
   transition: all 0.3s;
   &:hover {
-    border: 2px solid ${props => props.theme.midnightBlue};
-    color: ${props => props.theme.midnightBlue};
+    border: 2px solid ${props => props.theme.black};
+    color: ${props => props.theme.black};
     background-color: white;
   }
 `;
@@ -28,7 +28,7 @@ export const Card = styled.div`
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   font-family: ${props => props.theme.font};
-  color: ${props => props.theme.midnightBlue};
+  color: ${props => props.theme.black};
   flex: 1 0 30%;
   text-align: center;
   &:hover {
