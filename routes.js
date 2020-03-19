@@ -37,10 +37,9 @@ const distros = {
     "JValerioti@MomentumSolar.com"
   ],
   Scheduling: [
-    "sdillon@momentumsolar.com"
-    // "amidoneck@momentumsolar.com",
-    // "tcaytuiro@momentumsolar.com",
-    // "dyabut@momentumsolar.com"
+    "amidoneck@momentumsolar.com",
+    "tcaytuiro@momentumsolar.com",
+    "dyabut@momentumsolar.com"
   ]
 };
 
