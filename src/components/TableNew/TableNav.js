@@ -170,7 +170,7 @@ const TableNav = ({
       <div className="pageNumbersLeftDiv">
         <FirstPage
           className={currentPage === 1 ? "chevronTableActive" : "chevronTable"}
-          onClick={() => handleArrowClick("left")}
+          onClick={() => handleArrowClick("first")}
         />
         <ChevronLeft
           className="chevronTable"
@@ -189,7 +189,7 @@ const TableNav = ({
               ? "chevronTableActive"
               : "chevronTable"
           }
-          onClick={() => handleArrowClick("right")}
+          onClick={() => handleArrowClick("last")}
         />
       </div>
     </PageNumberDiv>

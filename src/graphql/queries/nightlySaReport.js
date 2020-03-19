@@ -9,7 +9,7 @@ const NIGHTLY_SA_REPORTS = gql`
       opportunityNumber
       projectNumber
       jobType
-      date
+
       siteAssessor
       sp
       os

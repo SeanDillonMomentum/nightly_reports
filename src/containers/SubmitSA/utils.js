@@ -25,7 +25,6 @@ const editData = preset => {
     opportunityNumber: preset.opportunityNumber,
     projectNumber: preset.projectNumber,
     jobType: preset.jobType,
-    date: preset.date,
     siteAssessor: preset.siteAssessor,
     sp: preset.sp,
     os: preset.os,
@@ -49,7 +48,6 @@ const initialData = {
   opportunityNumber: "",
   projectNumber: "",
   jobType: "",
-  date: moment().format("MM/DD/YY"),
   siteAssessor: "",
   sp: moment().format("MM/DD/YY"),
   os: moment().format("MM/DD/YY"),
@@ -105,7 +103,6 @@ const dataValidation = options => {
         "Orange, CA"
       ]
     },
-    { field: "date", type: "date" },
     { field: "siteAssessor", type: "select", options },
     { field: "sp", type: "datetime", label: "On Site" },
     { field: "os", type: "datetime", label: "Off Site" },

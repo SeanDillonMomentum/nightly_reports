@@ -6,7 +6,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 const client = new ApolloClient({
   uri:
-    process.env.REACT_APP_LOCAL_URL ||
+    // process.env.REACT_APP_LOCAL_URL ||
     "https://gbiv8i3n4m.execute-api.us-east-1.amazonaws.com/production/graphql"
 });
 

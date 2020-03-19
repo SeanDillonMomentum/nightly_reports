@@ -11,29 +11,28 @@ const tableHeaders = [
   { id: "3", label: "Opportunity Number", key: "opportunityNumber" },
   { id: "4", label: "Project Number", key: "projectNumber" },
   { id: "5", label: "Job Type", key: "jobType" },
-  { id: "6", label: "Submittal Date", key: "date", type: "date" },
-  { id: "7", label: "Site Assessor", key: "siteAssessor" },
-  { id: "8", label: "S/P", key: "sp", type: "date" },
-  { id: "9", label: "O/S", key: "os", type: "date" },
-  { id: "10", label: "Total Interior ⏰", key: "totalInterior" },
+  { id: "6", label: "Site Assessor", key: "siteAssessor" },
+  { id: "7", label: "S/P", key: "sp", type: "date" },
+  { id: "8", label: "O/S", key: "os", type: "date" },
+  { id: "9", label: "Total Interior ⏰", key: "totalInterior" },
   {
-    id: "11",
+    id: "10",
     label: "Total Exterior ⏰",
     key: "totalExterior"
   },
-  { id: "12", label: "Number Of Arrays", key: "numberOfArrays" },
-  { id: "13", label: "Roof Type", key: "roofType" },
+  { id: "11", label: "Number Of Arrays", key: "numberOfArrays" },
+  { id: "12", label: "Roof Type", key: "roofType" },
   {
-    id: "14",
+    id: "13",
     label: "Forty Foot Ladder",
     key: "fortyFootLadder",
     type: "bool"
   },
-  { id: "15", label: "Second Assessor", key: "ifSecondAssessor" },
-  { id: "16", label: "Notes", key: "notes" },
-  { id: "17", label: "Submitted By", key: "nightly_report_user" },
-  { id: "18", label: "Market", key: "market" },
-  { id: "19", label: "Escalation", key: "escalation" }
+  { id: "14", label: "Second Assessor", key: "ifSecondAssessor" },
+  { id: "15", label: "Notes", key: "notes" },
+  { id: "16", label: "Submitted By", key: "nightly_report_user" },
+  { id: "17", label: "Market", key: "market" },
+  { id: "18", label: "Escalation", key: "escalation" }
 ];
 
 const SaReports = () => {
@@ -51,7 +50,7 @@ const SaReports = () => {
   return (
     <StyledSubmit style={{ overflow: "scroll" }}>
       <Table
-        initialSort="date"
+        initialSort="customerName"
         localStorageVal="adminSaTable"
         initialSearch="customerName"
         data={newerData}

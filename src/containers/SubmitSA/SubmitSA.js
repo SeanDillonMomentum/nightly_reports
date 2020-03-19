@@ -53,7 +53,7 @@ const SubmitNightly = ({ permissions }) => {
             fortyFootLadder: truthyCheck(formData.fortyFootLadder),
             sp: moment(formData.sp).format("MM/DD/YY h:mm a"),
             os: moment(formData.os).format("MM/DD/YY h:mm a"),
-            date: moment(formData.date).format("MM/DD/YY"),
+
             escalation: JSON.stringify(formData.escalation)
           }
         };
@@ -72,7 +72,6 @@ const SubmitNightly = ({ permissions }) => {
       numberOfArrays: +formData.numberOfArrays,
       sp: moment(formData.sp).format("MM/DD/YY h:mm a"),
       os: moment(formData.os).format("MM/DD/YY h:mm a"),
-      date: moment(formData.date).format("MM/DD/YY"),
       escalation: JSON.stringify(formData.escalation),
       saStatusNotes:
         formData.saStatus === "SA Not Complete" ? formData.saStatusNotes : ""

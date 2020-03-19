@@ -9,7 +9,6 @@ const SA_REPORTS_BY_ID = gql`
       opportunityNumber
       projectNumber
       jobType
-      date
       siteAssessor
       sp
       os

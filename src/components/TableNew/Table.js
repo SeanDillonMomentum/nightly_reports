@@ -84,6 +84,14 @@ const Table = ({
   //handle pagination
   const paginate = direction => {
     let pageNumbers = currentPages(tableData);
+    if (direction === "last") {
+      setPage(pageNumbers.length);
+      return;
+    }
+    if (direction === "first") {
+      setPage(pageNumbers[0]);
+      return;
+    }
     direction === "left" && page === 1
       ? setPage(pageNumbers.length)
       : direction === "left" && page !== 1
