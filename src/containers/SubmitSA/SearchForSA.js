@@ -18,7 +18,7 @@ const SearchForSA = ({ data, setData, setCrmId }) => {
         velosio_projectnumber,
         iis_opportunitynumber,
         name,
-        iis_sitevisitappt,
+
         iis_projectid
       } = dataTwo.siteAssessById;
       setCrmId(iis_projectid);
@@ -26,9 +26,6 @@ const SearchForSA = ({ data, setData, setCrmId }) => {
         return {
           ...prevData,
           customerName: name,
-          date: iis_sitevisitappt
-            ? moment(iis_sitevisitappt).format("MM/DD/YY")
-            : moment().format("MM/DD/YY"),
           projectNumber: velosio_projectnumber,
           opportunityNumber: iis_opportunitynumber,
           customerAddress: address1_composite

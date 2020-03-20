@@ -26,11 +26,10 @@ const distros = {
   ],
   Design: ["GPrado@MomentumSolar.com", "SKou@momentumsolar.com"],
   "Exterior Mods": [
-    "sdillon@momentumsolar.com"
-    // "RMeier@momentumsolar.com",
-    // "KNeuenkirch@MomentumSolar.com",
-    // "HSagastume@momentumsolar.com",
-    // "JSkislak@MomentumSolar.com"
+    "RMeier@momentumsolar.com",
+    "KNeuenkirch@MomentumSolar.com",
+    "HSagastume@momentumsolar.com",
+    "JSkislak@MomentumSolar.com"
   ],
   Install: [
     "westcoastIM@momentumsolar.com",
