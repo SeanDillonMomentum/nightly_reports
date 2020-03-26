@@ -74,6 +74,7 @@ const dataValidation = options => {
       type: "select",
       options: [
         "Full (Initial)",
+        "Winter Solstice (COVID-19)",
         "Exterior Only (Initial)",
         "Interior Only (Initial)",
         "Full (Go Back)",
