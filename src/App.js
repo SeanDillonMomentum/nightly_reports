@@ -7,7 +7,8 @@ import ApolloClient from "apollo-boost";
 const client = new ApolloClient({
   uri:
     // process.env.REACT_APP_LOCAL_URL ||
-    "https://gbiv8i3n4m.execute-api.us-east-1.amazonaws.com/production/graphql"
+    //"https://gbiv8i3n4m.execute-api.us-east-1.amazonaws.com/production/graphql"\
+    "https://stipgql.momentumsolar.app/",
 });
 
 export const Context = React.createContext({});
@@ -32,7 +33,7 @@ const theme = {
   backgroundLightGrey: "#e5e5e5",
   black: "#373737",
   steveBlue: "#1162ED",
-  font: "Lato, sans-serif"
+  font: "Lato, sans-serif",
 };
 
 const App = () => {
